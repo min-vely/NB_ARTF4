@@ -32,7 +32,7 @@ public class Main : MonoBehaviour
     #region Fields
 
     private readonly UI_Manager _ui = new();
-    private readonly Binder _binder = new();
+    private readonly SetBinder _setBinder = new();
     private readonly GameManager _game = new();
     private readonly SceneUtility _scene = new();
 
@@ -43,7 +43,7 @@ public class Main : MonoBehaviour
     public static UI_Manager UI => Instance._ui;
     public static GameManager Game => Instance._game;
     public static SceneUtility Scene => Instance._scene;
-    public static Binder Binder => Instance._binder;
+    public static SetBinder SetBinder => Instance._setBinder;
 
     #endregion
 

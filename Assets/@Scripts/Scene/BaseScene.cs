@@ -1,4 +1,5 @@
 using System;
+using Scripts.Utility;
 using UnityEngine;
 using static Scripts.Utility.SceneUtility.SceneName;
 
@@ -26,7 +27,7 @@ namespace Scripts.Scene
         {
             if (_initialized) return false;
             _initialized = true;
-            Main.Scene.LoadScene(Intro);
+            SceneUtility.LoadScene(Intro);
             return _initialized;
         }
     }

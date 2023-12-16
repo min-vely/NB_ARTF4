@@ -6,9 +6,9 @@ using Object = UnityEngine.Object;
 
 namespace Scripts.UI
 {
-    public class Binder
+    public class SetBinder
     {
-        public void Binding<T>(GameObject parentObject, Type type, Dictionary<Type, Object[]> objectDictionary) where T : Object
+        public static void Binding<T>(GameObject parentObject, Type type, Dictionary<Type, Object[]> objectDictionary) where T : Object
         {
             string[] names = Enum.GetNames(type);
             Object[] objects = new Object[names.Length];
@@ -16,7 +16,7 @@ namespace Scripts.UI
             AssignmentComponent<T>(parentObject, names, objects);
         }
 
-        private void AssignmentComponent<T>(GameObject parentObject, IReadOnlyList<string> names, IList<Object> objects) where T : Object
+        private static void AssignmentComponent<T>(GameObject parentObject, IReadOnlyList<string> names, IList<Object> objects) where T : Object
         {
             for (int i = 0; i < names.Count; i++)
             {
@@ -25,7 +25,7 @@ namespace Scripts.UI
             }
         }
 
-        private T FindComponent<T>(GameObject parentObject, string name, bool recursive) where T : Object
+        private static T FindComponent<T>(GameObject parentObject, string name, bool recursive) where T : Object
         {
             if (parentObject == null) return null;
 
@@ -52,7 +52,7 @@ namespace Scripts.UI
                 .FirstOrDefault(component => string.IsNullOrEmpty(name) || component.name == name);
         }
 
-        public T Getter<T>(int componentIndex, Dictionary<Type, Object[]> objectsDictionary) where T : Object
+        public static T Getter<T>(int componentIndex, Dictionary<Type, Object[]> objectsDictionary) where T : Object
         {
             if (!objectsDictionary.TryGetValue(typeof(T), out Object[] objects)) return null;
             return objects[componentIndex] as T;
