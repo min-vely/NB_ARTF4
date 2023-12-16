@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Scripts.Event.UI;
+using Scripts.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,6 +17,7 @@ namespace Scripts.UI
 
         private readonly Dictionary<Type, Object[]> _objects = new();
         private bool _initialized;
+
         #endregion
 
         #region Bind
