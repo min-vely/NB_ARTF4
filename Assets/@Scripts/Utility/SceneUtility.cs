@@ -22,11 +22,15 @@ namespace Scripts.Utility
 
         #endregion
 
-        public void LoadScene(SceneName sceneName)
+        public static void LoadScene(SceneName sceneName)
         {
             Main.SceneClear();
-            string scene = sceneName.ToString();
-            SceneManager.LoadScene(scene);
+            
+            string loadingScene = SceneName.Loading.ToString();
+            SceneManager.LoadScene(loadingScene);
+            
+            string nextScene = sceneName.ToString();
+            SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
         }
     }
 }

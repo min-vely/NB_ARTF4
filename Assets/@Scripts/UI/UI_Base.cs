@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Scripts.Event.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 using Object = UnityEngine.Object;
@@ -19,8 +21,8 @@ namespace Scripts.UI
         #region Bind
 
         private void BindUIComponents<T>(Type enumType) where T : Object
-        { 
-            Main.Binder.Binding<T>(gameObject, enumType, _objects);
+        {
+            SetBinder.Binding<T>(gameObject, enumType, _objects);
         }
 
         protected void SetButton(Type type) => BindUIComponents<Button>(type);
@@ -34,7 +36,7 @@ namespace Scripts.UI
 
         private T GetUIComponents<T>(int componentIndex) where T : Object
         {
-            return Main.Binder.Getter<T>(componentIndex, _objects);
+            return SetBinder.Getter<T>(componentIndex, _objects);
         }
 
         protected Button GetButton(int componentIndex)
@@ -58,6 +60,7 @@ namespace Scripts.UI
         }
 
         #endregion
+
 
         #region Initialized
 
