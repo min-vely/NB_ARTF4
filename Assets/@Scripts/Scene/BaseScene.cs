@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using static Scripts.Scene.SceneUtility.SceneName;
+using static Scripts.Utility.SceneUtility.SceneName;
 
 namespace Scripts.Scene
 {
@@ -11,6 +11,12 @@ namespace Scripts.Scene
         private bool _initialized;
 
         #endregion
+
+        #region Properties
+
+
+        #endregion
+        
         private void Start()
         {
             Initialized();
@@ -20,7 +26,7 @@ namespace Scripts.Scene
         {
             if (_initialized) return false;
             _initialized = true;
-            Main.Scene.LoadScene(IntroScene);
+            Main.Scene.LoadScene(Intro);
             return _initialized;
         }
     }
