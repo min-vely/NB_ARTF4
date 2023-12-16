@@ -1,8 +1,8 @@
+using System;
 using Scripts.Event.UI;
 using Scripts.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static Scripts.Utility.SceneUtility.SceneName;
 
 namespace Scripts.UI.Scene_UI
 {
@@ -23,10 +23,14 @@ namespace Scripts.UI.Scene_UI
 
         #region Initialized
 
+        private void Start()
+        {
+            Initialized();
+        }
+
         protected override bool Initialized()
         {
             if (!base.Initialized()) return false;
-            
             SetButton(typeof(Buttons));
             GetButton((int)Buttons.StartBtn).gameObject.SetEvent(UIEventType.Click, StartGame);
             GetButton((int)Buttons.ContinueBtn).gameObject.SetEvent(UIEventType.Click,StartGame);
@@ -42,12 +46,12 @@ namespace Scripts.UI.Scene_UI
 
         private void OptionOpen(PointerEventData obj)
         {
-            
+            Main.UI.OpenOptionPopup<Option_Popup>();
         }
 
         private void StartGame(PointerEventData obj)
         {
-            SceneUtility.LoadScene(Game);
+            SceneUtility.LoadScene("GameScene");
         }
 
         #endregion

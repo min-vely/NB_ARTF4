@@ -33,16 +33,14 @@ public class Main : MonoBehaviour
 
     private readonly UI_Manager _ui = new();
     private readonly SetBinder _setBinder = new();
-    private readonly GameManager _game = new();
-    private readonly SceneUtility _scene = new();
+    private readonly BaseScene _scene = new();
 
     #endregion
 
     #region Properties
 
     public static UI_Manager UI => Instance._ui;
-    public static GameManager Game => Instance._game;
-    public static SceneUtility Scene => Instance._scene;
+    public static BaseScene Scene => Instance._scene.CurrentScene;
     public static SetBinder SetBinder => Instance._setBinder;
 
     #endregion
