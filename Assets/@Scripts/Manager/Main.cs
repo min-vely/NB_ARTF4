@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Scripts.Scene;
+using Scripts.UI;
+using Scripts.Utility;
 using UnityEngine;
 
 public class Main : MonoBehaviour
@@ -30,6 +32,7 @@ public class Main : MonoBehaviour
     #region Fields
 
     private readonly UI_Manager _ui = new();
+    private readonly Binder _binder = new();
     private readonly GameManager _game = new();
     private readonly SceneUtility _scene = new();
 
@@ -40,6 +43,7 @@ public class Main : MonoBehaviour
     public static UI_Manager UI => Instance._ui;
     public static GameManager Game => Instance._game;
     public static SceneUtility Scene => Instance._scene;
+    public static Binder Binder => Instance._binder;
 
     #endregion
 
