@@ -1,3 +1,4 @@
+using System;
 using Scripts.UI.Scene_UI;
 using UnityEngine;
 
@@ -5,6 +6,18 @@ namespace Scripts.Scene
 {
     public class GameScene : BaseScene
     {
+
+        protected override bool Initialized()
+        {
+            if (!base.Initialized()) return false;
+            // TODO : 게임 씬 실행시 Context 작성
+            CurrentScene = Label.GameScene;
+            LoadResource();
+            KillZone.OnDeath += OpenDeathPopUp;
+            // TODO : -----------------------
+            return true;
+        }
+
         private void LoadResource()
         {
             if (Main.Resource.LoadGame)
@@ -26,16 +39,11 @@ namespace Scripts.Scene
             }
         }
 
-        protected override bool Initialized()
+
+
+        private void OpenDeathPopUp()
         {
-            if (!base.Initialized()) return false;
-            // TODO : 게임 씬 실행시 Context 작성
-            CurrentScene = Label.GameScene;
-            LoadResource();
-
-
-            // TODO : -----------------------
-            return true;
+            Main.UI.OpenPopup<DiePanel_Popup>();
         }
     }
 }

@@ -42,7 +42,7 @@ MonoBehaviour:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 41880bb6cada78640a3a8d06aa5c310a
-    m_Address: Assets/@Resources/@Prefabs/@Scene_UI/GameScene_UI/DiePanel_Popup.prefab
+    m_Address: DiePanel_Popup.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
