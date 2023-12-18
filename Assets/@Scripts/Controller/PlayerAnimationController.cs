@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -15,12 +15,12 @@ public class PlayerAnimationController : MonoBehaviour
     {
         float moveMagnitude = playerController.CurMovementInput.magnitude;
 
-        // walk �ִϸ��̼�
+        // walk 애니메이션
         if (moveMagnitude > 0.01)
         {
             animator.SetFloat("Speed", moveMagnitude);
         }
-        // idle �ִϸ��̼�
+        // idle 애니메이션
         else
         {
             animator.SetFloat("Speed", 0);
