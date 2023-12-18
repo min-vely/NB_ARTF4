@@ -1,32 +1,27 @@
+using System;
 using Scripts.Scene;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Scripts.Utility
 {
-    public class SceneUtility
+    public static class SceneUtility
     {
-        #region Fields
-
-        public enum SceneName
-        {
-            Intro,
-            Game,
-            Loading
-        }
-
-        #endregion
-
-        #region Properties
-
-        public BaseScene CurrentScene { get; set; }
-
-        #endregion
-
-        public void LoadScene(SceneName sceneName)
+        public static void LoadScene(string nextScene)
         {
             Main.SceneClear();
-            string scene = sceneName.ToString();
-            SceneManager.LoadScene(scene);
+            SceneManager.LoadScene("LoadingScene");
+            SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
+        }
+
+        public static T GetAddComponent<T>(GameObject obj) where T : Component
+        {
+            T component = obj.GetComponent<T>();
+            if (component == null)
+            {
+                component = obj.AddComponent<T>();
+            }
+            return component;
         }
     }
 }

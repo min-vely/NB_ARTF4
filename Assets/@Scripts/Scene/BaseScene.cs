@@ -1,6 +1,9 @@
 using System;
+using Scripts.Utility;
 using UnityEngine;
-using static Scripts.Utility.SceneUtility.SceneName;
+using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
 
 namespace Scripts.Scene
 {
@@ -9,14 +12,15 @@ namespace Scripts.Scene
         #region Fields
 
         private bool _initialized;
+        [SerializeField] protected GameObject eventSystem;
 
         #endregion
 
         #region Properties
 
+        public BaseScene CurrentScene { get; set; }
 
         #endregion
-        
         private void Start()
         {
             Initialized();
@@ -26,7 +30,10 @@ namespace Scripts.Scene
         {
             if (_initialized) return false;
             _initialized = true;
-            Main.Scene.LoadScene(Intro);
+            Main.Scene.CurrentScene = this;
+            // SceneUtility.LoadScene(SceneUtility.SceneName.IntroScene);
+            Object systemObject = FindObjectOfType<EventSystem>();
+            if (systemObject == null)Instantiate(eventSystem).name = "@EventSystem";
             return _initialized;
         }
     }
