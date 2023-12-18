@@ -91,12 +91,10 @@ public class ResourceManager : MonoBehaviour
         {
             foreach (var result in operationHandle.Result)
             {
-                if (_resources.TryGetValue(result.PrimaryKey, out UnityEngine.Object resource))
-                {
-                    Addressables.Release(resource);
-                    _resources.Remove(result.PrimaryKey);
-                    Debug.Log($"{resource} 언로드");
-                }
+                if (!_resources.TryGetValue(result.PrimaryKey, out UnityEngine.Object resource)) continue;
+                Addressables.Release(resource);
+                _resources.Remove(result.PrimaryKey);
+                Debug.Log($"{resource} 언로드");
             }
         };
     }

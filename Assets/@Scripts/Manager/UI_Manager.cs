@@ -30,14 +30,13 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    // TODO : ResourceManager 생성 전 옵션 팝업 전용 메서드
-    public T OpenOptionPopup<T>(string objectName = null) where T : Popup
+    public T OpenPopup<T>(string objectName = null) where T : Popup
     {
-        name = NameOfUI<T>(objectName);
+        string objName = NameOfUI<T>(objectName);
         // TODO : 리소스 매니져 생성 전 강제 인스턴스 화
-        T popup = SetUI<T>(name);
+        T popup = SetUI<T>(objName, UIBase.transform);
+        popup.name = $"{objName}";
         _popupOrder.Push(popup);
-        popup.transform.SetParent(UIBase.transform);
         SetTimeScale();
         return popup;
     }
@@ -55,8 +54,7 @@ public class UI_Manager : MonoBehaviour
     public void SetSceneUI<T>() where T : UI_Base
     {
         string sceneTypeName = typeof(T).Name;
-        T sceneUI = SetUI<T>(sceneTypeName);
-        sceneUI.transform.SetParent(UIBase.transform);
+        SetUI<T>(sceneTypeName, UIBase.transform);
     }
 
     private static string NameOfUI<T>(string name)
@@ -64,12 +62,12 @@ public class UI_Manager : MonoBehaviour
         return string.IsNullOrEmpty(name) ? typeof(T).Name : name;
     }
 
-    private T SetUI<T>(string uiName) where T : Component
+    private T SetUI<T>(string uiName, Transform parent = null) where T : Component
     {
-        GameObject uiObject = Main.Resource.InstantiatePrefab($"{uiName}.prefab");
-        T sceneUI = SceneUtility.GetAddComponent<T>(uiObject);
-        sceneUI.transform.SetParent(UIBase.transform);
-        return null;
+        GameObject uiObject = Main.Resource.InstantiatePrefab($"{uiName}.prefab", parent);
+        T ui = SceneUtility.GetAddComponent<T>(uiObject);
+        ui.transform.SetParent(UIBase.transform);
+        return ui;
     }
 
     public void OrderLayerToCanvas(GameObject uiObject, bool sort = true)
@@ -99,7 +97,8 @@ public class UI_Manager : MonoBehaviour
 
     private void SetTimeScale()
     {
-        if (Main.Scene.CurrentScene.GetType() != typeof(GameScene))
+        Debug.Log(Main.Scene.CurrentScene.ToString());
+        if (Main.Scene.CurrentScene != Label.GameScene)
         {
             Time.timeScale = 1;
             return;

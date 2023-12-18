@@ -9,33 +9,40 @@ namespace Scripts.Scene
 {
     public enum Label
     {
-        PreloadScene,
+        PreLoadScene,
         IntroScene,
         LoadingScene,
-        MainScene,
+        GameScene,
         SampleScene
     }
-    public  abstract class BaseScene : MonoBehaviour
+    public class BaseScene : MonoBehaviour
     {
         #region Fields
 
         private bool _initialized;
+        private Label _sceneLabel;
 
         #endregion
 
         #region Properties
 
-        public abstract Label CurrentScene { get; set; }
+        public Label CurrentScene
+        {
+            get
+            {
+                Debug.Log($"Get Label {_sceneLabel.ToString()}");
+                return _sceneLabel;
+            }
+            protected set
+            {
+                _sceneLabel = value;
+                Debug.Log($"Set Label {_sceneLabel.ToString()}");
+            }
+        }
 
         #endregion
 
-        protected virtual void Start()
-        {
-            CurrentScene = Label.PreloadScene;
-            LoadResource();
-        }
-
-        private void LoadResource()
+        private void Awake()
         {
             if (Main.Resource.LoadBase)
             {
