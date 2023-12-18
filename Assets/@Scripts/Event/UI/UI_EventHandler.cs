@@ -12,7 +12,7 @@ namespace Scripts.Event.UI
     }
     public class UI_EventHandler : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        private static Dictionary<UIEventType, Action<PointerEventData>> EventHandlers = new();
+        private Dictionary<UIEventType, Action<PointerEventData>> EventHandlers = new();
 
         private void InvokeEventAction(UIEventType eventType, PointerEventData eventData)
         {
