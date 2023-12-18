@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,12 +8,7 @@ using Scripts.Scene;
 
 public class KillZone : MonoBehaviour
 {
-    private GameSceneUI gameSceneUI;
-
-    private void Start()
-    {
-        gameSceneUI = FindObjectOfType<GameSceneUI>();
-    }
+    public static event Action OnDeath;
 
     private void OnTriggerEnter(Collider col)
     {
@@ -20,7 +16,7 @@ public class KillZone : MonoBehaviour
         {
 			//col.gameObject.GetComponent<CharacterControls>().LoadCheckPoint();
             col.gameObject.GetComponent<PlayerController>().LoadCheckPoint();
-            gameSceneUI.IncreseDeathCount();
+            OnDeath?.Invoke();
         }
 	}
 }

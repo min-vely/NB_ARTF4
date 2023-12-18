@@ -1,51 +1,54 @@
-using Scripts.Event.UI;
-using Scripts.Utility;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+using Scripts.UI;
+using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-namespace Scripts.UI.Scene_UI
+public class Game_UI : UI_Base
 {
-    public class Game_UI : UI_Base
+    #region Fields
+
+    private enum Texts
     {
-        #region Fields
+        Timer,
+        TryCount
+    }
 
-        private enum Buttons
-        {
-            ContinueBtn,
-            ExitBtn
-        }
+    private int _tryCount = 1;
+    private float _timer;
 
-        #endregion
+    #endregion
 
 
-        #region Initialized
+    private void Start()
+    {
+        Initialized();
+    }
 
-        private void Start()
-        {
-            Initialized();
-        }
+    protected override bool Initialized()
+    {
+        if (!base.Initialized()) return false;
+        SetText(typeof(Texts));
+        UpdateDeathCountUI();
+        Main.UI.OnCloseDeathPanel += IncreaseDeathCount;
+        return true;
+    }
 
-        protected override bool Initialized()
-        {
-            if (!base.Initialized()) return false;
-            SetButton(typeof(Buttons));
-            GetButton((int)Buttons.ContinueBtn).gameObject.SetEvent(UIEventType.Click, StartGame);
-            GetButton((int)Buttons.ExitBtn).gameObject.SetEvent(UIEventType.Click, ShutdownGame);
+    private void FixedUpdate()
+    {
+        _timer += Time.deltaTime;
+        GetText((int)Texts.Timer).text = _timer.ToString("N2");
+    }
 
-            return true;
-        }
+    private void IncreaseDeathCount()
+    {
+        _tryCount++;
+        UpdateDeathCountUI();
+    }
 
-        private void ShutdownGame(PointerEventData obj)
-        {
-            Application.Quit();
-        }
-
-        private void StartGame(PointerEventData obj)
-        {
-            SceneUtility.LoadScene("GameScene");
-        }
-
-        #endregion
+    private void UpdateDeathCountUI()
+    {
+        GetText((int)Texts.TryCount).text = $"Try : {_tryCount} 회";
     }
 }
-
