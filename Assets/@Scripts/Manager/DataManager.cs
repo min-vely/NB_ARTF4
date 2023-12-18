@@ -20,7 +20,7 @@ public class DataManager : MonoBehaviour
     {
         UpdateVersion();
 
-        Dictionary<int, string> data = json.JsonDataLoad(DATANAME.gameLoadingScript1.ToString());
+        Dictionary<int, string> data = json.JsonDataLoad(DATANAME.gameOverScript);
         for (int i = 0; i < data.Count; i++)
         {
             Debug.Log(data[i]);
