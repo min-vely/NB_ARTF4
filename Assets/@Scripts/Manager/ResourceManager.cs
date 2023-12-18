@@ -9,7 +9,8 @@ public enum LABEL
 {
     IntroScene,
     LoadingScene,
-    MainScene
+    MainScene,
+    SampleScene
 }
 
 public class ResourceManager : MonoBehaviour
