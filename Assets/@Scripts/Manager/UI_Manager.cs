@@ -14,7 +14,7 @@ public class UI_Manager : MonoBehaviour
 
     private int _sortByOrderLayer = 1;
     private Stack<Popup> _popupOrder = new();
-    
+
     #endregion
 
     private GameObject UIBase
@@ -65,11 +65,11 @@ public class UI_Manager : MonoBehaviour
     }
 
     private static T SetUI<T>(string uiName) where T : Component
-    {     
+    {
         // // TODO : 리소스 매니져 생성 시 수정 필요
-        // GameObject uiObject = Main.Resource.InstantiatePrefab($"{uiName}.prefab");
-        // T returnObj = SceneUtility.GetAddComponent<T>(uiObject);
-        // return returnObj;
+        /*   GameObject uiObject = Main.Resource.InstantiatePrefab($"{uiName}.prefab");
+           T returnObj = SceneUtility.GetAddComponent<T>(uiObject);
+           return returnObj;*/
         return null;
     }
 
@@ -78,7 +78,7 @@ public class UI_Manager : MonoBehaviour
         Canvas canvas = SceneUtility.GetAddComponent<Canvas>(uiObject);
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true;
-        SortingOder(canvas,sort);
+        SortingOder(canvas, sort);
         CanvasScaler scales = SceneUtility.GetAddComponent<CanvasScaler>(canvas.gameObject);
         scales.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scales.referenceResolution = new Vector2(1920, 1080);
