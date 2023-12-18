@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bounce : MonoBehaviour
 {
-	public float force = 10f; //Force 10000f
-	public float stunTime = 0.5f;
+    public float force = new float(); //Force 10000f
+	public float stunTime = new float();
 	private Vector3 hitDir;
 
 	void OnCollisionEnter(Collision collision)
