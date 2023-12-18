@@ -20,11 +20,12 @@ public class ResourceManager : MonoBehaviour
     public bool LoadLoading { get; set; }
 
     #endregion
-    // ���ҽ� �񵿱� �ε� �޼���
+
+    // 리소스 비동기 로드 메서드
     #region Asynchronous Loading
 
     /// <summary>
-    /// �ݹ��� ó���ϴ� ���׸� �ڵ鷯�Դϴ�.
+    /// 콜백을 처리하는 제네릭 핸들러입니다.
     /// </summary>
     private void AsyncHandlerCallback<T>(string key, AsyncOperationHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
     {
@@ -36,7 +37,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     /// <summary>
-    /// �񵿱� ������� ���ҽ��� �ε��ϰ� �ݹ��� ȣ���մϴ�.
+    /// 비동기 방식으로 리소스를 로드하고 콜백을 호출합니다.
     /// </summary>
     public void LoadAsync<T>(string key, Action<T> callback = null) where T : UnityEngine.Object
     {
@@ -61,7 +62,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Ư�� �󺧿� ���� ��� ���ҽ��� �񵿱� ������� �ε��ϰ� �ݹ��� ȣ���մϴ�.
+    /// 특정 라벨에 속한 모든 리소스를 비동기 방식으로 로드하고 콜백을 호출합니다.
     /// </summary>
     public void AllLoadAsync<T>(string label, Action<string, int, int> callback) where T : UnityEngine.Object
     {
@@ -81,7 +82,7 @@ public class ResourceManager : MonoBehaviour
         };
     }
     /// <summary>
-    /// Ư�� �󺧿� ���� ��� ���ҽ��� �񵿱� ������� ��ε��մϴ�.
+    /// 특정 라벨에 속한 모든 리소스를 비동기 방식으로 언로드합니다.
     /// </summary>
     public void UnloadAllAsync<T>(string label) where T : UnityEngine.Object
     {
@@ -94,34 +95,33 @@ public class ResourceManager : MonoBehaviour
                 {
                     Addressables.Release(resource);
                     _resources.Remove(result.PrimaryKey);
-                    Debug.Log($"{resource} ��ε�");
+                    Debug.Log($"{resource} 언로드");
                 }
             }
         };
     }
     #endregion
-    // ���ҽ� ���� �ε�&��ε� �޼���
+
+    // 리소스 동기 로드&언로드 메서드
     #region Synchronous Loading
 
     /// <summary>
-    /// ���ҽ��� ���������� �ε��մϴ�.
+    /// 리소스를 동기적으로 로드합니다.
     /// </summary>
     public T Load<T>(string key) where T : UnityEngine.Object
     {
-        if (!_resources.TryGetValue(key, out UnityEngine.Object resource))
-        {
-            Debug.LogError($"Ű�� ã�� �� �����ϴ�. : {key}");
-            return null;
-        }
-        return resource as T;
+        if (_resources.TryGetValue(key, out UnityEngine.Object resource)) return resource as T;
+        Debug.LogError($"키를 찾을 수 없습니다. : {key}");
+        return null;
     }
 
     #endregion
-    // ������ �ν��Ͻ�ȭ �޼���
+
+    // 프리펩 인스턴스화 메서드
     #region Instantiation
 
     /// <summary>
-    /// �������� �ν��Ͻ�ȭ�ϰ� ������ �ν��Ͻ��� ��ȯ�մϴ�.
+    /// 프리팹을 인스턴스화하고 생성된 인스턴스를 반환합니다.
     /// </summary>
     public GameObject InstantiatePrefab(string key, Transform transform = null)
     {
@@ -129,12 +129,9 @@ public class ResourceManager : MonoBehaviour
 
         GameObject instance = Instantiate(resource, transform);
 
-        if (instance == null)
-        {
-            Debug.LogError($"���ҽ��� �ν��Ͻ�ȭ���� ���߽��ϴ�.: { key}");
-            return null;
-        }
-        return instance;
+        if (instance != null) return instance;
+        Debug.LogError($"리소스를 인스턴스화하지 못했습니다.: { key}");
+        return null;
     }
 
     #endregion
