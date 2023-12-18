@@ -34,7 +34,12 @@ public class Main : MonoBehaviour
     private readonly UI_Manager _ui = new();
     private readonly SetBinder _setBinder = new();
     private readonly ResourceManager _resource = new();
+
+    private readonly BaseScene _scene = new();
+    private readonly PlayerController _playerControl = new();
+
     private BaseScene _scene;
+
 
     #endregion
 
@@ -44,6 +49,7 @@ public class Main : MonoBehaviour
     public static SetBinder SetBinder => Instance._setBinder;
     public static ResourceManager Resource => Instance._resource;
     public static BaseScene Scene => Instance._scene;
+    public static PlayerController PlayerControl => Instance._playerControl;
 
     #endregion
 
