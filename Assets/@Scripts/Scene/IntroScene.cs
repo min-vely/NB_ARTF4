@@ -1,21 +1,41 @@
 using System;
 using Scripts.UI.Scene_UI;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Scripts.Scene
 {
     public class IntroScene : BaseScene
     {
-        // TODO  : 임시 팝업 프리팹 (나중에 ResourceManager 생성시 변경)
-        [SerializeField] protected GameObject optionPopup;
-        [SerializeField] protected GameObject introUI;
+        private void LoadResource()
+        {
+            if (Main.Resource.LoadIntro)
+            {
+                // TODO : 로드가 되어있다면, 추가적인 초기화 필요
+                Main.UI.SetSceneUI<Intro_UI>();
+            }
+            else
+            {
+                string sceneType = CurrentScene.ToString();
+                Main.Resource.AllLoadAsync<UnityEngine.Object>($"{sceneType}", (key, count, totalCount) =>
+                {
+                    Debug.Log($"[{sceneType}] Load asset {key} ({count}/{totalCount})");
+                    if (count < totalCount) return;
+                    Main.Resource.LoadIntro = true;
+                    // TODO : 추가적인 초기화 필요
+                    Main.UI.SetSceneUI<Intro_UI>();
+                });
+            }
+        }
+
         protected override bool Initialized()
         {
             if (!base.Initialized()) return false;
             // TODO : 인트로 씬 실행시 Context 작성
-            Main.Scene.CurrentScene = this;
-            Main.UI.SetSceneUI<Intro_UI>();
-          
+            CurrentScene = Label.IntroScene;
+            LoadResource();
+  
+            
             // TODO : -----------------------
             return true;
         }

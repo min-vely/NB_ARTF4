@@ -5,26 +5,29 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public enum LABEL
-{
-    IntroScene,
-    LoadingScene,
-    MainScene,
-    SampleScene
-}
-
 public class ResourceManager : MonoBehaviour
 {
     #region Fields
     private Dictionary<string, UnityEngine.Object> _resources = new();
+
     #endregion
-    // ¸®¼Ò½º ºñµ¿±â ·Îµå ¸Ş¼­µå
+
+    #region Properties
+
+    public bool LoadBase { get; set; }
+    public bool LoadIntro { get; set; }
+    public bool LoadGame { get; set; }
+    public bool LoadLoading { get; set; }
+
+    #endregion
+
+    // ë¦¬ì†ŒìŠ¤ ë¹„ë™ê¸° ë¡œë“œ ë©”ì„œë“œ
     #region Asynchronous Loading
 
     /// <summary>
-    /// Äİ¹éÀ» Ã³¸®ÇÏ´Â Á¦³×¸¯ ÇÚµé·¯ÀÔ´Ï´Ù.
+    /// ì½œë°±ì„ ì²˜ë¦¬í•˜ëŠ” ì œë„¤ë¦­ í•¸ë“¤ëŸ¬ì…ë‹ˆë‹¤.
     /// </summary>
-    private void AsyncHandelerCallback<T>(string key, AsyncOperationHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
+    private void AsyncHandlerCallback<T>(string key, AsyncOperationHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
     {
         handle.Completed += operationHandle =>
         {
@@ -34,7 +37,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ºñµ¿±â ¹æ½ÄÀ¸·Î ¸®¼Ò½º¸¦ ·ÎµåÇÏ°í Äİ¹éÀ» È£ÃâÇÕ´Ï´Ù.
+    /// ë¹„ë™ê¸° ë°©ì‹ìœ¼ë¡œ ë¦¬ì†ŒìŠ¤ë¥¼ ë¡œë“œí•˜ê³  ì½œë°±ì„ í˜¸ì¶œí•©ë‹ˆë‹¤.
     /// </summary>
     public void LoadAsync<T>(string key, Action<T> callback = null) where T : UnityEngine.Object
     {
@@ -49,17 +52,17 @@ public class ResourceManager : MonoBehaviour
         {
             loadKey = $"{key}[{key.Replace(".sprite", "")}]";
             AsyncOperationHandle<Sprite> handle = Addressables.LoadAssetAsync<Sprite>(loadKey);
-            AsyncHandelerCallback(loadKey, handle, callback as Action<Sprite>);
+            AsyncHandlerCallback(loadKey, handle, callback as Action<Sprite>);
         }
         else
         {
             AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(loadKey);
-            AsyncHandelerCallback(loadKey, handle, callback);
+            AsyncHandlerCallback(loadKey, handle, callback);
         }
     }
 
     /// <summary>
-    /// Æ¯Á¤ ¶óº§¿¡ ¼ÓÇÑ ¸ğµç ¸®¼Ò½º¸¦ ºñµ¿±â ¹æ½ÄÀ¸·Î ·ÎµåÇÏ°í Äİ¹éÀ» È£ÃâÇÕ´Ï´Ù.
+    /// íŠ¹ì • ë¼ë²¨ì— ì†í•œ ëª¨ë“  ë¦¬ì†ŒìŠ¤ë¥¼ ë¹„ë™ê¸° ë°©ì‹ìœ¼ë¡œ ë¡œë“œí•˜ê³  ì½œë°±ì„ í˜¸ì¶œí•©ë‹ˆë‹¤.
     /// </summary>
     public void AllLoadAsync<T>(string label, Action<string, int, int> callback) where T : UnityEngine.Object
     {
@@ -79,7 +82,7 @@ public class ResourceManager : MonoBehaviour
         };
     }
     /// <summary>
-    /// Æ¯Á¤ ¶óº§¿¡ ¼ÓÇÑ ¸ğµç ¸®¼Ò½º¸¦ ºñµ¿±â ¹æ½ÄÀ¸·Î ¾ğ·ÎµåÇÕ´Ï´Ù.
+    /// íŠ¹ì • ë¼ë²¨ì— ì†í•œ ëª¨ë“  ë¦¬ì†ŒìŠ¤ë¥¼ ë¹„ë™ê¸° ë°©ì‹ìœ¼ë¡œ ì–¸ë¡œë“œí•©ë‹ˆë‹¤.
     /// </summary>
     public void UnloadAllAsync<T>(string label) where T : UnityEngine.Object
     {
@@ -88,38 +91,35 @@ public class ResourceManager : MonoBehaviour
         {
             foreach (var result in operationHandle.Result)
             {
-                if (_resources.TryGetValue(result.PrimaryKey, out UnityEngine.Object resource))
-                {
-                    Addressables.Release(resource);
-                    _resources.Remove(result.PrimaryKey);
-                    Debug.Log($"{resource} ¾ğ·Îµå");
-                }
+                if (!_resources.TryGetValue(result.PrimaryKey, out UnityEngine.Object resource)) continue;
+                Addressables.Release(resource);
+                _resources.Remove(result.PrimaryKey);
+                Debug.Log($"{resource} ì–¸ë¡œë“œ");
             }
         };
     }
     #endregion
-    // ¸®¼Ò½º µ¿±â ·Îµå&¾ğ·Îµå ¸Ş¼­µå
+
+    // ë¦¬ì†ŒìŠ¤ ë™ê¸° ë¡œë“œ&ì–¸ë¡œë“œ ë©”ì„œë“œ
     #region Synchronous Loading
 
     /// <summary>
-    /// ¸®¼Ò½º¸¦ µ¿±âÀûÀ¸·Î ·ÎµåÇÕ´Ï´Ù.
+    /// ë¦¬ì†ŒìŠ¤ë¥¼ ë™ê¸°ì ìœ¼ë¡œ ë¡œë“œí•©ë‹ˆë‹¤.
     /// </summary>
     public T Load<T>(string key) where T : UnityEngine.Object
     {
-        if (!_resources.TryGetValue(key, out UnityEngine.Object resource))
-        {
-            Debug.LogError($"Å°¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù. : {key}");
-            return null;
-        }
-        return resource as T;
+        if (_resources.TryGetValue(key, out UnityEngine.Object resource)) return resource as T;
+        Debug.LogError($"í‚¤ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. : {key}");
+        return null;
     }
 
     #endregion
-    // ÇÁ¸®Æé ÀÎ½ºÅÏ½ºÈ­ ¸Ş¼­µå
+
+    // í”„ë¦¬í© ì¸ìŠ¤í„´ìŠ¤í™” ë©”ì„œë“œ
     #region Instantiation
 
     /// <summary>
-    /// ÇÁ¸®ÆÕÀ» ÀÎ½ºÅÏ½ºÈ­ÇÏ°í »ı¼ºµÈ ÀÎ½ºÅÏ½º¸¦ ¹İÈ¯ÇÕ´Ï´Ù.
+    /// í”„ë¦¬íŒ¹ì„ ì¸ìŠ¤í„´ìŠ¤í™”í•˜ê³  ìƒì„±ëœ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.
     /// </summary>
     public GameObject InstantiatePrefab(string key, Transform transform = null)
     {
@@ -127,12 +127,9 @@ public class ResourceManager : MonoBehaviour
 
         GameObject instance = Instantiate(resource, transform);
 
-        if (instance == null)
-        {
-            Debug.LogError($"¸®¼Ò½º¸¦ ÀÎ½ºÅÏ½ºÈ­ÇÏÁö ¸øÇß½À´Ï´Ù.: { key}");
-            return null;
-        }
-        return instance;
+        if (instance != null) return instance;
+        Debug.LogError($"ë¦¬ì†ŒìŠ¤ë¥¼ ì¸ìŠ¤í„´ìŠ¤í™”í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.: { key}");
+        return null;
     }
 
     #endregion

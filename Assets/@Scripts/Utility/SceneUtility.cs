@@ -16,12 +16,7 @@ namespace Scripts.Utility
 
         public static T GetAddComponent<T>(GameObject obj) where T : Component
         {
-            T component = obj.GetComponent<T>();
-            if (component == null)
-            {
-                component = obj.AddComponent<T>();
-            }
-            return component;
+            return obj.GetComponent<T>() ?? obj.AddComponent<T>();  
         }
     }
 }
