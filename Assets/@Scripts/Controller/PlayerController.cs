@@ -1,6 +1,7 @@
-using System;
+Ôªøusing System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,9 +9,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
-    private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 5f;
     private Vector2 _curMovementInput;
-    private float jumpForce = 500f;
+    [SerializeField] private float jumpForce = 500f;
     [SerializeField] private LayerMask groundLayerMask;
 
     [Header("Look")]
@@ -22,9 +23,17 @@ public class PlayerController : MonoBehaviour
 
     [Header("Throw")]
     [SerializeField] private GameObject throwablePrefab;
-    private float throwForce = 10f;
-    private float throwCooldown = 1f;
+    [SerializeField] private float throwForce = 10f;
+    [SerializeField] private float throwCooldown = 1f;
     private float lastThrowTime;
+
+    private bool canMove = true;
+    private bool isStuned = false;
+    private bool wasStuned = false;
+    private bool slide = false;
+    private float pushForce;
+    [SerializeField] private float gravity = 9.8f;
+    private Vector3 pushDir;
 
     public Vector3 checkPoint = new Vector3(0f, 4f, 0f);
 
@@ -34,7 +43,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canLook = true;
 
     private Rigidbody _rigidbody;
-
+    private Animator _animator;
     public static PlayerController instance;
 
     public Vector2 CurMovementInput
@@ -46,6 +55,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         checkPoint = transform.position;
     }
@@ -57,7 +67,17 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (canMove)
+        {
+            Move();
+        }
+        // ÎÑâÎ∞±
+        else
+        {
+            _rigidbody.velocity = pushDir * pushForce;
+        }
+        _rigidbody.AddForce(new Vector3(0, -gravity * _rigidbody.mass, 0));
+
     }
 
     private void LateUpdate()
@@ -108,24 +128,31 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Started)
         {
             if (IsGrounded())
+            {
                 _rigidbody.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
-
+                //_animator.SetTrigger("Jump");
+            }
         }
     }
 
     public void OnThrowInput(InputAction.CallbackContext context)
     {
-        // ƒ≈∏¿” √º≈©
+        // Ïø®ÌÉÄÏûÑ Ï≤¥ÌÅ¨
         if (Time.time - lastThrowTime >= throwCooldown)
         {
-            // ƒ≈∏¿” √ ±‚»≠
+            // Ïø®ÌÉÄÏûÑ Ï¥àÍ∏∞Ìôî
             lastThrowTime = Time.time;
 
-            GameObject throwableInstance = Instantiate(throwablePrefab, transform.position + transform.forward, Quaternion.identity);
+            _animator.SetTrigger("Throw");
+
+            // ÌîåÎ†àÏù¥Ïñ¥ Í∏∞Ï§Ä Í≥µ Î∞úÏÇ¨ ÏúÑÏπò
+            Vector3 throwPosition = transform.position + transform.forward * 0.8f + transform.right * 0.7f + Vector3.up * 1.2f;
+
+            // Ïò§Î∏åÏ†ùÌä∏ ÌíÄÎßÅ ÏÇ¨Ïö©ÌïòÎ©¥ Îçî Ï¢ãÏùå
+            GameObject throwableInstance = Instantiate(throwablePrefab, throwPosition, Quaternion.identity);
             Rigidbody throwRigidbody = throwableInstance.GetComponent<Rigidbody>();
 
             throwRigidbody.AddForce(transform.forward * throwForce, ForceMode.Impulse);
-            // «¡∏Æ∆’¿Ã π∫∞°ø° √Êµπ«œ∏È 5√  »ƒø° destory
         }
     }
 
@@ -168,5 +195,47 @@ public class PlayerController : MonoBehaviour
     public void LoadCheckPoint()
     {
         transform.position = checkPoint;
+    }
+
+    public void HitPlayer(Vector3 velocityF, float time)
+    {
+        _rigidbody.velocity = velocityF;
+
+        pushForce = velocityF.magnitude;
+        pushDir = Vector3.Normalize(velocityF);
+        StartCoroutine(Decrease(velocityF.magnitude, time));
+    }
+
+    private IEnumerator Decrease(float value, float duration)
+    {
+        if (isStuned)
+            wasStuned = true;
+        isStuned = true;
+        canMove = false;
+
+        float delta = 0;
+        delta = value / duration;
+
+        for (float t = 0; t < duration; t += Time.deltaTime)
+        {
+            yield return null;
+            if (!slide) // ÎïÖÏù¥ slideÍ∞Ä ÏïÑÎãàÎ©¥ Í∞êÏÜåÎêú pushForce Ï†ÅÏö©
+            {
+                pushForce = pushForce - Time.deltaTime * delta;
+                pushForce = pushForce < 0 ? 0 : pushForce;
+                //Debug.Log(pushForce);
+            }
+            _rigidbody.AddForce(new Vector3(0, -gravity * _rigidbody.mass, 0));
+        }
+
+        if (wasStuned)
+        {
+            wasStuned = false;
+        }
+        else
+        {
+            isStuned = false;
+            canMove = true;
+        }
     }
 }

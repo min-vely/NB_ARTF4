@@ -15,7 +15,7 @@ namespace Scripts.Scene
         GameScene,
         SampleScene
     }
-    public class BaseScene : MonoBehaviour
+    public abstract class BaseScene : MonoBehaviour
     {
         #region Fields
 
@@ -33,7 +33,7 @@ namespace Scripts.Scene
                 Debug.Log($"Get Label {_sceneLabel.ToString()}");
                 return _sceneLabel;
             }
-            protected set
+            set
             {
                 _sceneLabel = value;
                 Debug.Log($"Set Label {_sceneLabel.ToString()}");

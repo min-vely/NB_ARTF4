@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Scripts.Event.UI;
-using Scripts.UI;
 using Scripts.UI.Popup;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Option_Popup : Popup
@@ -33,6 +29,7 @@ public class Option_Popup : Popup
 
     private void Close(PointerEventData obj)
     {
-        Main.UI.ClosePopUp(this);
+        List<UIEventType> eventTypes = new List<UIEventType> { UIEventType.Click };
+        Main.UI.ClosePopUp(this, eventTypes);
     }
 }
