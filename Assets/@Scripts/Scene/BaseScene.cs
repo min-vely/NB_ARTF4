@@ -7,33 +7,60 @@ using Object = UnityEngine.Object;
 
 namespace Scripts.Scene
 {
-    public class BaseScene : MonoBehaviour
+    public enum Label
+    {
+        PreloadScene,
+        IntroScene,
+        LoadingScene,
+        MainScene,
+        SampleScene
+    }
+    public  abstract class BaseScene : MonoBehaviour
     {
         #region Fields
 
         private bool _initialized;
-        [SerializeField] protected GameObject eventSystem;
 
         #endregion
 
         #region Properties
 
-        public BaseScene CurrentScene { get; set; }
+        public abstract Label CurrentScene { get; set; }
 
         #endregion
-        private void Start()
+
+        protected virtual void Start()
         {
-            Initialized();
+            CurrentScene = Label.PreloadScene;
+            LoadResource();
+        }
+
+        private void LoadResource()
+        {
+            if (Main.Resource.LoadBase)
+            {
+                // TODO : 로드가 되어있다면, 추가적인 초기화 필요
+                Initialized();
+            }
+            else
+            {
+                Main.Resource.AllLoadAsync<Object>($"Preload", (key, count, totalCount) =>
+                {
+                    Debug.Log($"[BaseScene] Load asset {key} ({count}/{totalCount})");
+                    if (count < totalCount) return;
+                    Main.Resource.LoadBase = true;
+                    // TODO : 추가적인 초기화 필요
+                    Initialized();
+                });
+            }
         }
 
         protected virtual bool Initialized()
         {
             if (_initialized) return false;
             _initialized = true;
-            Main.Scene.CurrentScene = this;
-            // SceneUtility.LoadScene(SceneUtility.SceneName.IntroScene);
-            Object systemObject = FindObjectOfType<EventSystem>();
-            if (systemObject == null)Instantiate(eventSystem).name = "@EventSystem";
+            Object eventSystem = FindObjectOfType<EventSystem>();
+            if (eventSystem == null) Main.Resource.InstantiatePrefab("EventSystem.prefab").name = "@EventSystem";
             return _initialized;
         }
     }

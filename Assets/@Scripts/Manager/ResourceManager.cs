@@ -5,26 +5,28 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public enum LABEL
-{
-    IntroScene,
-    LoadingScene,
-    MainScene,
-    SampleScene
-}
-
 public class ResourceManager : MonoBehaviour
 {
     #region Fields
     private Dictionary<string, UnityEngine.Object> _resources = new();
+
     #endregion
-    // ¸®¼Ò½º ºñµ¿±â ·Îµå ¸Þ¼­µå
+
+    #region Properties
+
+    public bool LoadBase { get; set; }
+    public bool LoadIntro { get; set; }
+    public bool LoadGame { get; set; }
+    public bool LoadLoading { get; set; }
+
+    #endregion
+    // ï¿½ï¿½ï¿½Ò½ï¿½ ï¿½ñµ¿±ï¿½ ï¿½Îµï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     #region Asynchronous Loading
 
     /// <summary>
-    /// ÄÝ¹éÀ» Ã³¸®ÇÏ´Â Á¦³×¸¯ ÇÚµé·¯ÀÔ´Ï´Ù.
+    /// ï¿½Ý¹ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½×¸ï¿½ ï¿½Úµé·¯ï¿½Ô´Ï´ï¿½.
     /// </summary>
-    private void AsyncHandelerCallback<T>(string key, AsyncOperationHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
+    private void AsyncHandlerCallback<T>(string key, AsyncOperationHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
     {
         handle.Completed += operationHandle =>
         {
@@ -34,7 +36,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ºñµ¿±â ¹æ½ÄÀ¸·Î ¸®¼Ò½º¸¦ ·ÎµåÇÏ°í ÄÝ¹éÀ» È£ÃâÇÕ´Ï´Ù.
+    /// ï¿½ñµ¿±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ï°ï¿½ ï¿½Ý¹ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     /// </summary>
     public void LoadAsync<T>(string key, Action<T> callback = null) where T : UnityEngine.Object
     {
@@ -49,17 +51,17 @@ public class ResourceManager : MonoBehaviour
         {
             loadKey = $"{key}[{key.Replace(".sprite", "")}]";
             AsyncOperationHandle<Sprite> handle = Addressables.LoadAssetAsync<Sprite>(loadKey);
-            AsyncHandelerCallback(loadKey, handle, callback as Action<Sprite>);
+            AsyncHandlerCallback(loadKey, handle, callback as Action<Sprite>);
         }
         else
         {
             AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(loadKey);
-            AsyncHandelerCallback(loadKey, handle, callback);
+            AsyncHandlerCallback(loadKey, handle, callback);
         }
     }
 
     /// <summary>
-    /// Æ¯Á¤ ¶óº§¿¡ ¼ÓÇÑ ¸ðµç ¸®¼Ò½º¸¦ ºñµ¿±â ¹æ½ÄÀ¸·Î ·ÎµåÇÏ°í ÄÝ¹éÀ» È£ÃâÇÕ´Ï´Ù.
+    /// Æ¯ï¿½ï¿½ ï¿½óº§¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ ï¿½ñµ¿±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ï°ï¿½ ï¿½Ý¹ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     /// </summary>
     public void AllLoadAsync<T>(string label, Action<string, int, int> callback) where T : UnityEngine.Object
     {
@@ -79,7 +81,7 @@ public class ResourceManager : MonoBehaviour
         };
     }
     /// <summary>
-    /// Æ¯Á¤ ¶óº§¿¡ ¼ÓÇÑ ¸ðµç ¸®¼Ò½º¸¦ ºñµ¿±â ¹æ½ÄÀ¸·Î ¾ð·ÎµåÇÕ´Ï´Ù.
+    /// Æ¯ï¿½ï¿½ ï¿½óº§¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ ï¿½ñµ¿±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Îµï¿½ï¿½Õ´Ï´ï¿½.
     /// </summary>
     public void UnloadAllAsync<T>(string label) where T : UnityEngine.Object
     {
@@ -92,34 +94,34 @@ public class ResourceManager : MonoBehaviour
                 {
                     Addressables.Release(resource);
                     _resources.Remove(result.PrimaryKey);
-                    Debug.Log($"{resource} ¾ð·Îµå");
+                    Debug.Log($"{resource} ï¿½ï¿½Îµï¿½");
                 }
             }
         };
     }
     #endregion
-    // ¸®¼Ò½º µ¿±â ·Îµå&¾ð·Îµå ¸Þ¼­µå
+    // ï¿½ï¿½ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½&ï¿½ï¿½Îµï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     #region Synchronous Loading
 
     /// <summary>
-    /// ¸®¼Ò½º¸¦ µ¿±âÀûÀ¸·Î ·ÎµåÇÕ´Ï´Ù.
+    /// ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Õ´Ï´ï¿½.
     /// </summary>
     public T Load<T>(string key) where T : UnityEngine.Object
     {
         if (!_resources.TryGetValue(key, out UnityEngine.Object resource))
         {
-            Debug.LogError($"Å°¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù. : {key}");
+            Debug.LogError($"Å°ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. : {key}");
             return null;
         }
         return resource as T;
     }
 
     #endregion
-    // ÇÁ¸®Æé ÀÎ½ºÅÏ½ºÈ­ ¸Þ¼­µå
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½È­ ï¿½Þ¼ï¿½ï¿½ï¿½
     #region Instantiation
 
     /// <summary>
-    /// ÇÁ¸®ÆÕÀ» ÀÎ½ºÅÏ½ºÈ­ÇÏ°í »ý¼ºµÈ ÀÎ½ºÅÏ½º¸¦ ¹ÝÈ¯ÇÕ´Ï´Ù.
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½È­ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Õ´Ï´ï¿½.
     /// </summary>
     public GameObject InstantiatePrefab(string key, Transform transform = null)
     {
@@ -129,7 +131,7 @@ public class ResourceManager : MonoBehaviour
 
         if (instance == null)
         {
-            Debug.LogError($"¸®¼Ò½º¸¦ ÀÎ½ºÅÏ½ºÈ­ÇÏÁö ¸øÇß½À´Ï´Ù.: { key}");
+            Debug.LogError($"ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.: { key}");
             return null;
         }
         return instance;

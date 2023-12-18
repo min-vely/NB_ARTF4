@@ -64,12 +64,11 @@ public class UI_Manager : MonoBehaviour
         return string.IsNullOrEmpty(name) ? typeof(T).Name : name;
     }
 
-    private static T SetUI<T>(string uiName) where T : Component
+    private T SetUI<T>(string uiName) where T : Component
     {
-        // // TODO : 리소스 매니져 생성 시 수정 필요
-        /*   GameObject uiObject = Main.Resource.InstantiatePrefab($"{uiName}.prefab");
-           T returnObj = SceneUtility.GetAddComponent<T>(uiObject);
-           return returnObj;*/
+        GameObject uiObject = Main.Resource.InstantiatePrefab($"{uiName}.prefab");
+        T sceneUI = SceneUtility.GetAddComponent<T>(uiObject);
+        sceneUI.transform.SetParent(UIBase.transform);
         return null;
     }
 
