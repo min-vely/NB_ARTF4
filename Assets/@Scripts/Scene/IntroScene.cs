@@ -32,7 +32,7 @@ namespace Scripts.Scene
         {
             if (!base.Initialized()) return false;
             // TODO : 인트로 씬 실행시 Context 작성
-            CurrentScene = Label.IntroScene;
+            Main.SetCurrentScene(this, Label.IntroScene);
             LoadResource();
   
             
