@@ -1,0 +1,26 @@
+{
+  "version": {
+    "CurrentVersion": 1.0
+  },
+  "gameOverScript": {
+    "0": "test1",
+    "1": "test2",
+    "2": "test3",
+    "3": "test4",
+    "4": "test5"
+  },
+  "gameLoadingScript1": {
+    "0": "GameInfoScriptTest1",
+    "1": "GameInfoScriptTest2",
+    "2": "GameInfoScriptTest3",
+    "3": "GameInfoScriptTest4",
+    "4": "GameInfoScriptTest5"
+  },
+  "gameLoadingScript2": {
+    "0": "GameInfoScriptTest10",
+    "1": "GameInfoScriptTest20",
+    "2": "GameInfoScriptTest30",
+    "3": "GameInfoScriptTest40",
+    "4": "GameInfoScriptTest50"
+  }
+}
