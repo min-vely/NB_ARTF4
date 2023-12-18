@@ -12,7 +12,7 @@ namespace Scripts.Event.UI
     }
     public class UI_EventHandler : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        private static Dictionary<UIEventType, Action<PointerEventData>> EventHandlers => new();
+        private Dictionary<UIEventType, Action<PointerEventData>> EventHandlers = new();
 
         private void InvokeEventAction(UIEventType eventType, PointerEventData eventData)
         {
@@ -21,15 +21,24 @@ namespace Scripts.Event.UI
 
         public void BindEvent(UIEventType eventType, Action<PointerEventData> action)
         {
+            EventHandlers[eventType] = action;
+        }
+
+        public void UnbindEvent(UIEventType eventType)
+        {
             if (EventHandlers.ContainsKey(eventType))
             {
-                EventHandlers[eventType] -= action;
+                EventHandlers.Remove(eventType);
             }
-            EventHandlers[eventType] += action;
         }
 
         public void OnPointerClick(PointerEventData eventData) => InvokeEventAction(Click, eventData);
         public void OnPointerEnter(PointerEventData eventData) => InvokeEventAction(PointerEnter, eventData);
         public void OnPointerExit(PointerEventData eventData) => InvokeEventAction(PointerExit, eventData);
+
+        private void OnDestroy()
+        {
+            EventHandlers.Clear();
+        }
     }
 }

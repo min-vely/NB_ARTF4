@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: NPC_Character_Prefab Group
+  m_EditorClassIdentifier: 
+  m_GroupName: NPC_Character_Prefab Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b2e4ae2cabab7244f9e33919911231b9
+  m_SerializeEntries:
+  - m_GUID: c717f817a496cf247a92b830b355a407
+    m_Address: FantasyBee.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainScene
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9c71194f839de0045bd7cba7451810ba, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 45dc244d54386974db35ad1f01d43a02, type: 2}
+    - {fileID: 11400000, guid: af58a546832a67845923afbf2effa73f, type: 2}

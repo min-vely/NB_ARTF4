@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class KillZone : MonoBehaviour
 {
-    void OnTriggerEnter(Collider col)
+    private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Player")
         {
-			col.gameObject.GetComponent<CharacterControls>().LoadCheckPoint();
-		}
+			//col.gameObject.GetComponent<CharacterControls>().LoadCheckPoint();
+            col.gameObject.GetComponent<PlayerController>().LoadCheckPoint();
+        }
 	}
 }

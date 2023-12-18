@@ -46,7 +46,7 @@ namespace Scripts.UI.Scene_UI
 
         private void OptionOpen(PointerEventData obj)
         {
-            Main.UI.OpenOptionPopup<Option_Popup>();
+            Main.UI.OpenPopup<Option_Popup>();
         }
 
         private void StartGame(PointerEventData obj)

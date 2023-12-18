@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/@Scenes/TestScene 1.unity.meta
+guid: 8409acac6bc764ef2b0abc2c6e720209
+========
 guid: 44626807dc162b047a28ee7a5d09ad65
 folderAsset: yes
+>>>>>>>> Develop1.0:Assets/@Resources/@CSV.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
