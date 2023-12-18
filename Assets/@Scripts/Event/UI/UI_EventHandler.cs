@@ -21,18 +21,24 @@ namespace Scripts.Event.UI
 
         public void BindEvent(UIEventType eventType, Action<PointerEventData> action)
         {
-            if (!EventHandlers.ContainsKey(eventType))
+            EventHandlers[eventType] = action;
+        }
+
+        public void UnbindEvent(UIEventType eventType)
+        {
+            if (EventHandlers.ContainsKey(eventType))
             {
-                EventHandlers[eventType] = action;
-            }
-            else
-            {
-                EventHandlers[eventType] += action;
+                EventHandlers.Remove(eventType);
             }
         }
 
         public void OnPointerClick(PointerEventData eventData) => InvokeEventAction(Click, eventData);
         public void OnPointerEnter(PointerEventData eventData) => InvokeEventAction(PointerEnter, eventData);
         public void OnPointerExit(PointerEventData eventData) => InvokeEventAction(PointerExit, eventData);
+
+        private void OnDestroy()
+        {
+            EventHandlers.Clear();
+        }
     }
 }
