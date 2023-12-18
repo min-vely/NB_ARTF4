@@ -84,9 +84,9 @@ public class ResourceManager : MonoBehaviour
     /// <summary>
     /// 특정 라벨에 속한 모든 리소스를 비동기 방식으로 언로드합니다.
     /// </summary>
-    public void UnloadAllAsync(string label)
+    public void UnloadAllAsync<T>(string label) where T : UnityEngine.Object
     {
-        var operation = Addressables.LoadResourceLocationsAsync(label);
+        var operation = Addressables.LoadResourceLocationsAsync(label, typeof(T));
         operation.Completed += operationHandle =>
         {
             foreach (var result in operationHandle.Result)
