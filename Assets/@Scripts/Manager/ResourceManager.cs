@@ -18,11 +18,11 @@ public class ResourceManager : MonoBehaviour
     #region Fields
     private Dictionary<string, UnityEngine.Object> _resources = new();
     #endregion
-    // ¸®¼Ò½º ºñµ¿±â ·Îµå ¸Ş¼­µå
+    // ë¦¬ì†ŒìŠ¤ ë¹„ë™ê¸° ë¡œë“œ ë©”ì„œë“œ
     #region Asynchronous Loading
 
     /// <summary>
-    /// Äİ¹éÀ» Ã³¸®ÇÏ´Â Á¦³×¸¯ ÇÚµé·¯ÀÔ´Ï´Ù.
+    /// ì½œë°±ì„ ì²˜ë¦¬í•˜ëŠ” ì œë„¤ë¦­ í•¸ë“¤ëŸ¬ì…ë‹ˆë‹¤.
     /// </summary>
     private void AsyncHandelerCallback<T>(string key, AsyncOperationHandle<T> handle, Action<T> callback) where T : UnityEngine.Object
     {
@@ -34,7 +34,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ºñµ¿±â ¹æ½ÄÀ¸·Î ¸®¼Ò½º¸¦ ·ÎµåÇÏ°í Äİ¹éÀ» È£ÃâÇÕ´Ï´Ù.
+    /// ë¹„ë™ê¸° ë°©ì‹ìœ¼ë¡œ ë¦¬ì†ŒìŠ¤ë¥¼ ë¡œë“œí•˜ê³  ì½œë°±ì„ í˜¸ì¶œí•©ë‹ˆë‹¤.
     /// </summary>
     public void LoadAsync<T>(string key, Action<T> callback = null) where T : UnityEngine.Object
     {
@@ -59,7 +59,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Æ¯Á¤ ¶óº§¿¡ ¼ÓÇÑ ¸ğµç ¸®¼Ò½º¸¦ ºñµ¿±â ¹æ½ÄÀ¸·Î ·ÎµåÇÏ°í Äİ¹éÀ» È£ÃâÇÕ´Ï´Ù.
+    /// íŠ¹ì • ë¼ë²¨ì— ì†í•œ ëª¨ë“  ë¦¬ì†ŒìŠ¤ë¥¼ ë¹„ë™ê¸° ë°©ì‹ìœ¼ë¡œ ë¡œë“œí•˜ê³  ì½œë°±ì„ í˜¸ì¶œí•©ë‹ˆë‹¤.
     /// </summary>
     public void AllLoadAsync<T>(string label, Action<string, int, int> callback) where T : UnityEngine.Object
     {
@@ -79,7 +79,7 @@ public class ResourceManager : MonoBehaviour
         };
     }
     /// <summary>
-    /// Æ¯Á¤ ¶óº§¿¡ ¼ÓÇÑ ¸ğµç ¸®¼Ò½º¸¦ ºñµ¿±â ¹æ½ÄÀ¸·Î ¾ğ·ÎµåÇÕ´Ï´Ù.
+    /// íŠ¹ì • ë¼ë²¨ì— ì†í•œ ëª¨ë“  ë¦¬ì†ŒìŠ¤ë¥¼ ë¹„ë™ê¸° ë°©ì‹ìœ¼ë¡œ ì–¸ë¡œë“œí•©ë‹ˆë‹¤.
     /// </summary>
     public void UnloadAllAsync<T>(string label) where T : UnityEngine.Object
     {
@@ -92,34 +92,34 @@ public class ResourceManager : MonoBehaviour
                 {
                     Addressables.Release(resource);
                     _resources.Remove(result.PrimaryKey);
-                    Debug.Log($"{resource} ¾ğ·Îµå");
+                    Debug.Log($"{resource} ì–¸ë¡œë“œ");
                 }
             }
         };
     }
     #endregion
-    // ¸®¼Ò½º µ¿±â ·Îµå&¾ğ·Îµå ¸Ş¼­µå
+    // ë¦¬ì†ŒìŠ¤ ë™ê¸° ë¡œë“œ&ì–¸ë¡œë“œ ë©”ì„œë“œ
     #region Synchronous Loading
 
     /// <summary>
-    /// ¸®¼Ò½º¸¦ µ¿±âÀûÀ¸·Î ·ÎµåÇÕ´Ï´Ù.
+    /// ë¦¬ì†ŒìŠ¤ë¥¼ ë™ê¸°ì ìœ¼ë¡œ ë¡œë“œí•©ë‹ˆë‹¤.
     /// </summary>
     public T Load<T>(string key) where T : UnityEngine.Object
     {
         if (!_resources.TryGetValue(key, out UnityEngine.Object resource))
         {
-            Debug.LogError($"Å°¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù. : {key}");
+            Debug.LogError($"í‚¤ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. : {key}");
             return null;
         }
         return resource as T;
     }
 
     #endregion
-    // ÇÁ¸®Æé ÀÎ½ºÅÏ½ºÈ­ ¸Ş¼­µå
+    // í”„ë¦¬í© ì¸ìŠ¤í„´ìŠ¤í™” ë©”ì„œë“œ
     #region Instantiation
 
     /// <summary>
-    /// ÇÁ¸®ÆÕÀ» ÀÎ½ºÅÏ½ºÈ­ÇÏ°í »ı¼ºµÈ ÀÎ½ºÅÏ½º¸¦ ¹İÈ¯ÇÕ´Ï´Ù.
+    /// í”„ë¦¬íŒ¹ì„ ì¸ìŠ¤í„´ìŠ¤í™”í•˜ê³  ìƒì„±ëœ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.
     /// </summary>
     public GameObject InstantiatePrefab(string key, Transform transform = null)
     {
@@ -129,7 +129,7 @@ public class ResourceManager : MonoBehaviour
 
         if (instance == null)
         {
-            Debug.LogError($"¸®¼Ò½º¸¦ ÀÎ½ºÅÏ½ºÈ­ÇÏÁö ¸øÇß½À´Ï´Ù.: { key}");
+            Debug.LogError($"ë¦¬ì†ŒìŠ¤ë¥¼ ì¸ìŠ¤í„´ìŠ¤í™”í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.: { key}");
             return null;
         }
         return instance;
