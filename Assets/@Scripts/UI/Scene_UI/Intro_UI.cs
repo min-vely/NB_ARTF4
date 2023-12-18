@@ -32,8 +32,8 @@ namespace Scripts.UI.Scene_UI
         {
             if (!base.Initialized()) return false;
             SetButton(typeof(Buttons));
-            GetButton((int)Buttons.StartBtn).gameObject.SetEvent(UIEventType.Click, StartGame);
-            GetButton((int)Buttons.ContinueBtn).gameObject.SetEvent(UIEventType.Click,StartGame);
+            // GetButton((int)Buttons.StartBtn).gameObject.SetEvent(UIEventType.Click, StartGame);
+            // GetButton((int)Buttons.ContinueBtn).gameObject.SetEvent(UIEventType.Click,StartGame);
             GetButton((int)Buttons.OptionBtn).gameObject.SetEvent(UIEventType.Click,OptionOpen);
             GetButton((int)Buttons.ExitBtn).gameObject.SetEvent(UIEventType.Click, ShutdownGame);
             return true;
@@ -46,7 +46,7 @@ namespace Scripts.UI.Scene_UI
 
         private void OptionOpen(PointerEventData obj)
         {
-            Main.UI.OpenOptionPopup<Option_Popup>();
+            Main.UI.OpenPopup<Option_Popup>();
         }
 
         private void StartGame(PointerEventData obj)

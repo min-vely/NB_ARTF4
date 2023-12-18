@@ -12,7 +12,7 @@ namespace Scripts.Event.UI
     }
     public class UI_EventHandler : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        private static Dictionary<UIEventType, Action<PointerEventData>> EventHandlers => new();
+        private static Dictionary<UIEventType, Action<PointerEventData>> EventHandlers = new();
 
         private void InvokeEventAction(UIEventType eventType, PointerEventData eventData)
         {
@@ -21,11 +21,14 @@ namespace Scripts.Event.UI
 
         public void BindEvent(UIEventType eventType, Action<PointerEventData> action)
         {
-            if (EventHandlers.ContainsKey(eventType))
+            if (!EventHandlers.ContainsKey(eventType))
             {
-                EventHandlers[eventType] -= action;
+                EventHandlers[eventType] = action;
             }
-            EventHandlers[eventType] += action;
+            else
+            {
+                EventHandlers[eventType] += action;
+            }
         }
 
         public void OnPointerClick(PointerEventData eventData) => InvokeEventAction(Click, eventData);
