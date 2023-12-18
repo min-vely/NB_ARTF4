@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Scripts.Event.UI;
 using Scripts.Scene;
 using Scripts.UI;
 using Scripts.UI.Popup;
@@ -33,7 +34,6 @@ public class UI_Manager : MonoBehaviour
     public T OpenPopup<T>(string objectName = null) where T : Popup
     {
         string objName = NameOfUI<T>(objectName);
-        // TODO : 리소스 매니져 생성 전 강제 인스턴스 화
         T popup = SetUI<T>(objName, UIBase.transform);
         popup.name = $"{objName}";
         _popupOrder.Push(popup);
@@ -41,11 +41,19 @@ public class UI_Manager : MonoBehaviour
         return popup;
     }
 
-    public void ClosePopUp(Popup popup)
+    public void ClosePopUp(Popup popup, List<UIEventType> eventTypes)
     {
         if (_popupOrder.Count == 0) return;
         if (_popupOrder.Peek() != popup) return;
         Popup openPopup = _popupOrder.Pop();
+        var eventHandlers =  openPopup.GetComponents<UI_EventHandler>();
+        foreach (var handler in eventHandlers)
+        {
+            foreach (var eventType in eventTypes)
+            {
+                handler.UnbindEvent(eventType);
+            }
+        }
         _sortByOrderLayer--;
         Destroy(openPopup.gameObject);
         SetTimeScale();
@@ -97,7 +105,6 @@ public class UI_Manager : MonoBehaviour
 
     private void SetTimeScale()
     {
-        Debug.Log(Main.Scene.CurrentScene.ToString());
         if (Main.Scene.CurrentScene != Label.GameScene)
         {
             Time.timeScale = 1;
