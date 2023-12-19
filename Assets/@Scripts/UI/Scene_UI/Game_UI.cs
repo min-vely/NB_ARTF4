@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -26,6 +27,7 @@ public class Game_UI : UI_Base
         Initialized();
     }
 
+
     protected override bool Initialized()
     {
         if (!base.Initialized()) return false;
@@ -40,6 +42,8 @@ public class Game_UI : UI_Base
         _timer += Time.deltaTime;
         GetText((int)Texts.Timer).text = _timer.ToString("N2");
     }
+
+
 
     private void IncreaseDeathCount()
     {

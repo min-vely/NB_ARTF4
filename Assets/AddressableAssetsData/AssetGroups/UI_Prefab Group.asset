@@ -53,6 +53,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - LoadingScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23654721ce6fbcb48bcad5c0ac45a436
+    m_Address: PausePanel_Popup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c71194f839de0045bd7cba7451810ba, type: 2}
   m_SchemaSet:
