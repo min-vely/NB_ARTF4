@@ -1,27 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class FallPlat : MonoBehaviour
 {
 	public float fallTime = 0.5f;
 
+    private void Start()
+    {
+        Main.Obstacle.OnInitializedObstacle += InitializedObstacle;
+    }
 
-	void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
 	{
 		foreach (ContactPoint contact in collision.contacts)
 		{
 			//Debug.DrawRay(contact.point, contact.normal, Color.white);
-			if (collision.gameObject.tag == "Player")
+			if (collision.gameObject.CompareTag("Player"))
 			{
 				StartCoroutine(Fall(fallTime));
 			}
 		}
 	}
 
-	IEnumerator Fall(float time)
+    private IEnumerator Fall(float time)
 	{
 		yield return new WaitForSeconds(time);
-		Destroy(gameObject);
+		gameObject.SetActive(false);
 	}
+
+    private void InitializedObstacle()
+    {
+        gameObject.SetActive(true);
+    }
 }

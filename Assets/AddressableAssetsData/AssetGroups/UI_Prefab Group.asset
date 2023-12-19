@@ -23,12 +23,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - IntroScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0b20b8043d0874bda9e13528ee24e921
-    m_Address: Option_Popup.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - IntroScene
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6b750eaa4ef8542618a7e8d62e56814e
     m_Address: EventSystem.prefab
     m_ReadOnly: 0
@@ -53,11 +47,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - LoadingScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 23654721ce6fbcb48bcad5c0ac45a436
-    m_Address: PausePanel_Popup.prefab
+  - m_GUID: 8a88c04ff92f14673bfe94980789b428
+    m_Address: Option_Popup.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GameScene
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c71194f839de0045bd7cba7451810ba, type: 2}
