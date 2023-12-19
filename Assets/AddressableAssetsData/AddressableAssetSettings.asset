@@ -95,6 +95,8 @@ MonoBehaviour:
     - MainScene
     - Preload
     - IntroScene
+    - SampleScene
+    - GameScene
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 43a09c97fd9c7ad4b94ea4465e7e92c7, type: 2}
