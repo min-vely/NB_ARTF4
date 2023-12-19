@@ -16,6 +16,8 @@ public class UI_Manager : MonoBehaviour
     private int _sortByOrderLayer = 1;
     private Stack<Popup> _popupOrder = new();
     private event Action _onCloseDeathPanel;
+    private event Action _onClosePausePanel;
+
     #endregion
 
     #region Fields
@@ -24,6 +26,11 @@ public class UI_Manager : MonoBehaviour
     {
         add { _onCloseDeathPanel += value; }
         remove { _onCloseDeathPanel -= value; }
+    }
+    public event Action OnClosePausePanel
+    {
+        add { _onClosePausePanel += value; }
+        remove { _onClosePausePanel -= value; }
     }
     #endregion
 
@@ -39,6 +46,7 @@ public class UI_Manager : MonoBehaviour
             return uiBase;
         }
     }
+
 
     public T OpenPopup<T>(string objectName = null) where T : Popup
     {
@@ -117,16 +125,20 @@ public class UI_Manager : MonoBehaviour
         if (Main.Scene.CurrentScene != Label.GameScene)
         {
             Time.timeScale = 1;
-            Debug.Log(Time.timeScale);
             return;
         }
         Time.timeScale = _popupOrder.Count > 0 ? 0 : 1;
-        //Debug.Log(_popupOrder.Count);
     }
 
     public void CloseDeathPanel()
     {
         _onCloseDeathPanel?.Invoke();
         Main.PlayerControl.ToggleCursor(false); // 커서 잠금
+    }
+
+    public void ClosePausePanel()
+    {
+        _onClosePausePanel?.Invoke();
+        Main.PlayerControl.ToggleCursor(false);
     }
 }

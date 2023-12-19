@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 869651626728210775}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4893282739539738310
 PrefabInstance:
@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: C01
       objectReference: {fileID: 0}
+    - target: {fileID: 8315901684680588831, guid: 1235f6fdfe904874cab3c83e4a67727c, type: 3}
+      propertyPath: throwablePrefab
+      value: 
+      objectReference: {fileID: 6788538757290762323, guid: ad4137f595ec8e2449cacca9df7d3735, type: 3}
     - target: {fileID: 8972256737777320423, guid: 1235f6fdfe904874cab3c83e4a67727c, type: 3}
       propertyPath: target
       value: 
