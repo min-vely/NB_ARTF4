@@ -36,7 +36,8 @@ public class Main : MonoBehaviour
     private readonly ResourceManager _resource = new();
     private BaseScene _scene;
     private readonly PlayerController _playerControl = new();
-  
+    private readonly SavePos _savePos = new();
+
     #endregion
 
     #region Properties
@@ -47,6 +48,8 @@ public class Main : MonoBehaviour
     public static BaseScene Scene => Instance._scene;
 
     public static PlayerController PlayerControl => Instance._playerControl;
+
+    public static SavePos SavePos => Instance._savePos;
   
     #endregion
 

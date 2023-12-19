@@ -1,13 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FallPlat : MonoBehaviour
 {
 	public float fallTime = 0.5f;
+    
 
-
-	void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
 	{
 		foreach (ContactPoint contact in collision.contacts)
 		{
@@ -19,9 +19,18 @@ public class FallPlat : MonoBehaviour
 		}
 	}
 
-	IEnumerator Fall(float time)
+    private void Update()
+    {
+        if (Main.SavePos.OnCheckPoint)
+        {
+            Debug.Log(Main.SavePos.OnCheckPoint);
+            transform.gameObject.SetActive(true);
+        }
+    }
+
+    IEnumerator Fall(float time)
 	{
 		yield return new WaitForSeconds(time);
-		Destroy(gameObject);
+		transform.gameObject.SetActive(false);
 	}
 }
