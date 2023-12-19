@@ -25,7 +25,6 @@ namespace Scripts.Scene
         #endregion
 
         #region Properties
-
         public Label CurrentScene
         {
             get
