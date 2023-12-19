@@ -7,6 +7,7 @@ public class CSVLoader
 {
     static string uiFilePath = Application.dataPath + "/@Resources/@CSV/GameUIScript.csv";
     static string itemFilePath = Application.dataPath + "/@Resources/@CSV/GameItemData.csv";
+    static string itemVectorFilePath = Application.dataPath + "/@Resources/@CSV/GameItemPosition.csv";
     /// <summary>
     /// 현재 버전 넘버를 가지고 다르면 업데이트 하는 메서드
     /// </summary>
@@ -100,5 +101,23 @@ public class CSVLoader
 
     }
 
+    internal Vector3DataContainer LordItemVectorFile()
+    {
+        Vector3DataContainer data = new Vector3DataContainer();
+        string csvText = File.ReadAllText(itemVectorFilePath)[..^1];
 
+        string[] itemVectordata = csvText.Split(new char[] { '\n' });
+
+        for (int i = 0; i < itemVectordata.Length; i++)
+        {
+            string[] rowsValues = itemVectordata[i].Split(new char[] { ',' });
+            if (rowsValues[0] != "") continue;
+
+            Vector3Data vector3Data = new Vector3Data(new Vector3(float.Parse(rowsValues[2]), float.Parse(rowsValues[3]), float.Parse(rowsValues[4])));
+
+            data.ItemVectorDate.Add(int.Parse(rowsValues[1]), vector3Data);
+        }
+        return data;
+
+    }
 }

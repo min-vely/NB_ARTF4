@@ -40,6 +40,10 @@ public class Vector3Data
         z = vector.z;
     }
 }
+public class Vector3DataContainer
+{
+    public Dictionary<int, Vector3Data> ItemVectorDate = new Dictionary<int, Vector3Data> { };
+}
 public class DataManager : MonoBehaviour
 {
     public enum DATANAME
@@ -63,8 +67,10 @@ public class DataManager : MonoBehaviour
     {
         var updateUIDate = csv.LordUIFile();
         var updateItemDate = csv.LordItemFile();
+        var itemVertorDate = csv.LordItemVectorFile();
         if (updateUIDate != null) json.JsonLoad(updateUIDate);
         if (updateItemDate != null) json.JsonLoad(updateItemDate);
+        if (itemVertorDate != null) json.JsonLoad(itemVertorDate);
     }
 
     public ItemDataContainer itemLoader()
@@ -86,5 +92,9 @@ public class DataManager : MonoBehaviour
     public Dictionary<int, string> JsonDataLoad(DATANAME dataName)
     {
         return json.JsonDataLoad(dataName);
+    }
+    public Vector3DataContainer ItemVectorDate()
+    {
+        return json.JsonItemVectorLoad();
     }
 }
