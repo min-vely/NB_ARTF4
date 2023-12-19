@@ -16,7 +16,7 @@ public class CSVData
 }
 public class ItemData
 {
-    public int id = 0;
+    public string id = null;
     public string name = null;
     public string category = null;
     public string description = null;
