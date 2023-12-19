@@ -48,19 +48,18 @@ public class DataManager : MonoBehaviour
         gameLoadingScript1,
         gameLoadingScript2
     }
-    [SerializeField] private TextAsset csvFile;
     CSVLoader csv = new CSVLoader();
     JsonLoader json = new JsonLoader();
 
 
     void Start()
     {
-        UpdateVersion();
+        
     }
     /// <summary>
     /// CSV파일 상단 버전이 바뀌어 있으면 Json파일을 업데이트
     /// </summary>
-    void UpdateVersion()
+    public void UpdateVersion()
     {
         var updateUIDate = csv.LordUIFile();
         var updateItemDate = csv.LordItemFile();
@@ -83,5 +82,9 @@ public class DataManager : MonoBehaviour
     public Vector3 GetCheckPoint()
     {
         return json.GetCheckPoint();
+    }
+    public Dictionary<int, string> JsonDataLoad(DATANAME dataName)
+    {
+        return json.JsonDataLoad(dataName);
     }
 }

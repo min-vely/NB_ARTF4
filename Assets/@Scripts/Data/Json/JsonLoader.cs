@@ -69,7 +69,7 @@ public class JsonLoader
     /// </summary>
     /// <param name="dataName"></param>
     /// <returns></returns>
-    internal Dictionary<int, string> JsonDataLoad(DataManager.DATANAME dataName)
+    internal Dictionary<int, string> JsonDataLoad(DATANAME dataName)
     {
         // 값을 받을 Dictionary 생성
         Dictionary<int, string> result = null;
