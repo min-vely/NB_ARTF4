@@ -39,6 +39,7 @@ namespace Scripts.Scene
         private void OpenDeathPopUp()
         {
             Main.UI.OpenPopup<DiePanel_Popup>();
+            Main.PlayerControl.ToggleCursor(true); // 커서 잠금해제
         }
     }
 }

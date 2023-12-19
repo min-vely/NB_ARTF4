@@ -117,13 +117,16 @@ public class UI_Manager : MonoBehaviour
         if (Main.Scene.CurrentScene != Label.GameScene)
         {
             Time.timeScale = 1;
+            Debug.Log(Time.timeScale);
             return;
         }
         Time.timeScale = _popupOrder.Count > 0 ? 0 : 1;
+        //Debug.Log(_popupOrder.Count);
     }
 
     public void CloseDeathPanel()
     {
         _onCloseDeathPanel?.Invoke();
+        Main.PlayerControl.ToggleCursor(false); // 커서 잠금
     }
 }
