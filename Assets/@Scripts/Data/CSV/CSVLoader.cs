@@ -87,11 +87,12 @@ public class CSVLoader
             ItemData item = new ItemData();
             string[] rowsValues = itemdata[i].Split(new char[] { ',' });
             if (rowsValues[0] == "") continue;
-            item.name = rowsValues[1];
-            item.category = rowsValues[2];
-            item.description = rowsValues[3];
-            item.quantity = int.Parse(rowsValues[4]);
-            item.power = float.Parse(rowsValues[5]);
+            item.id = rowsValues[1];
+            item.name = rowsValues[2];
+            item.category = rowsValues[3];
+            item.description = rowsValues[4];
+            item.duration = float.Parse(rowsValues[5]);
+            item.power = float.Parse(rowsValues[6]);
 
             data.Items.Add(int.Parse(rowsValues[0]), item);
         }

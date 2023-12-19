@@ -16,10 +16,11 @@ public class CSVData
 }
 public class ItemData
 {
+    public string id = null;
     public string name = null;
     public string category = null;
     public string description = null;
-    public int quantity = 0;
+    public float duration = 0;
     public float power = 0;
 }
 public class ItemDataContainer
