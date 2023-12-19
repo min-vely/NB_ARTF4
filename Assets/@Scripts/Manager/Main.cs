@@ -36,20 +36,18 @@ public class Main : MonoBehaviour
     private readonly ResourceManager _resource = new();
     private BaseScene _scene;
     private readonly PlayerController _playerControl = new();
-    private readonly SavePos _savePos = new();
-
+    private readonly ObstacleManager _obstacle = new();
+  
     #endregion
 
     #region Properties
-
+    public static string NextScene { get; set; }
     public static UI_Manager UI => Instance._ui;
     public static SetBinder SetBinder => Instance._setBinder;
     public static ResourceManager Resource => Instance._resource;
     public static BaseScene Scene => Instance._scene;
-
     public static PlayerController PlayerControl => Instance._playerControl;
-
-    public static SavePos SavePos => Instance._savePos;
+    public static ObstacleManager Obstacle => Instance._obstacle;
   
     #endregion
 

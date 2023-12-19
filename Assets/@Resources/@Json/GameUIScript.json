@@ -1,7 +1,4 @@
 {
-  "version": {
-    "CurrentVersion": 1.0
-  },
   "gameOverScript": {
     "0": "test1",
     "1": "test2",

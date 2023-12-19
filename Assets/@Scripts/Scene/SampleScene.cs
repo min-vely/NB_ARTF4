@@ -18,7 +18,7 @@ namespace Scripts.Scene
 
         private void LoadResource()
         {
-            if (Main.Resource.LoadIntro)
+            if (Main.Resource.LoadGame)
             {
                 // TODO : 로드가 되어있다면, 추가적인 초기화 필요
                 Main.UI.SetSceneUI<Game_UI>();
@@ -30,7 +30,7 @@ namespace Scripts.Scene
                 {
                     Debug.Log($"[{sceneType}] Load asset {key} ({count}/{totalCount})");
                     if (count < totalCount) return;
-                    Main.Resource.LoadIntro = true;
+                    Main.Resource.LoadGame = true;
                     // TODO : 추가적인 초기화 필요
                     Main.UI.SetSceneUI<Game_UI>();
                 });

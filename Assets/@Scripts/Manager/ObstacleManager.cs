@@ -1,18 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Scripts.Scene;
 using UnityEngine;
 
-public class ObstacleManager : MonoBehaviour
+public class ObstacleManager
 {
-    // Start is called before the first frame update
-    void Start()
+    public event Action OnInitializedObstacle;
+
+    public void Initialized()
     {
-        
+        KillZone.OnDeath += InitializedObstacle;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitializedObstacle()
     {
-        
+        OnInitializedObstacle?.Invoke();
     }
 }

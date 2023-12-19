@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private Animator _animator;
     public static PlayerController instance;
+    private static readonly int Throw = Animator.StringToHash("Throw");
 
     public Vector2 CurMovementInput
     {
@@ -143,7 +144,7 @@ public class PlayerController : MonoBehaviour
             // 쿨타임 초기화
             lastThrowTime = Time.time;
 
-            _animator.SetTrigger("Throw");
+            _animator.SetTrigger(Throw);
 
             // 플레이어 기준 공 발사 위치
             Vector3 throwPosition = transform.position + transform.forward * 0.8f + transform.right * 0.7f + Vector3.up * 1.2f;
