@@ -126,7 +126,7 @@ public class JsonLoader
 
             // 받아온 값을 이용하여 해당 값에 일치하는 데이터를 JObject로 가져옴
             JObject jsonObjectItem = (JObject)jsonObject["Items"][itemNo.ToString()];
-            
+            result.id = jsonObjectItem["id"].Value<int>();
             result.name = jsonObjectItem["name"].Value<string>();
             result.category = jsonObjectItem["category"].Value<string>();
             result.description = jsonObjectItem["description"].Value<string>();
