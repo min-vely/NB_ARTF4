@@ -130,7 +130,7 @@ public class JsonLoader
             result.name = jsonObjectItem["name"].Value<string>();
             result.category = jsonObjectItem["category"].Value<string>();
             result.description = jsonObjectItem["description"].Value<string>();
-            result.quantity = jsonObjectItem["quantity"].Value<int>();
+            result.duration = jsonObjectItem["duration"].Value<int>();
             result.power = jsonObjectItem["power"].Value<float>();
         }
         // 없으면 null 있으면 Dictionary를 반환
