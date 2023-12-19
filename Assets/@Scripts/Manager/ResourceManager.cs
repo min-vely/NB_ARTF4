@@ -36,6 +36,21 @@ public class ResourceManager : MonoBehaviour
         };
     }
 
+    private void AsyncHandlerAtlasCallback<T>(string key, AsyncOperationHandle<IList<T>> handle, Action<IList<T>> cb) where T : UnityEngine.Object
+    {
+        handle.Completed += operationHandle =>
+        {
+            IList<T> resultList = operationHandle.Result;
+            // 리스트의 각 아이템을 _resources에 추가합니다.
+            for (int i = 0; i < resultList.Count; i++)
+            {
+                string resourceKey = $"{key}[{i}]"; // 리스트 아이템에 대한 고유 키
+                _resources.Add(resourceKey, resultList[i]);
+            }
+            cb?.Invoke(resultList);
+        };
+    }
+
     /// <summary>
     /// 비동기 방식으로 리소스를 로드하고 콜백을 호출합니다.
     /// </summary>
@@ -48,7 +63,12 @@ public class ResourceManager : MonoBehaviour
             return;
         }
 
-        if (loadKey.Contains(".sprite"))
+        if (key.Contains(".multiSprite"))
+        {
+            AsyncOperationHandle<IList<Sprite>> handle = Addressables.LoadAssetAsync<IList<Sprite>>(loadKey);
+            AsyncHandlerAtlasCallback(key, handle, objs => callback?.Invoke(objs as T));
+        }
+        else if (loadKey.Contains(".sprite"))
         {
             loadKey = $"{key}[{key.Replace(".sprite", "")}]";
             AsyncOperationHandle<Sprite> handle = Addressables.LoadAssetAsync<Sprite>(loadKey);
