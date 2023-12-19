@@ -1,80 +1,65 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-
-
-
-/// <summary>
-/// SCVÆÄÀÏ¿¡ µé¾îÀÖ´Â °ªÀ» ´ãÀ» DictionaryÀ» ¸ğ¾ÆµĞ Å¬·¡½º
-/// </summary>
-public class CSVData
-{
-    public Dictionary<string, float> version = new Dictionary<string, float> { };
-    public Dictionary<int, string> gameOverScript = new Dictionary<int, string> { };
-    public Dictionary<int, string> gameLoadingScript1 = new Dictionary<int, string> { };
-    public Dictionary<int, string> gameLoadingScript2 = new Dictionary<int, string> { };
-    //CSVÆÄÀÏ¿¡ µ¢¾î¸® ÇÏ³ª Ãß°¡½Ã ¿©±â¿¡ Dictionary Ãß°¡ ¹× RowCheck()¿¡ ÇØ´ç µ¢¾î¸® Á¦¸ñÀ¸·Î ½ºÀ§Ä¡ ¹® ÇÏ³ª Ãß°¡ÇÏ¸é µË´Ï´Ù.
-}
 public class CSVLoader
 {
+    static string uiFilePath = Application.dataPath + "/@Resources/@CSV/GameUIScript.csv";
+    static string itemFilePath = Application.dataPath + "/@Resources/@CSV/GameItemData.csv";
     /// <summary>
-    /// ÇöÀç ¹öÀü ³Ñ¹ö¸¦ °¡Áö°í ´Ù¸£¸é ¾÷µ¥ÀÌÆ® ÇÏ´Â ¸Ş¼­µå
+    /// í˜„ì¬ ë²„ì „ ë„˜ë²„ë¥¼ ê°€ì§€ê³  ë‹¤ë¥´ë©´ ì—…ë°ì´íŠ¸ í•˜ëŠ” ë©”ì„œë“œ
     /// </summary>
     /// <param name="csvFile"></param>
     /// <param name="version"></param>
     /// <returns></returns>
-    internal CSVData LordFile(TextAsset csvFile, float version)
+    internal CSVData LordUIFile()
     {
-        //»õ·Î¿î  CSVData °´Ã¼ »ı¼º
+        //ìƒˆë¡œìš´  CSVData ê°ì²´ ìƒì„±
         CSVData data = new();
 
-        //°¢ °ªÀÌ ¹Ù²ğ ¶§¸¶´Ù ÇØ´ç Dictionary¸¦ ¹Ù²ãÁÖ´Â Dictionary
+        //ê° ê°’ì´ ë°”ë€” ë•Œë§ˆë‹¤ í•´ë‹¹ Dictionaryë¥¼ ë°”ê¿”ì£¼ëŠ” Dictionary
         Dictionary<int, string> addDate = null;
 
-        //CSVÆÄÀÏÀÇ ¸¶Áö¸· ,À» Áö¿öÁÜ
-        string csvText = csvFile.text[..^1];
+        //CSVíŒŒì¼ì˜ ë§ˆì§€ë§‰ ,ì„ ì§€ì›Œì¤Œ
 
-        //CSVÆÄÀÏÀ» ÁÙ º°·Î Àß¶ó ¹è¿­·Î ¸¸µé¾îÁÜ
+        string csvText = File.ReadAllText(uiFilePath)[..^1];
+
+        //CSVíŒŒì¼ì„ ì¤„ ë³„ë¡œ ì˜ë¼ ë°°ì—´ë¡œ ë§Œë“¤ì–´ì¤Œ
         string[] rows = csvText.Split(new char[] { '\n' });
 
-        // rowsÀ» for¹®À» ÅëÇØ ¹İº¹ Ã³¸®
+        // rowsì„ forë¬¸ì„ í†µí•´ ë°˜ë³µ ì²˜ë¦¬
         for (int i = 0; i < rows.Length; i++)
         {
-            //rowsÀ» ´Ù½Ã ÇÑ¹ø , À» ±âÁØÀ¸·Î Àß¶óÁÜ
+            //rowsì„ ë‹¤ì‹œ í•œë²ˆ , ì„ ê¸°ì¤€ìœ¼ë¡œ ì˜ë¼ì¤Œ
             string[] rowsValues = rows[i].Split(new char[] { ',' });
 
-            // rowsValuesÀÇ Ã¹°ª Áï CSVÀÇ Ã¹¹øÂ° °ªÀÌ Á¸ÀçÇÏ¸é Ã³¸®ÇÒ if¹®
+            // rowsValuesì˜ ì²«ê°’ ì¦‰ CSVì˜ ì²«ë²ˆì§¸ ê°’ì´ ì¡´ì¬í•˜ë©´ ì²˜ë¦¬í•  ifë¬¸
             if (rowsValues[0] != "")
             {
-                //jsonÆÄÀÏÀÇ ¹öÀü°ú csvÆÄÀÏÀÇ ¹öÀüÀÌ ÀÏÄ¡ÇÑ´Ù¸é nullÀ» ¸®ÅÏ
-                if (i == 0 && float.Parse(rowsValues[2]) == version) return null;
-                //¾Æ´Ï¶ó¸é 0¹øÂ° ÀÎµ¦½º¿¡ °ª¿¡ µû¶ó ¹èÄ¡¸¦ ¹Ù²ãÁÖ´Â ÀÎµ¦½º ½ÇÇà
+                //ì•„ë‹ˆë¼ë©´ 0ë²ˆì§¸ ì¸ë±ìŠ¤ì— ê°’ì— ë”°ë¼ ë°°ì¹˜ë¥¼ ë°”ê¿”ì£¼ëŠ” ì¸ë±ìŠ¤ ì‹¤í–‰
                 RowCheck(data, rowsValues, ref addDate);
-                // ¾Æ·¡ ÄÚµå¸¦ ½ÇÇàÇÏÁö ¾Ê°í ´ÙÀ½ ¹İº¹¹® ½ÇÇà
+                // ì•„ë˜ ì½”ë“œë¥¼ ì‹¤í–‰í•˜ì§€ ì•Šê³  ë‹¤ìŒ ë°˜ë³µë¬¸ ì‹¤í–‰
                 continue;
             }
-            //Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é ÇØ´ç 1¹øÂ° ÀÎµ¦½º¿Í 2¹øÂ° ÀÎµ¦½ºÀÇ °ªÀ» Dictionary¿¡ ´ã¾ÆÁÜ
+            //ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ í•´ë‹¹ 1ë²ˆì§¸ ì¸ë±ìŠ¤ì™€ 2ë²ˆì§¸ ì¸ë±ìŠ¤ì˜ ê°’ì„ Dictionaryì— ë‹´ì•„ì¤Œ
             addDate.Add(int.Parse(rowsValues[1]), rowsValues[2][..^1]);
         }
-        // ÇØ´ç for¹®ÀÇ ¹İº¹ÀÌ ³¡³ª¸é ÇØ´ç µ¥ÀÌÅÍ¸¦ ¸®ÅÏ
+        // í•´ë‹¹ forë¬¸ì˜ ë°˜ë³µì´ ëë‚˜ë©´ í•´ë‹¹ ë°ì´í„°ë¥¼ ë¦¬í„´
         return data;
     }
 
     /// <summary>
-    /// °¢ ÆÄÀÏÀÇ ¹èÄ¡°¡ ³Ñ¾î°¥ ¶§ ¹èÄ¡¸¦ ¹Ù²ãÁÖ´Â ¸Ş¼­µå
+    /// ê° íŒŒì¼ì˜ ë°°ì¹˜ê°€ ë„˜ì–´ê°ˆ ë•Œ ë°°ì¹˜ë¥¼ ë°”ê¿”ì£¼ëŠ” ë©”ì„œë“œ
     /// </summary>
     /// <param name="data"></param>
     /// <param name="rowValues"></param>
     /// <param name="addDate"></param>
     private void RowCheck(CSVData data, string[] rowValues, ref Dictionary<int, string> addDate)
     {
-        // ½ºÀ§Ä¡¹® Áö¾çÇØ¾ßÇÏ´Âµ¥ µµ´ëÃ¼ ¾îÄ³ÇØ¾ßÇÏ´© Èûµé´Ù.
+        // ìŠ¤ìœ„ì¹˜ë¬¸ ì§€ì–‘í•´ì•¼í•˜ëŠ”ë° ë„ëŒ€ì²´ ì–´ìºí•´ì•¼í•˜ëˆ„ í˜ë“¤ë‹¤.
         switch (rowValues[0])
         {
-            case "Version":
-                data.version.Add(rowValues[1], float.Parse(rowValues[2]));
-                break;
             case "GameOverScript":
                 addDate = data.gameOverScript;
                 break;
@@ -86,4 +71,33 @@ public class CSVLoader
                 break;
         }
     }
+
+    internal ItemDataContainer LordItemFile()
+    {
+        ItemDataContainer data = new ItemDataContainer();
+
+        
+
+        string csvText = File.ReadAllText(itemFilePath)[..^1];
+
+        string[] itemdata = csvText.Split(new char[] { '\n' });
+
+        for (int i = 0; i < itemdata.Length; i++)
+        {
+            ItemData item = new ItemData();
+            string[] rowsValues = itemdata[i].Split(new char[] { ',' });
+            if (rowsValues[0] == "") continue;
+            item.name = rowsValues[1];
+            item.category = rowsValues[2];
+            item.description = rowsValues[3];
+            item.quantity = int.Parse(rowsValues[4]);
+            item.power = float.Parse(rowsValues[5]);
+
+            data.Items.Add(int.Parse(rowsValues[0]), item);
+        }
+        return data;
+
+    }
+
+
 }

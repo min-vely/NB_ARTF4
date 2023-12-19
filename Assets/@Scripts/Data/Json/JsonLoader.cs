@@ -4,17 +4,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static DataManager;
 
 
 public class JsonLoader
 {
-    // json ·Îµå¸¦ À§ÇÑ ÆÄÀÏÆĞ½º
-    static string filePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameUIScript.json");
-    
-    
+    // json ë¡œë“œë¥¼ ìœ„í•œ íŒŒì¼íŒ¨ìŠ¤
+    static string uiFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameUIScript.json");
+    static string itemFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameItemData.json");
+    static string savePointFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/SavePoint.json");
     /// <summary>
-    /// ÆÄÀÏ ÆĞ½º¸¦ °¡Áö°í Á¦ÀÌ½¼ ÆÄÀÏÀ» ÀĞ¾î¿À´Â ¸Ş¼­µå
+    /// íŒŒì¼ íŒ¨ìŠ¤ë¥¼ ê°€ì§€ê³  ì œì´ìŠ¨ íŒŒì¼ì„ ì½ì–´ì˜¤ëŠ” ë©”ì„œë“œ
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
@@ -22,12 +25,12 @@ public class JsonLoader
     {
         try
         {
-            //ÆÄÀÏ ÆĞ½º¸¦ °¡Áö°í °ªÀ» °¡Á®¿À´Âµ¥ ¼º°øÇÏ¸é jsonÀÇ ¸ğµç °ªÀ» stringÀ¸·Î ÆÄ½Ì
+            //íŒŒì¼ íŒ¨ìŠ¤ë¥¼ ê°€ì§€ê³  ê°’ì„ ê°€ì ¸ì˜¤ëŠ”ë° ì„±ê³µí•˜ë©´ jsonì˜ ëª¨ë“  ê°’ì„ stringìœ¼ë¡œ íŒŒì‹±
             return File.ReadAllText(filePath);
         }
         catch (Exception e)
         {
-            //½ÇÆĞÇÏ¸é ¹ö±× ¸Ş½ÃÁö Ãâ·Â ÈÄ null¸®ÅÏ
+            //ì‹¤íŒ¨í•˜ë©´ ë²„ê·¸ ë©”ì‹œì§€ ì¶œë ¥ í›„ nullë¦¬í„´
             Debug.LogError("Error reading JSON file: " + e.Message);
             return null;
         }
@@ -35,74 +38,118 @@ public class JsonLoader
   
     
     /// <summary>
-    /// µ¥ÀÌÅÍ°¡ ºó°ªÀÌ ¾Æ´Ï¶ó¸é °¡Áö°í ¿Â µ¥ÀÌÅÍ¸¦ °¡Áö°í ÇöÀç json ÆÄÀÏÀ» »õ·Î ¾²´Â ¸Ş¼­µå
+    /// ë°ì´í„°ê°€ ë¹ˆê°’ì´ ì•„ë‹ˆë¼ë©´ ê°€ì§€ê³  ì˜¨ ë°ì´í„°ë¥¼ ê°€ì§€ê³  í˜„ì¬ json íŒŒì¼ì„ ìƒˆë¡œ ì“°ëŠ” ë©”ì„œë“œ
     /// </summary>
     /// <param name="updateDate"></param>
-    internal void JsonLoad(CSVData updateDate)
+    internal void JsonLoad(CSVData updateUIDate)
     {
-        // ¹ŞÀº CSVData ÆÄÀÏÀ» jsonÆÄÀÏ·Î Á÷·ÄÈ­
-        string json = JsonConvert.SerializeObject(updateDate, Formatting.Indented);
+        // ë°›ì€ CSVData íŒŒì¼ì„ jsoníŒŒì¼ë¡œ ì§ë ¬í™”
+        string json = JsonConvert.SerializeObject(updateUIDate, Formatting.Indented);
 
-        using (StreamWriter file = File.CreateText(filePath))
+        using (StreamWriter file = File.CreateText(uiFilePath))
         {
-            //StreamWriterÀ» »ç¿ëÇÏ¿© json ÀÛ¼º
+            //StreamWriterì„ ì‚¬ìš©í•˜ì—¬ json ì‘ì„±
+            file.Write(json);
+        }
+    }
+    internal void JsonLoad(ItemDataContainer updateItemDate)
+    {
+        string json = JsonConvert.SerializeObject(updateItemDate, Formatting.Indented);
+
+        using (StreamWriter file = File.CreateText(itemFilePath))
+        {
+            //StreamWriterì„ ì‚¬ìš©í•˜ì—¬ json ì‘ì„±
             file.Write(json);
         }
     }
 
-    /// <summary>
-    /// json ÆÄÀÏÀÇ ¹öÀüÀ» È®ÀÎ ÇÏ´Â ¸Ş¼­µå
-    /// </summary>
-    /// <returns></returns>
-    internal float JsonVersionLoad()
-    {
-        // ÆÄÀÏ ÆĞ½º¸¦ ÀÌ¿ëÇÏ¿© json ÆÄÀÏ stringÀ¸·Î °¡Á®¿À±â
-        string jsonContent = ReadJsonFile(filePath);
-
-        // ÇØ´ç °ªÀÌ ºñ¾îÀÖÁö ¾Ê´Ù¸é ½ÇÇà
-        if (!string.IsNullOrEmpty(jsonContent))
-        {
-            // JObject·Î ¸ğµç µ¥ÀÌÅÍ¸¦ º¯È¯
-            JObject jsonObject = JObject.Parse(jsonContent);
-
-            // JObjectÀÇ Å°°ªÀ» ÀÌ¿ëÇÏ¿© ¹öÀü ÃßÃâ
-            float versionValue = jsonObject["version"]["CurrentVersion"].Value<float>();
-
-            // ¸®ÅÏ
-            return versionValue;
-        }
-        // ¾Æ´Ò½Ã 0¸®ÅÏ
-        return 0;
-    }
-
 
     /// <summary>
-    /// jsonÆÄÀÏ¿¡ Å°°ªÀ» °¡Áö°í ÇØ´ç ¾È¿¡ ÀÖ´Â °ªÀ» Dictionary<int, string> Å¸ÀÔÀ¸·Î °¡Á®¿À´Â ¸Ş¼­µå ¾øÀ¸¸é nullÀ» ¹İÈ¯
+    /// jsoníŒŒì¼ì— í‚¤ê°’ì„ ê°€ì§€ê³  í•´ë‹¹ ì•ˆì— ìˆëŠ” ê°’ì„ Dictionary<int, string> íƒ€ì…ìœ¼ë¡œ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ ì—†ìœ¼ë©´ nullì„ ë°˜í™˜
     /// </summary>
     /// <param name="dataName"></param>
     /// <returns></returns>
     internal Dictionary<int, string> JsonDataLoad(DataManager.DATANAME dataName)
     {
-        // °ªÀ» ¹ŞÀ» Dictionary »ı¼º
+        // ê°’ì„ ë°›ì„ Dictionary ìƒì„±
         Dictionary<int, string> result = null;
 
-        // jsonÆÄÀÏ ·Îµå
-        string jsonContent = ReadJsonFile(filePath);
+        // jsoníŒŒì¼ ë¡œë“œ
+        string jsonContent = ReadJsonFile(uiFilePath);
 
-        // ºó°ªÀÌ ¾Æ´Ï¶ó¸é ½ÇÇà
+        // ë¹ˆê°’ì´ ì•„ë‹ˆë¼ë©´ ì‹¤í–‰
         if (!string.IsNullOrEmpty(jsonContent))
         {
-            // JObject·Î ¸ğµç µ¥ÀÌÅÍ¸¦ º¯È¯
+            // JObjectë¡œ ëª¨ë“  ë°ì´í„°ë¥¼ ë³€í™˜
             JObject jsonObject = JObject.Parse(jsonContent);
 
-            // ¹Ş¾Æ¿Â °ªÀ» ÀÌ¿ëÇÏ¿© ÇØ´ç °ª¿¡ ÀÏÄ¡ÇÏ´Â µ¥ÀÌÅÍ¸¦ JObject·Î °¡Á®¿È
+            // ë°›ì•„ì˜¨ ê°’ì„ ì´ìš©í•˜ì—¬ í•´ë‹¹ ê°’ì— ì¼ì¹˜í•˜ëŠ” ë°ì´í„°ë¥¼ JObjectë¡œ ê°€ì ¸ì˜´
             JObject gameLoadingScript1Object = (JObject)jsonObject[dataName.ToString()];
 
-            // gameLoadingScript1Object¸¦ Dictionary<int, string>À¸·Î ÆÄ½ÌÈÄ result¿¡ ÇÒ´ç
+            // gameLoadingScript1Objectë¥¼ Dictionary<int, string>ìœ¼ë¡œ íŒŒì‹±í›„ resultì— í• ë‹¹
             result = gameLoadingScript1Object.ToObject<Dictionary<int, string>>();
 
-        }
-        // ¾øÀ¸¸é null ÀÖÀ¸¸é Dictionary¸¦ ¹İÈ¯
+        } 
+        // ì—†ìœ¼ë©´ null ìˆìœ¼ë©´ Dictionaryë¥¼ ë°˜í™˜
         return result;
+    }
+
+    internal ItemDataContainer JsonItemLoad()
+    {
+        ItemDataContainer result = null;
+        string jsonContent = ReadJsonFile(itemFilePath);
+        if (!string.IsNullOrEmpty(jsonContent))
+        {
+            // JObjectë¡œ ëª¨ë“  ë°ì´í„°ë¥¼ ë³€í™˜
+            JObject jsonObject = JObject.Parse(jsonContent);
+
+            // gameLoadingScript1Objectë¥¼ Dictionary<int, string>ìœ¼ë¡œ íŒŒì‹±í›„ resultì— í• ë‹¹
+            result = jsonObject.ToObject<ItemDataContainer>();
+
+        } 
+        return result;
+    }
+
+    internal ItemData JsonItemLoad(int itemNo)
+    {
+        // ê°’ì„ ë°›ì„ Dictionary ìƒì„±
+        ItemData result = new ItemData();
+
+        // jsoníŒŒì¼ ë¡œë“œ
+        string jsonContent = ReadJsonFile(itemFilePath);
+
+        // ë¹ˆê°’ì´ ì•„ë‹ˆë¼ë©´ ì‹¤í–‰
+        if (!string.IsNullOrEmpty(jsonContent))
+        {
+            // JObjectë¡œ ëª¨ë“  ë°ì´í„°ë¥¼ ë³€í™˜
+            JObject jsonObject = JObject.Parse(jsonContent);
+
+            // ë°›ì•„ì˜¨ ê°’ì„ ì´ìš©í•˜ì—¬ í•´ë‹¹ ê°’ì— ì¼ì¹˜í•˜ëŠ” ë°ì´í„°ë¥¼ JObjectë¡œ ê°€ì ¸ì˜´
+            JObject jsonObjectItem = (JObject)jsonObject["Items"][itemNo.ToString()];
+            
+            result.name = jsonObjectItem["name"].Value<string>();
+            result.category = jsonObjectItem["category"].Value<string>();
+            result.description = jsonObjectItem["description"].Value<string>();
+            result.quantity = jsonObjectItem["quantity"].Value<int>();
+            result.power = jsonObjectItem["power"].Value<float>();
+        }
+        // ì—†ìœ¼ë©´ null ìˆìœ¼ë©´ Dictionaryë¥¼ ë°˜í™˜
+        return result;
+    }
+
+    internal void SetCheckPoint(Vector3Data point)
+    {
+        string json = JsonConvert.SerializeObject(point);
+
+        using (StreamWriter file = File.CreateText(savePointFilePath))
+        {
+            //StreamWriterì„ ì‚¬ìš©í•˜ì—¬ json ì‘ì„±
+            file.Write(json);
+        }
+    }
+    internal Vector3 GetCheckPoint()
+    {
+        string jsonContent = ReadJsonFile(savePointFilePath);
+        return JsonConvert.DeserializeObject<Vector3>(jsonContent);
     }
 }
