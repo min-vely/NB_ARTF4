@@ -1,20 +1,12 @@
+using System;
 using Scripts.UI.Scene_UI;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Scripts.Scene
 {
     public class IntroScene : BaseScene
     {
-        protected override bool Initialized()
-        {
-            if (!base.Initialized()) return false;
-            
-            // TODO : 인트로 씬 실행시 Context 작성 
-            Main.SetCurrentScene(this, Label.IntroScene);
-            LoadResource();
-            return true;
-        }
-
         private void LoadResource()
         {
             if (Main.Resource.LoadIntro)
@@ -34,6 +26,18 @@ namespace Scripts.Scene
                     Main.UI.SetSceneUI<Intro_UI>();
                 });
             }
+        }
+
+        protected override bool Initialized()
+        {
+            if (!base.Initialized()) return false;
+            // TODO : 인트로 씬 실행시 Context 작성
+            Main.SetCurrentScene(this, Label.IntroScene);
+            LoadResource();
+  
+            
+            // TODO : -----------------------
+            return true;
         }
     }
 }

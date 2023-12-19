@@ -18,7 +18,6 @@ namespace Scripts.UI
         private readonly Dictionary<Type, Object[]> _objects = new();
         private bool _initialized;
 
-
         #endregion
 
         #region Bind
@@ -63,6 +62,7 @@ namespace Scripts.UI
         }
 
         #endregion
+
 
         #region Initialized
 
