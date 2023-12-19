@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Scripts.Utility;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 #region Item Class
 /// <summary>
@@ -11,7 +13,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     #region Field
-    private string _id; // 아이디
+    private int _id; // 아이디
     private string _name; //이름
     private string _category; //속성
     private string _description; // 설명
@@ -20,7 +22,7 @@ public class Item : MonoBehaviour
     private float _duration; // 아이템 지속시간
     #endregion
     #region Initialization
-    public void Initialize(string id, string name, string category, string description, float power, float duration)
+    public void Initialize(int id, string name, string category, string description, float power, float duration)
     {
         _id = id;
         _name = name;
@@ -35,7 +37,7 @@ public class Item : MonoBehaviour
     /// <summary>
     /// 아이템의 고유 식별자를 반환합니다.
     /// </summary>
-    public string Id => _id;
+    public int Id => _id;
 
     /// <summary>
     /// 아이템의 이름을 반환합니다.
@@ -95,39 +97,79 @@ public class ItemManager : MonoBehaviour
     /// <summary>
     /// 아이템의 목록을 저장하는 딕셔너리입니다.
     /// </summary>
-    private Dictionary<string, Item> _items = new Dictionary<string, Item>();
+    private Dictionary<int, Item> _hadItems = new Dictionary<int, Item>();
+    // 필드 아이템 데이터를 저장하는 딕셔너리입니다.
+    private Dictionary<int, Item> _fieldItems = new Dictionary<int, Item>();
+
+    // 아이템 프리팹을 저장하는 딕셔너리입니다.
+    private Dictionary<int, GameObject> _itemPrefabs = new Dictionary<int, GameObject>();
+
+    // 데이터 매니저 인스턴스입니다.
+    private DataManager _dataManager;
+
     #endregion
 
+    private void Awake()
+    {
+        //TODO 추후 메인에서 가져 올것임
+        // 데이터 매니저를 가져옵니다.
+        _dataManager = GetComponent<DataManager>();
+    }
+
+    private void Start()
+    {
+        // JSON 파일에서 아이템 데이터를 로드합니다.
+        LoadItemDataFromJson();
+
+        // 아이템 프리팹을 로드합니다.
+        LoadItemPrefabs();
+    }
+
     #region Item management methods
-    // 아이템의 효과를 플레이어에 적용하거나 제거하는 메서드
-    // apply가 true이면 효과를 적용하고, false이면 효과를 제거합니다.
+
+    /// <summary>
+    /// 아이템의 효과를 플레이어에 적용하거나 제거하는 메서드
+    /// apply가 true이면 효과를 적용하고, false이면 효과를 제거합니다.
+    /// </summary>
+    /// <param name="item">효과를 적용할 아이템</param>
+    /// <param name="apply">효과를 적용할 것인지 불값을 받습니다.</param>
     private void UpdatePlayerWithItemEffect(Item item, bool apply)
     {
         float factor = apply ? item.Power : 1 / item.Power;
 
         switch (item.Id)
         {
-            case "0":
-                // Main.Controller.SetMoveSpeed(_player.GetSpeed() * factor); 
+            case 0:
+                // Main.PlayerControl.SetMoveSpeed(_player.GetSpeed() * factor); 
                 break;
-            case "1":
+            case 1:
                 // Main.PlayerController.SetJumpForce(_player.GetJumpForc() * factor);
                 break;
         }
     }
 
-    // 아이템의 효과를 플레이어에게 적용하는 메서드
+    /// <summary>
+    ///  아이템의 효과를 플레이어에게 적용하는 메서드
+    /// </summary>
+    /// <param name="item">적용할 아이템</param>
     private void ApplyItemsEffectToPlayer(Item item)
     {
         UpdatePlayerWithItemEffect(item, true);
     }
 
-    // 아이템의 효과를 원래대로 되돌리는 메서드
+    /// <summary>
+    ///  아이템의 효과를 원래 대로 되돌리는 메서드
+    /// </summary>
+    /// <param name="item">적용할 아이템</param>
     private void RemoveItemsEffectFromPlayer(Item item)
     {
         UpdatePlayerWithItemEffect(item, false);
     }
-
+    /// <summary>
+    /// 아이템의 효과를 적용시키는 메서드
+    /// </summary>
+    /// <param name="item">적용할 아이템</param>
+    /// <returns></returns>
     public IEnumerator ActivateItem(Item item)
     {
         // 아이템을 활성화합니다.
@@ -150,22 +192,22 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     public void AddItem(Item item)
     {
-        if (_items.ContainsKey(item.Id))
+        if (_hadItems.ContainsKey(item.Id))
         {
             // 기존 아이템의 활성 상태를 업데이트합니다.
-            _items[item.Id].Duration += _items[item.Id].Duration;
+            _hadItems[item.Id].Duration += _hadItems[item.Id].Duration;
         }
-        else 
+        else
         {
-            foreach (var hadItem in _items)
+            foreach (var hadItem in _hadItems)
             {
                 if (hadItem.Value.IsActivate)
                 {
-                    RemoveItem(hadItem.Value); 
+                    RemoveItem(hadItem.Value);
                 }
             }
-            _items.Add(item.Id, item);
-            _items[item.Id].IsActivate = true;
+            _hadItems.Add(item.Id, item);
+            _hadItems[item.Id].IsActivate = true;
         }
 
         // 아이템을 추가하고 활성화 코루틴을 시작합니다.
@@ -177,10 +219,10 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     public void RemoveItem(Item item)
     {
-        if (_items.ContainsKey(item.Id))
+        if (_hadItems.ContainsKey(item.Id))
         {
             item.IsActivate = false;
-            _items.Remove(item.Id);
+            _hadItems.Remove(item.Id);
             RemoveItemsEffectFromPlayer(item);
         }
         else
@@ -189,32 +231,75 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public Item LoadAndCreateItems(string jsonFilePath,Transform transform)
-    {
-        // JSON 파일의 내용을 읽어옵니다.
-        string jsonText = System.IO.File.ReadAllText(jsonFilePath);
 
-        // JSON 데이터를 직접 파싱합니다.
-        var json = JsonUtility.FromJson<Dictionary<string, object>>(jsonText);
-
-        // InstantiatePrefab 함수를 이용하여 프리팹을 인스턴스화하고, 인스턴스화된 게임 오브젝트에 Item 컴포넌트를 추가합니다.
-        // TODO : 제이슨 데이터 완성시에 키값 조정 필요 
-        GameObject itemObject = Main.Resource.InstantiatePrefab(json["_name"].ToString(),transform);
-        
-        // 아이템 객체를 초기화합니다.
-        Item item = SceneUtility.GetAddComponent<Item>(itemObject);
-
-        item.Initialize(
-                            id: json["_id"].ToString(),
-                            name: json["_name"].ToString(),
-                            category: json["_category"].ToString(),
-                            description: json["_description"].ToString(),
-                            power: float.Parse(json["_power"].ToString()),
-                            duration: float.Parse(json["_duration"].ToString())
-                            );
-      
-        return item;
-    }
     #endregion
+  
+
+    
+    
+
+    // JSON 파일에서 아이템 데이터를 로드하는 메서드입니다.
+    private void LoadItemDataFromJson()
+    {
+        // JSON 파일을 로드하여 아이템 데이터 컨테이너를 가져옵니다.
+        ItemDataContainer itemDataContainer = _dataManager.itemLoader();
+
+        // 아이템 데이터 컨테이너에서 아이템 데이터를 가져와 필드 아이템 딕셔너리에 저장합니다.
+        foreach (var data in itemDataContainer.Items)
+        {
+            var itemData = data.Value;
+            Item item = new();
+            item.Initialize(data.Key, itemData.name, itemData.category, itemData.description, itemData.power, itemData.duration);
+            _fieldItems.Add(item.Id, item);
+        }
+    }
+  
+    // 아이템 프리팹을 로드하는 메서드입니다.
+    private void LoadItemPrefabs()
+    {
+        // 필드 아이템 딕셔너리에서 아이템 데이터를 가져와 아이템 프리팹을 로드하고 아이템 프리팹 딕셔너리에 저장합니다.
+        foreach (var item in _fieldItems)
+        {
+            // 아이템 프리팹을 로드합니다.
+            GameObject itemPrefab = Main.Resource.Load<GameObject>(item.Key.ToString());
+            Item itemObj = SceneUtility.GetAddComponent<Item>(itemPrefab);
+            int id = itemPrefab.GetComponent<ItemSpawnInfo>().Id;
+            var itemData = _fieldItems[id];
+            itemObj.Initialize(itemData.Id, itemData.Name, itemData.Category, itemData.Description, itemData.Power, itemData.Duration);
+
+            // 아이템 프리팹 딕셔너리에 아이템 프리팹을 저장합니다.
+            _itemPrefabs.Add(item.Key, itemPrefab);
+        }
+    }
+
+    // 아이템 스포너에서 아이템을 인스턴스화하는 메서드입니다.
+    public void InstantiateItemsFromSpawner(string spawnerKey)
+    {
+        // 아이템 스포너를 로드합니다.
+        GameObject spawner = Main.Resource.Load<GameObject>(spawnerKey);
+
+        // 아이템 스포너에서 스폰 포인트를 가져옵니다.
+        ItemSpawnInfo[] spawnPoints = spawner.GetComponentsInChildren<ItemSpawnInfo>();
+
+        // 각 스폰 포인트에서 아이템 ID를 가져와 해당 ID를 가진 아이템 프리팹을 인스턴스화합니다.
+        foreach (var spawnPoint in spawnPoints)
+        {
+            int itemId = spawnPoint.GetComponent<ItemSpawnInfo>().Id;
+
+            if (_itemPrefabs.ContainsKey(itemId))
+            {
+                // 아이템 프리팹을 가져옵니다.
+                GameObject itemPrefab = _itemPrefabs[itemId];
+
+                // 아이템 프리팹을 인스턴스화합니다.
+                Main.Resource.InstantiatePrefab(itemPrefab.name, spawnPoint.transform);
+            }
+            else
+            {
+                Debug.LogError($"아이템 프리팹을 찾을 수 없습니다: {itemId}");
+            }
+        }
+    }
+
 }
 #endregion
