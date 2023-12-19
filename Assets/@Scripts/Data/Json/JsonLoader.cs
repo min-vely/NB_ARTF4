@@ -81,7 +81,7 @@ public class JsonLoader
     /// </summary>
     /// <param name="dataName"></param>
     /// <returns></returns>
-    internal Dictionary<int, string> JsonDataLoad(string dataName)
+    internal Dictionary<int, string> JsonDataLoad(DataManager.DATANAME dataName)
     {
         // 값을 받을 Dictionary 생성
         Dictionary<int, string> result = null;
@@ -96,7 +96,7 @@ public class JsonLoader
             JObject jsonObject = JObject.Parse(jsonContent);
 
             // 받아온 값을 이용하여 해당 값에 일치하는 데이터를 JObject로 가져옴
-            JObject gameLoadingScript1Object = (JObject)jsonObject[dataName];
+            JObject gameLoadingScript1Object = (JObject)jsonObject[dataName.ToString()];
 
             // gameLoadingScript1Object를 Dictionary<int, string>으로 파싱후 result에 할당
             result = gameLoadingScript1Object.ToObject<Dictionary<int, string>>();
