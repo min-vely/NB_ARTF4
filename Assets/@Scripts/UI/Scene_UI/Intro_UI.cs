@@ -1,5 +1,6 @@
 using System;
 using Scripts.Event.UI;
+using Scripts.Scene;
 using Scripts.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -51,7 +52,9 @@ namespace Scripts.UI.Scene_UI
 
         private void StartGame(PointerEventData obj)
         {
-            SceneUtility.LoadScene("GameScene");
+            const string nextScene = "GameScene";
+            Main.NextScene = nextScene;
+            SceneUtility.LoadScene(nextScene);
         }
 
         #endregion
