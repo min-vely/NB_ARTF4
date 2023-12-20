@@ -17,11 +17,17 @@ public class UI_Manager : MonoBehaviour
     private Stack<Popup> _popupOrder = new();
     private event Action _onCloseDeathPanel;
     private event Action _onClosePausePanel;
+    private bool isPausePanelOpen = false; // PausePanel이 중첩 띄워지는 현상 방지용
 
     #endregion
 
     #region Fields
 
+    public bool IsPausePanelOpen
+    {
+        get { return isPausePanelOpen; }
+        private set { isPausePanelOpen = value; }
+    }
     public event Action OnCloseDeathPanel
     {
         add { _onCloseDeathPanel += value; }
@@ -140,5 +146,10 @@ public class UI_Manager : MonoBehaviour
     {
         _onClosePausePanel?.Invoke();
         Main.PlayerControl.ToggleCursor(false);
+    }
+
+    public void SetIsPausePanelOpen(bool value)
+    {
+        IsPausePanelOpen = value;
     }
 }
