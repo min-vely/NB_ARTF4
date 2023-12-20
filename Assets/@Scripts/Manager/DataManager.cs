@@ -25,7 +25,7 @@ public class ItemData
 }
 public class ItemDataContainer
 {
-    public Dictionary<int, ItemData> Items = new();
+    public Dictionary<int, ItemData> Items = new Dictionary<int, ItemData> { };
 }
 public class Vector3Data
 {
@@ -42,7 +42,7 @@ public class Vector3Data
 }
 public class Vector3DataContainer
 {
-    public Dictionary<int, Vector3Data> ItemVectorDate = new();
+    public Dictionary<int, Vector3Data> ItemVectorDate = new Dictionary<int, Vector3Data> { };
 }
 public class DataManager : MonoBehaviour
 {
@@ -67,19 +67,19 @@ public class DataManager : MonoBehaviour
     {
         var updateUIDate = csv.LordUIFile();
         var updateItemDate = csv.LordItemFile();
-        var itemVectorDate = csv.LordItemVectorFile();
+        var itemVertorDate = csv.LordItemVectorFile();
         if (updateUIDate != null) json.JsonLoad(updateUIDate);
         if (updateItemDate != null) json.JsonLoad(updateItemDate);
-        if (itemVectorDate != null) json.JsonLoad(itemVectorDate);
+        if (itemVertorDate != null) json.JsonLoad(itemVertorDate);
     }
 
-    public ItemDataContainer ItemDataContainerLoader()
+    public ItemDataContainer itemLoader()
     {
         return json.JsonItemLoad();
     }
-    public ItemData ItemLoader(int itemNo)
+    public ItemData itemLoader(int ItemNo)
     {
-        return json.JsonItemLoad(itemNo);
+        return json.JsonItemLoad(ItemNo);
     }
     public void SetCheckPoint(Vector3 point)
     {

@@ -6,7 +6,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class GameManager
 {
-    public bool CanLook { get; set; } = true;
+    public bool canLook { get; set; } = true;
 
     public readonly List<Vector3> checkPoints = new List<Vector3> 
     {
@@ -49,12 +49,5 @@ public class GameManager
         GameObject playerObject = Main.Resource.InstantiatePrefab("Player.prefab");
         playerObject.name = "@Player";
         playerObject.transform.position = new Vector3(0, 0, -10);
-    }
-
-    public GameObject ItemTransform()
-    {
-        GameObject itemObject = GameObject.Find("@ItemTransform");
-        if (itemObject == null) itemObject = new GameObject { name = "@ItemTransform" };
-        return itemObject;
     }
 }
