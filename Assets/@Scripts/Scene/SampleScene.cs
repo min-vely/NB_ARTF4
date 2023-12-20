@@ -18,7 +18,7 @@ namespace Scripts.Scene
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) // ESC 누르면 Pause
+            if (Input.GetKeyDown(KeyCode.Escape) && !Main.UI.IsPausePanelOpen) // ESC 누르면 Pause
             {
                 OpenPausePopUp();
             }
@@ -49,11 +49,12 @@ namespace Scripts.Scene
             Main.UI.OpenPopup<DiePanel_Popup>();
             Main.PlayerControl.ToggleCursor(true); // 커서 잠금해제
         }
-
+        
         private void OpenPausePopUp()
         {
             Main.UI.OpenPopup<PausePanel_Popup>();
             Main.PlayerControl.ToggleCursor(true);
+            Main.UI.SetIsPausePanelOpen(true);
         }
     }
 }

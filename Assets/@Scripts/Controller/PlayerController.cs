@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -39,8 +39,9 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 mouseDelta;
 
-    [HideInInspector]
-    [SerializeField] private bool canLook = true;
+    //[HideInInspector]
+    //[SerializeField] private bool canLook = true;
+    private bool canLook = true;
 
     private Rigidbody _rigidbody;
     private Animator _animator;
@@ -86,6 +87,13 @@ public class PlayerController : MonoBehaviour
         if (canLook)
         {
             CameraLook();
+            Debug.Log("canLook이 true면 이걸 실행해요");
+        }
+        else
+        {
+            Cursor.visible = true;
+            mouseDelta = Vector2.zero;
+            Debug.Log("canLook이 false면 이걸 실행해요");
         }
     }
 
@@ -191,6 +199,12 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
+        Debug.Log("toggle은 "+toggle+" canLook은 "+canLook);
+        // PausePanel 활성화 시 마우스 이동 안되게
+        if (toggle)
+        {
+            mouseDelta = Vector2.zero;
+        }
     }
 
     public void LoadCheckPoint()
