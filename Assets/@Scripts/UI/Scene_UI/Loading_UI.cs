@@ -13,8 +13,7 @@ namespace Scripts.UI.Scene_UI
         #region Fields
         private enum Images
         {
-            LoadingBar,
-            TutorialImage
+            LoadingBar
         }
 
         private enum Texts
