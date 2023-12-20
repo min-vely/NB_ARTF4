@@ -47,38 +47,38 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f70871d0b04124c1ab1419ee70b5bf6b
-    m_Address: Sector4.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 96334dd46853d4ea7a2b97450ce847e3
-    m_Address: Sector3.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d542bd86831014410b3aa362ad0a97dd
+  - m_GUID: a8e65b93d5d00bf46958a89f4663b885
     m_Address: Sector2.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 61664eb2b332042caa389ae4c1898250
+  - m_GUID: 44876702d42541040bd6519c2284ff04
+    m_Address: Sector4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25599050fbf645945983a6478249bbe8
     m_Address: Sector1.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 63d6652d47cfe4f1bb2e3f8706aa0a00
-    m_Address: Limits.prefab
+  - m_GUID: 22f183c7240097446af8e04fb3ccc52c
+    m_Address: Sector3.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c97138ee6daa94926b3e05a78a3ddbd4
+  - m_GUID: 271fb97bdc7098545b696a11ad7edf32
     m_Address: CheckPoint.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 864a42c5e3ff38340a41bd5a008e527e
+    m_Address: Limits.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
@@ -121,6 +121,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1f9416082698e614ebb7003c2d80098b
     m_Address: WallMovable.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7859a40b42331341a2515809ee5fee3
+    m_Address: Sector6.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d13ff094749c51c43afade11340b51dc
+    m_Address: Sector7.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
