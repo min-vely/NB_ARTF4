@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Obstacle_Prefab Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Obstacle_Prefab Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 10ddfba20b661574b9bdaae31f7b72d6
+  m_SerializeEntries:
+  - m_GUID: 474c64e7b6302304bb04e77a9e8809dc
+    m_Address: MovableWall.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d998f3b2007ad14c900d3cecab26ab4
+    m_Address: MovableObs.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd117f6e0af0c2942926e61c209b253f
+    m_Address: FallPlat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 07ec32bcd6a21e34d9d0be169af45608
+    m_Address: Bounce.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f54dda188a2c24049975ef1516234248
+    m_Address: Sector5.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8e65b93d5d00bf46958a89f4663b885
+    m_Address: Sector2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44876702d42541040bd6519c2284ff04
+    m_Address: Sector4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25599050fbf645945983a6478249bbe8
+    m_Address: Sector1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 22f183c7240097446af8e04fb3ccc52c
+    m_Address: Sector3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 271fb97bdc7098545b696a11ad7edf32
+    m_Address: CheckPoint.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 864a42c5e3ff38340a41bd5a008e527e
+    m_Address: Limits.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de4e8ae22411dba4f971edf49f8738f2
+    m_Address: Pendulum.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a48714e39c2ecc644b62544a3a53c53a
+    m_Address: RBCubes.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a70841853b0e99545a7dc761ea9def4d
+    m_Address: RotationPlat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bb56e75164d29c4189de79dd5887e8e
+    m_Address: RotationX.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3925e022072f0474a8dab88c2fdaf0ce
+    m_Address: Rotator.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3db52d569ccd3c468777dd8e04f65ce
+    m_Address: Sphere.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f9416082698e614ebb7003c2d80098b
+    m_Address: WallMovable.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d13ff094749c51c43afade11340b51dc
+    m_Address: Sector7.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c416d28107d01e4d91ae0caaff6c29f
+    m_Address: Sector6.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9c71194f839de0045bd7cba7451810ba, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 19460d4142e31fb4b8c4d4dd530b7c7f, type: 2}
+    - {fileID: 11400000, guid: 3114ee117f8f1f5498c0378b97feab50, type: 2}

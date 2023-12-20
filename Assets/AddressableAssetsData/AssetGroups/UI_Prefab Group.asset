@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: UI_Prefab Group
+  m_EditorClassIdentifier: 
+  m_GroupName: UI_Prefab Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 993cc776ae78f1849bd55fa2ef1255db
+  m_SerializeEntries:
+  - m_GUID: b86e7b8a11e254869ab63d8273c29111
+    m_Address: Intro_UI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - IntroScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b750eaa4ef8542618a7e8d62e56814e
+    m_Address: EventSystem.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 447f6e7cbda334946a8a3c601af4d805
+    m_Address: Game_UI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41880bb6cada78640a3a8d06aa5c310a
+    m_Address: DiePanel_Popup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 515715533556b4d2483545f3c4c12c39
+    m_Address: Loading_UI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a88c04ff92f14673bfe94980789b428
+    m_Address: Option_Popup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23654721ce6fbcb48bcad5c0ac45a436
+    m_Address: PausePanel_Popup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbcb429db76b8fb43ad66035ebfac72a
+    m_Address: SoundManager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9c71194f839de0045bd7cba7451810ba, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 807a9add368743c418ec78fefbc0112a, type: 2}
+    - {fileID: 11400000, guid: 95288e2255163ef4db9bc2a51d3f3a50, type: 2}
