@@ -16,7 +16,19 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 3c9a4131363264cf99171cbed39d2c1e
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 85703ee0d52ea0d479ea35a4259a0b41
+    m_Address: additional controls.atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 156ec492e516ccb4099add479601d65e
+    m_Address: buttons.atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c71194f839de0045bd7cba7451810ba, type: 2}
   m_SchemaSet:

@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Scripts.Event.UI;
-using Scripts.Utility;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 using Object = UnityEngine.Object;

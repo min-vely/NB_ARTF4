@@ -45,7 +45,7 @@ MonoBehaviour:
     m_Address: Loading_UI.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - LoadingScene
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8a88c04ff92f14673bfe94980789b428
     m_Address: Option_Popup.prefab

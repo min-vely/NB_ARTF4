@@ -1,10 +1,10 @@
 {
   "gameOverScript": {
-    "0": "test1",
-    "1": "test2",
-    "2": "test3",
-    "3": "test4",
-    "4": "test5"
+    "0": "떨어졌어?",
+    "1": "빡종?!",
+    "2": "이건 아니지",
+    "3": "잘좀 하자구!",
+    "4": "오늘 깰 수 있지?"
   },
   "gameLoadingScript1": {
     "0": "GameInfoScriptTest1",

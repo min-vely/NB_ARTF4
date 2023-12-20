@@ -32,22 +32,24 @@ public class Main : MonoBehaviour
     #region Fields
 
     private readonly UI_Manager _ui = new();
-    private readonly SetBinder _setBinder = new();
     private readonly ResourceManager _resource = new();
-    private BaseScene _scene;
     private readonly PlayerController _playerControl = new();
+    private readonly DataManager _dataManager = new();
+    private BaseScene _scene;
     private readonly ObstacleManager _obstacle = new();
+    private readonly GameManager _game = new();
   
     #endregion
 
     #region Properties
     public static string NextScene { get; set; }
     public static UI_Manager UI => Instance._ui;
-    public static SetBinder SetBinder => Instance._setBinder;
     public static ResourceManager Resource => Instance._resource;
     public static BaseScene Scene => Instance._scene;
     public static PlayerController PlayerControl => Instance._playerControl;
+    public static DataManager DataManager => Instance._dataManager;
     public static ObstacleManager Obstacle => Instance._obstacle;
+    public static GameManager Game => Instance._game;
   
     #endregion
 
