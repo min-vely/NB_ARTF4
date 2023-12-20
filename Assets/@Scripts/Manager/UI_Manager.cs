@@ -146,6 +146,7 @@ public class UI_Manager : MonoBehaviour
     {
         _onClosePausePanel?.Invoke();
         Main.PlayerControl.ToggleCursor(false);
+        SetIsPausePanelOpen(false);
     }
 
     public void SetIsPausePanelOpen(bool value)

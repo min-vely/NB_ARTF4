@@ -37,6 +37,7 @@ namespace Scripts.Scene
 
             Object eventSystem = FindObjectOfType<EventSystem>();
             if (eventSystem == null) Main.Resource.InstantiatePrefab("EventSystem.prefab").name = "@EventSystem";
+            Main.Item.Initialized();
             return true;
         }
     }

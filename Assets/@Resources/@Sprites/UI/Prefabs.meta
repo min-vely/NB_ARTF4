@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/AddressableAssetsData/Windows.meta
+guid: bd7fd7df0e15f2e4d911740b473c6d7a
+========
+guid: 817b25fd210984591be69f2235741c4b
+>>>>>>>> Develop1.0:Assets/@Resources/@Sprites/UI/Prefabs.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

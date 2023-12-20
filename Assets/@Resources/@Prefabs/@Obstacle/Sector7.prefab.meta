@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/@Resources/@Prefabs/@Obstacle/Sector7.prefab.meta
 guid: d13ff094749c51c43afade11340b51dc
+========
+guid: 5421bcd093e12ca4ea667ea8b9e4e18e
+>>>>>>>> Develop1.0:Assets/@Resources/@Prefabs/@Obstacle/GameObject.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
