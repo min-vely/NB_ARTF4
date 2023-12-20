@@ -20,9 +20,22 @@ namespace Scripts.UI
         {
             for (int i = 0; i < names.Count; i++)
             {
-                objects[i] = FindComponent<T>(parentObject, names[i], true);
+                if (typeof(T) == typeof(GameObject))
+                {
+                    objects[i] = FindComponent(parentObject, names[i], true);
+                }
+                else
+                {
+                    objects[i] = FindComponent<T>(parentObject, names[i], true);
+                }
                 if (objects[i] == null) Debug.Log($"바인드 실패 : {names[i]}");
             }
+        }
+
+        private static GameObject FindComponent(GameObject parentObject, string name = null, bool recursive = false)
+        {
+            Transform transform = FindComponent<Transform>(parentObject, name, recursive);
+            return transform == null ? null : transform.gameObject;
         }
 
         private static T FindComponent<T>(GameObject parentObject, string name, bool recursive) where T : Object
@@ -48,8 +61,8 @@ namespace Scripts.UI
 
         private static T FindComponentRecursive<T>(GameObject parentObject, string name) where T : Object
         {
-            return parentObject.GetComponentsInChildren<T>()
-                .FirstOrDefault(component => string.IsNullOrEmpty(name) || component.name == name);
+            var components = parentObject.GetComponentsInChildren<T>();
+            return components.FirstOrDefault(component => string.IsNullOrEmpty(name) || component.name == name);
         }
 
         public static T Getter<T>(int componentIndex, Dictionary<Type, Object[]> objectsDictionary) where T : Object

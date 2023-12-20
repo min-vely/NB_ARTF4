@@ -1,6 +1,8 @@
 using System.Collections;
+using Scripts.Event;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -8,6 +10,7 @@ namespace Scripts.UI.Scene_UI
 {
     public class Loading_UI : UI_Base
     {
+        #region Fields
         private enum Images
         {
             LoadingBar
@@ -18,8 +21,14 @@ namespace Scripts.UI.Scene_UI
             AnyPressText
         }
 
-        public Image _progressBar;
-        public TextMeshProUGUI _anyPressText;
+        private int _totalCount;
+        private bool _setTotalCount;
+        public const string AnyPressKeyText = "아무키나 누르세요";
+        #endregion
+
+        public Image ProgressBar { get; set; }
+        public TextMeshProUGUI AnyPressText { get; set; }
+
 
         private void Start()
         {
@@ -31,42 +40,28 @@ namespace Scripts.UI.Scene_UI
             if (!base.Initialized()) return false;
             SetImage(typeof(Images));
             SetText(typeof(Texts));
-            _progressBar = GetImage((int)Images.LoadingBar);
-            _anyPressText = GetText((int)Texts.AnyPressText);
-            _anyPressText.gameObject.SetActive(false);
-            StartCoroutine(LoadAsyncProgress());
+            ProgressBar = GetImage((int)Images.LoadingBar);
+            AnyPressText = GetText((int)Texts.AnyPressText);
             return true;
         }
 
-        private IEnumerator LoadAsyncProgress()
+        public void SetTotalCount(int count)
         {
-            string nextScene = Main.NextScene;
-            AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
-            op.allowSceneActivation = false;
+            if (_setTotalCount) return;
+            _setTotalCount = true;
+            _totalCount = count;
+        }
 
-            float timer = 0;
-            while (!op.isDone)
-            {
-                if (op.progress < 0.6) _progressBar.fillAmount = op.progress;
-                else
-                {
-                    timer += Time.unscaledDeltaTime;
-                    _progressBar.fillAmount = Mathf.Lerp(0.6f, 1f, timer);
+        public void UpdateProgress(int count, string key)
+        {
+            if (count == 0 && key == null) return;
+            ProgressBar.fillAmount = (float)count / _totalCount;
+            AnyPressText.text = key;
+        }
 
-                    if (!(_progressBar.fillAmount >= 1f))  continue;
-                    _anyPressText.gameObject.SetActive(true);
-                    while (true)
-                    {
-                        if (Input.anyKeyDown)
-                        {
-                            op.allowSceneActivation = true;
-                            yield break;
-                        }
-                        yield return null;
-                    }
-                }
-                yield return null;
-            }
+        public void SetAnyPress()
+        {
+            AnyPressText.text = AnyPressKeyText;
         }
     }
 }
