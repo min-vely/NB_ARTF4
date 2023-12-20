@@ -20,6 +20,7 @@ namespace Scripts.Scene
             if (!base.Initialized()) return false;
             Main.NextScene ??= "IntroScene";
             LoadResourcesAndScene();
+            Main.Sound.PlayBGM("BGM1");
             return true;
         }
 

@@ -40,6 +40,7 @@ public class Main : MonoBehaviour
     private readonly ObstacleManager _obstacle = new();
     private readonly GameManager _game = new();
     private readonly ItemManager _item = new();
+    private readonly SoundManager _sound = new();
 
     #endregion
 
@@ -53,6 +54,7 @@ public class Main : MonoBehaviour
     public static ObstacleManager Obstacle => Instance._obstacle;
     public static GameManager Game => Instance._game;
     public static ItemManager Item => Instance._item;
+    public static SoundManager Sound => Instance._sound;
 
     #endregion
 
