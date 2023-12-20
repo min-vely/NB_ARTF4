@@ -1,3 +1,4 @@
+using Scripts.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
@@ -36,7 +37,19 @@ namespace Scripts.Scene
         {
 
             Object eventSystem = FindObjectOfType<EventSystem>();
+            Object sound = FindObjectOfType<SoundManager>();
             if (eventSystem == null) Main.Resource.InstantiatePrefab("EventSystem.prefab").name = "@EventSystem";
+            if (sound == null)
+            { 
+                GameObject soundObject = Main.Resource.InstantiatePrefab("SoundManager.prefab");
+                soundObject.name = "@SoundManager";
+                SoundManager soundManager = SceneUtility.GetAddComponent<SoundManager>(soundObject);
+                Debug.Log($"soundName : {soundManager}");
+                AudioClip clip = Main.Resource.Load<AudioClip>("BGM.clip");
+                Debug.Log($"Clip : {clip}");
+                soundManager.StartBGM();
+            }
+            Main.Item.Initialized();
             return true;
         }
     }

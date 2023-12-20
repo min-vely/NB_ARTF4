@@ -17,30 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 7b1d1c536ec79c64394a028fe800ef9a
   m_SerializeEntries:
-  - m_GUID: 1235f6fdfe904874cab3c83e4a67727c
-    m_Address: AngularRenderingGlovePlayerCharacter.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 379cfb6848589a948b84691a4df3bed9
-    m_Address: AngularRenderingPricklePlayerCharacter.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 60ab07b23a75fbf458c80cba08df9edb
-    m_Address: RoundRenderingGlovePlayerCharacter.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1dacc378b7a85e64696e56ce8d0ce8a7
-    m_Address: RoundRenderingPricklePlayerCharacter.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a4400490cb39249eeb8d7efbacb4d5d3
     m_Address: Player.prefab
     m_ReadOnly: 0

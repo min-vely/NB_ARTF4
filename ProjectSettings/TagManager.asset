@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Slide
   - Wall
+  - Item
   layers:
   - Default
   - TransparentFX
