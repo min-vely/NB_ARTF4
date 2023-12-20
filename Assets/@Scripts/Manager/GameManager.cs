@@ -48,9 +48,4 @@ public class GameManager
         playerObject.name = "@Player";
         playerObject.transform.position = new Vector3(0, 0, -10);
     }
-
-    public void AddItem(Item item)
-    {
-        Main.Item.AddItem(item);
-    }
 }

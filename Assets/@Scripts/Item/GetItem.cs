@@ -9,7 +9,7 @@ public class GetItem : MonoBehaviour
     private Item _item;
     private float fallTime = 1f;
     // Start is called before the first frame update
-    void Start()
+   private void Start()
     {
         Main.Obstacle.OnInitializedObstacle += InitializedObstacle;
         _itemSpawnInfo = gameObject.GetComponent<ItemSpawnInfo>();
@@ -23,8 +23,7 @@ public class GetItem : MonoBehaviour
             if (collision.gameObject.CompareTag("Player"))
             {
                 StartCoroutine(Fall(fallTime));
-                Main.Game.AddItem(_item);
-                
+                Main.Item.AddItem(_item);
             }
         }
     }
