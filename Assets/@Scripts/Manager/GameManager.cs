@@ -6,6 +6,8 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class GameManager
 {
+    public bool canLook { get; set; } = true;
+
     public readonly List<Vector3> checkPoints = new List<Vector3> 
     {
         new (0, 2.7f, 6.6f),    // CheckPoint 1 
