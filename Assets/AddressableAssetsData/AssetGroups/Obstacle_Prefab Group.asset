@@ -72,7 +72,7 @@ MonoBehaviour:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 63d6652d47cfe4f1bb2e3f8706aa0a00
-    m_Address: Limits.prefab
+    m_Address: Limits.Prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
