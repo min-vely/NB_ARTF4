@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -38,9 +38,6 @@ public class PlayerController : MonoBehaviour
     public Vector3 checkPoint = new Vector3(0f, 4f, 0f);
 
     private Vector2 mouseDelta;
-
-    [HideInInspector]
-    [SerializeField] private bool canLook = true;
 
     private Rigidbody _rigidbody;
     private Animator _animator;
@@ -83,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (canLook)
+        if (Main.Game.canLook)
         {
             CameraLook();
         }
@@ -98,7 +95,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.velocity = dir;
     }
 
-    private void CameraLook()
+    private void CameraLook() //pausepanel이 켜지면 (true일 때)
     {
         camCurXRot += mouseDelta.y * lookSensitivity;
         camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook);
@@ -190,7 +187,7 @@ public class PlayerController : MonoBehaviour
     public void ToggleCursor(bool toggle)
     {
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
-        canLook = !toggle;
+        Main.Game.canLook = !toggle;
     }
 
     public void LoadCheckPoint()
