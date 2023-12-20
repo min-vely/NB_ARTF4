@@ -33,26 +33,44 @@ public class ResourceManager : MonoBehaviour
     {
         handle.Completed += operationHandle =>
         {
-            _resources.Add(key, operationHandle.Result);
+            if (!_resources.ContainsKey(key))
+            {
+                _resources.Add(key, operationHandle.Result);
+            }
+            else
+            {
+                Debug.LogWarning($"중복된 리소스 키: {key}. 기존 리소스를 사용합니다.");
+            }
+
             callback?.Invoke(operationHandle.Result);
         };
     }
+
 
     private void AsyncHandlerAtlasCallback<T>(string key, AsyncOperationHandle<IList<T>> handle, Action<IList<T>> cb) where T : UnityEngine.Object
     {
         handle.Completed += operationHandle =>
         {
             IList<T> resultList = operationHandle.Result;
-            // 리스트의 각 아이템을 _resources에 추가합니다.
-            for (int i = 0; i < resultList.Count; i++)
+
+            foreach (var result in resultList)
             {
-                string keyIndex = resultList[i].ToString().Split("_")[1].Split(" ")[0];
-                string resourceKey = $"{key}[{keyIndex}]"; // 리스트 아이템에 대한 고유 키
-                _resources.Add(resourceKey, resultList[i]);
+                string keyIndex = result.ToString().Split("_")[1].Split(" ")[0];
+                string resourceKey = $"{key}[{keyIndex}]";
+
+                if (!_resources.ContainsKey(resourceKey))
+                {
+                    _resources.Add(resourceKey, result);
+                }
+                else
+                {
+                    Debug.LogWarning($"중복된 리소스 키: {resourceKey}. 기존 리소스를 사용합니다.");
+                }
             }
             cb?.Invoke(resultList);
         };
     }
+
 
     /// <summary>
     /// 비동기 방식으로 리소스를 로드하고 콜백을 호출합니다.
