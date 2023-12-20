@@ -38,7 +38,8 @@ public class Main : MonoBehaviour
     private BaseScene _scene;
     private readonly ObstacleManager _obstacle = new();
     private readonly GameManager _game = new();
-  
+    private readonly ItemManager _item = new();
+
     #endregion
 
     #region Properties
@@ -50,7 +51,8 @@ public class Main : MonoBehaviour
     public static DataManager DataManager => Instance._dataManager;
     public static ObstacleManager Obstacle => Instance._obstacle;
     public static GameManager Game => Instance._game;
-  
+    public static ItemManager Item => Instance._item;
+
     #endregion
 
     public static void SetCurrentScene(BaseScene scene, Label sceneLabel)

@@ -99,7 +99,7 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     private Dictionary<int, Item> _hadItems = new Dictionary<int, Item>();
     // 필드 아이템 데이터를 저장하는 딕셔너리입니다.
-    private Dictionary<int, Item> _fieldItems = new Dictionary<int, Item>();
+    public Dictionary<int, Item> FieldItems = new Dictionary<int, Item>();
 
     // 아이템 프리팹을 저장하는 딕셔너리입니다.
     private Dictionary<int, GameObject> _itemPrefabs = new Dictionary<int, GameObject>();
@@ -109,22 +109,19 @@ public class ItemManager : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    public void Initialized()
     {
-        //TODO 추후 메인에서 가져 올것임
-        // 데이터 매니저를 가져옵니다.
-        _dataManager = GetComponent<DataManager>();
-    }
-
-    private void Start()
-    {
+        _dataManager = Main.DataManager;
         // JSON 파일에서 아이템 데이터를 로드합니다.
         LoadItemDataFromJson();
 
         // 아이템 프리팹을 로드합니다.
         LoadItemPrefabs();
     }
-
+    public void ddd()
+    {
+        GameObject sectorObject = Main.Resource.InstantiatePrefab("ItemManager.prefab");
+    }
     #region Item management methods
 
     /// <summary>
@@ -246,8 +243,10 @@ public class ItemManager : MonoBehaviour
         {
             var itemData = data.Value;
             Item item = new();
+
+            Debug.Log(data.Value.name);
             item.Initialize(data.Key, itemData.name, itemData.category, itemData.description, itemData.power, itemData.duration);
-            _fieldItems.Add(item.Id, item);
+            FieldItems.Add(item.Id, item);
         }
     }
   
@@ -255,13 +254,13 @@ public class ItemManager : MonoBehaviour
     private void LoadItemPrefabs()
     {
         // 필드 아이템 딕셔너리에서 아이템 데이터를 가져와 아이템 프리팹을 로드하고 아이템 프리팹 딕셔너리에 저장합니다.
-        foreach (var item in _fieldItems)
+        foreach (var item in FieldItems)
         {
             // 아이템 프리팹을 로드합니다.
             GameObject itemPrefab = Main.Resource.Load<GameObject>(item.Key.ToString());
             Item itemObj = SceneUtility.GetAddComponent<Item>(itemPrefab);
             int id = itemPrefab.GetComponent<ItemSpawnInfo>().Id;
-            var itemData = _fieldItems[id];
+            var itemData = FieldItems[id];
             itemObj.Initialize(itemData.Id, itemData.Name, itemData.Category, itemData.Description, itemData.Power, itemData.Duration);
 
             // 아이템 프리팹 딕셔너리에 아이템 프리팹을 저장합니다.
