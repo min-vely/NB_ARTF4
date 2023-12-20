@@ -161,16 +161,16 @@ public class PlayerController : MonoBehaviour
     {
         Ray[] rays = new Ray[4]
         {
-            new Ray(transform.position + (transform.forward * 0.2f) + (Vector3.up * 0.01f) , Vector3.down),
-            new Ray(transform.position + (-transform.forward * 0.2f)+ (Vector3.up * 0.01f), Vector3.down),
-            new Ray(transform.position + (transform.right * 0.2f) + (Vector3.up * 0.01f), Vector3.down),
-            new Ray(transform.position + (-transform.right * 0.2f) + (Vector3.up * 0.01f), Vector3.down),
+            new Ray(transform.position + (transform.forward * 0.2f) + (Vector3.up * 0.1f) , Vector3.down),
+            new Ray(transform.position + (-transform.forward * 0.2f)+ (Vector3.up * 0.1f), Vector3.down),
+            new Ray(transform.position + (transform.right * 0.2f) + (Vector3.up * 0.1f), Vector3.down),
+            new Ray(transform.position + (-transform.right * 0.2f) + (Vector3.up * 0.1f), Vector3.down),
         };
 
         for (int i = 0; i < rays.Length; i++)
         {
             RaycastHit hit;
-            if (Physics.Raycast(rays[i], out hit, 1.0f, groundLayerMask))
+            if (Physics.Raycast(rays[i], out hit, 0.2f, groundLayerMask))
             {
                 Debug.Log(hit.transform.gameObject.name);
                 return true;
@@ -183,11 +183,10 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position + (transform.forward * 0.2f) + (Vector3.up * 0.01f), Vector3.down);
-        Gizmos.DrawRay(transform.position + (-transform.forward * 0.2f) + (Vector3.up * 0.01f), Vector3.down);
-        Gizmos.DrawRay(transform.position + (transform.right * 0.2f) + (Vector3.up * 0.01f), Vector3.down);
-        Gizmos.DrawRay(transform.position + (-transform.right * 0.2f) + (Vector3.up * 0.01f), Vector3.down);
-        Gizmos.DrawSphere(transform.position, 0.05f);
+        Gizmos.DrawRay(transform.position + (transform.forward * 0.2f) + (Vector3.up * 0.1f), Vector3.down);
+        Gizmos.DrawRay(transform.position + (-transform.forward * 0.2f) + (Vector3.up * 0.1f), Vector3.down);
+        Gizmos.DrawRay(transform.position + (transform.right * 0.2f) + (Vector3.up * 0.1f), Vector3.down);
+        Gizmos.DrawRay(transform.position + (-transform.right * 0.2f) + (Vector3.up * 0.1f), Vector3.down);
     }
 
     public void ToggleCursor(bool toggle)
