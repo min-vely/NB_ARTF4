@@ -13,6 +13,14 @@ namespace Scripts.Scene
             return true;
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape)) // ESC 누르면 Pause
+            {
+                OpenPausePopUp();
+            }
+        }
+
         private void GameSetup()
         {
             Main.UI.SetSceneUI<Game_UI>(); 
@@ -31,6 +39,13 @@ namespace Scripts.Scene
         {
             Main.UI.OpenPopup<DiePanel_Popup>();
             Main.PlayerControl.ToggleCursor(true); // 커서 잠금해제
+        }
+
+        private void OpenPausePopUp()
+        {
+            Main.UI.OpenPopup<PausePanel_Popup>();
+            Main.PlayerControl.ToggleCursor(true);
+            Main.UI.SetIsPausePanelOpen(true);
         }
     }
 }
