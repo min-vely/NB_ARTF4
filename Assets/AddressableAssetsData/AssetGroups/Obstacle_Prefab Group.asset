@@ -125,12 +125,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b7859a40b42331341a2515809ee5fee3
-    m_Address: Sector6.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d13ff094749c51c43afade11340b51dc
     m_Address: Sector7.prefab
     m_ReadOnly: 0
