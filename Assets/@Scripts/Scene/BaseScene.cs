@@ -36,7 +36,9 @@ namespace Scripts.Scene
         {
 
             Object eventSystem = FindObjectOfType<EventSystem>();
+            Object soundManager = FindObjectOfType<SoundManager>();
             if (eventSystem == null) Main.Resource.InstantiatePrefab("EventSystem.prefab").name = "@EventSystem";
+            if (soundManager == null) Main.Resource.InstantiatePrefab("SoundManager.prefab").name = "@SoundManager";
             Main.Item.Initialized();
             return true;
         }
