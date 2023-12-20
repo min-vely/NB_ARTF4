@@ -34,8 +34,8 @@ public class Main : MonoBehaviour
     private readonly UI_Manager _ui = new();
     private readonly ResourceManager _resource = new();
     private readonly PlayerController _playerControl = new();
+    private readonly DataManager _dataManager = new();
     private BaseScene _scene;
-
     private readonly ObstacleManager _obstacle = new();
     private readonly GameManager _game = new();
   
@@ -47,6 +47,7 @@ public class Main : MonoBehaviour
     public static ResourceManager Resource => Instance._resource;
     public static BaseScene Scene => Instance._scene;
     public static PlayerController PlayerControl => Instance._playerControl;
+    public static DataManager DataManager => Instance._dataManager;
     public static ObstacleManager Obstacle => Instance._obstacle;
     public static GameManager Game => Instance._game;
   

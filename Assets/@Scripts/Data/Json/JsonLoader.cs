@@ -16,6 +16,7 @@ public class JsonLoader
     static string uiFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameUIScript.json");
     static string itemFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameItemData.json");
     static string savePointFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/SavePoint.json");
+    static string itemPointFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameItemPosition.json");
     /// <summary>
     /// 파일 패스를 가지고 제이슨 파일을 읽어오는 메서드
     /// </summary>
@@ -62,14 +63,23 @@ public class JsonLoader
             file.Write(json);
         }
     }
+    internal void JsonLoad(Vector3DataContainer itemVertorDate)
+    {
+        string json = JsonConvert.SerializeObject(itemVertorDate, Formatting.Indented);
 
+        using (StreamWriter file = File.CreateText(itemPointFilePath))
+        {
+            //StreamWriter을 사용하여 json 작성
+            file.Write(json);
+        }
+    }
 
     /// <summary>
     /// json파일에 키값을 가지고 해당 안에 있는 값을 Dictionary<int, string> 타입으로 가져오는 메서드 없으면 null을 반환
     /// </summary>
     /// <param name="dataName"></param>
     /// <returns></returns>
-    internal Dictionary<int, string> JsonDataLoad(DataManager.DATANAME dataName)
+    internal Dictionary<int, string> JsonDataLoad(DATANAME dataName)
     {
         // 값을 받을 Dictionary 생성
         Dictionary<int, string> result = null;
@@ -151,5 +161,21 @@ public class JsonLoader
     {
         string jsonContent = ReadJsonFile(savePointFilePath);
         return JsonConvert.DeserializeObject<Vector3>(jsonContent);
+    }
+
+    internal Vector3DataContainer JsonItemVectorLoad()
+    {
+        Vector3DataContainer result = null;
+        string jsonContent = ReadJsonFile(itemPointFilePath);
+        if (!string.IsNullOrEmpty(jsonContent))
+        {
+            // JObject로 모든 데이터를 변환
+            JObject jsonObject = JObject.Parse(jsonContent);
+
+            // gameLoadingScript1Object를 Dictionary<int, string>으로 파싱후 result에 할당
+            result = jsonObject.ToObject<Vector3DataContainer>();
+
+        }
+        return result;
     }
 }
