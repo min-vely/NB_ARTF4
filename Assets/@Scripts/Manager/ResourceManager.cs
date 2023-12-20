@@ -46,7 +46,6 @@ public class ResourceManager : MonoBehaviour
         };
     }
 
-
     private void AsyncHandlerAtlasCallback<T>(string key, AsyncOperationHandle<IList<T>> handle, Action<IList<T>> cb) where T : UnityEngine.Object
     {
         handle.Completed += operationHandle =>
@@ -121,7 +120,6 @@ public class ResourceManager : MonoBehaviour
                 });
             }
         };
-
     }
     
     /// <summary>
@@ -155,7 +153,6 @@ public class ResourceManager : MonoBehaviour
         Debug.LogError($"키를 찾을 수 없습니다. : {key}");
         return null;
     }
-
     #endregion
 
     // 프리펩 인스턴스화 메서드
@@ -174,7 +171,6 @@ public class ResourceManager : MonoBehaviour
         Debug.LogError($"리소스를 인스턴스화하지 못했습니다.: { key}");
         return null;
     }
-
     #endregion
 }
 
