@@ -35,9 +35,6 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 mouseDelta;
 
-    [HideInInspector]
-    [SerializeField] private bool canLook = true;
-
     private Rigidbody _rigidbody;
     private Animator _animator;
     public static PlayerController instance;
@@ -79,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (canLook)
+        if (Main.Game.canLook)
         {
             CameraLook();
         }
@@ -188,7 +185,7 @@ public class PlayerController : MonoBehaviour
     public void ToggleCursor(bool toggle)
     {
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
-        canLook = !toggle;
+        Main.Game.canLook = !toggle;
     }
 
     public void LoadCheckPoint()

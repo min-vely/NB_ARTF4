@@ -15,7 +15,7 @@ namespace Scripts.Scene
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) // ESC 누르면 Pause
+            if (Input.GetKeyDown(KeyCode.Escape) && !Main.UI.IsPausePanelOpen) // ESC 누르면 Pause
             {
                 OpenPausePopUp();
             }
