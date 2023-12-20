@@ -54,6 +54,7 @@ namespace Scripts.Scene
         {
             Main.UI.OpenPopup<PausePanel_Popup>();
             Main.PlayerControl.ToggleCursor(true);
+            Main.UI.SetIsPausePanelOpen(true);
         }
     }
 }
