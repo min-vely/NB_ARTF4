@@ -7,84 +7,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 #region Item Class
-/// <summary>
-/// 게임 내의 개별 아이템을 표현하는 클래스입니다.
-/// </summary>
-public class Item : MonoBehaviour
-{
-    #region Field
-    private int _id; // 아이디
-    private string _name; //이름
-    private string _category; //속성
-    private string _description; // 설명
-    private bool _isActive; // 활성상태
-    private float _power; // 아이템이 주는 효과
-    private float _duration; // 아이템 지속시간
-    #endregion
-    #region Initialization
-    public void Initialize(int id, string name, string category, string description, float power, float duration)
-    {
-        _id = id;
-        _name = name;
-        _category = category;
-        _description = description;
-        _power = power;
-        _duration = duration;
-        _isActive = false; // 기본적으로 아이템은 비활성 상태로 시작
-    }
-    #endregion
-    #region Property
-    /// <summary>
-    /// 아이템의 고유 식별자를 반환합니다.
-    /// </summary>
-    public int Id => _id;
 
-    /// <summary>
-    /// 아이템의 이름을 반환합니다.
-    /// </summary>
-    public string Name => _name;
-
-    /// <summary>
-    /// 아이템의 카테고리를 반환합니다.
-    /// </summary>
-    public string Category => _category;
-
-    /// <summary>
-    /// 아이템에 대한 설명을 반환합니다.
-    /// </summary>
-    public string Description => _description;
-
-    /// <summary>
-    /// 아이템이 주는  효과를 반환합니다.
-    /// </summary>
-    public float Power => _power;
-
-    /// <summary>
-    /// 아이템의 효과가 지속되는 시간입니다.
-    /// </summary>
-    /// <returns></returns>
-    public float Duration
-    {
-        get => _duration;
-        set
-        {
-            _duration = value;
-        }
-    }
-
-    /// <summary>
-    /// 아이템의 활성상태를 반환합니다.
-    /// </summary>
-    public bool IsActivate
-    {
-        get => _isActive;
-        set
-        {
-            _isActive = value;
-        }
-    }
-    #endregion
-}
 #endregion
 
 #region ItemManager Class
@@ -99,7 +22,7 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     private Dictionary<int, Item> _hadItems = new Dictionary<int, Item>();
     // 필드 아이템 데이터를 저장하는 딕셔너리입니다.
-    private Dictionary<int, Item> _fieldItems = new Dictionary<int, Item>();
+    public Dictionary<int, Item> FieldItems = new Dictionary<int, Item>();
 
     // 아이템 프리팹을 저장하는 딕셔너리입니다.
     private Dictionary<int, GameObject> _itemPrefabs = new Dictionary<int, GameObject>();
@@ -109,22 +32,19 @@ public class ItemManager : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    public void Initialized()
     {
-        //TODO 추후 메인에서 가져 올것임
-        // 데이터 매니저를 가져옵니다.
-        _dataManager = GetComponent<DataManager>();
-    }
-
-    private void Start()
-    {
+        _dataManager = Main.DataManager;
         // JSON 파일에서 아이템 데이터를 로드합니다.
         LoadItemDataFromJson();
 
         // 아이템 프리팹을 로드합니다.
         LoadItemPrefabs();
     }
-
+    public void ddd()
+    {
+        GameObject sectorObject = Main.Resource.InstantiatePrefab("ItemManager.prefab");
+    }
     #region Item management methods
 
     /// <summary>
@@ -246,8 +166,10 @@ public class ItemManager : MonoBehaviour
         {
             var itemData = data.Value;
             Item item = new();
+
+            Debug.Log(data.Value.name);
             item.Initialize(data.Key, itemData.name, itemData.category, itemData.description, itemData.power, itemData.duration);
-            _fieldItems.Add(item.Id, item);
+            FieldItems.TryAdd(item.Id, item);
         }
     }
   
@@ -255,25 +177,26 @@ public class ItemManager : MonoBehaviour
     private void LoadItemPrefabs()
     {
         // 필드 아이템 딕셔너리에서 아이템 데이터를 가져와 아이템 프리팹을 로드하고 아이템 프리팹 딕셔너리에 저장합니다.
-        foreach (var item in _fieldItems)
+        foreach (var item in FieldItems)
         {
+            string keyName = item.Key.ToString();
             // 아이템 프리팹을 로드합니다.
-            GameObject itemPrefab = Main.Resource.Load<GameObject>(item.Key.ToString());
+            GameObject itemPrefab = Main.Resource.Load<GameObject>($"{keyName}.prefab");
             Item itemObj = SceneUtility.GetAddComponent<Item>(itemPrefab);
             int id = itemPrefab.GetComponent<ItemSpawnInfo>().Id;
-            var itemData = _fieldItems[id];
+            var itemData = FieldItems[id];
             itemObj.Initialize(itemData.Id, itemData.Name, itemData.Category, itemData.Description, itemData.Power, itemData.Duration);
 
             // 아이템 프리팹 딕셔너리에 아이템 프리팹을 저장합니다.
-            _itemPrefabs.Add(item.Key, itemPrefab);
+            _itemPrefabs.TryAdd(item.Key, itemPrefab);
         }
     }
 
     // 아이템 스포너에서 아이템을 인스턴스화하는 메서드입니다.
-    public void InstantiateItemsFromSpawner(string spawnerKey)
+    public void InstantiateItemsFromSpawner()
     {
         // 아이템 스포너를 로드합니다.
-        GameObject spawner = Main.Resource.Load<GameObject>(spawnerKey);
+        GameObject spawner = Main.Resource.Load<GameObject>("ItemPos.prefab");
 
         // 아이템 스포너에서 스폰 포인트를 가져옵니다.
         ItemSpawnInfo[] spawnPoints = spawner.GetComponentsInChildren<ItemSpawnInfo>();
@@ -289,7 +212,7 @@ public class ItemManager : MonoBehaviour
                 GameObject itemPrefab = _itemPrefabs[itemId];
 
                 // 아이템 프리팹을 인스턴스화합니다.
-                Main.Resource.InstantiatePrefab(itemPrefab.name, spawnPoint.transform);
+                Main.Resource.InstantiatePrefab($"{itemPrefab.name}.prefab");
             }
             else
             {
@@ -297,6 +220,5 @@ public class ItemManager : MonoBehaviour
             }
         }
     }
-
 }
 #endregion
