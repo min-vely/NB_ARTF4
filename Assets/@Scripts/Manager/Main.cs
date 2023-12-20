@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Scripts.Manager;
 using Scripts.Scene;
 using Scripts.UI;
 using Scripts.Utility;
@@ -34,11 +35,12 @@ public class Main : MonoBehaviour
     private readonly UI_Manager _ui = new();
     private readonly ResourceManager _resource = new();
     private readonly PlayerController _playerControl = new();
-    private readonly DataManager _dataManager = new();
+    private readonly DataManager _data = new();
     private BaseScene _scene;
     private readonly ObstacleManager _obstacle = new();
     private readonly GameManager _game = new();
     private readonly ItemManager _item = new();
+    private readonly SoundManager _sound = new();
 
     #endregion
 
@@ -48,10 +50,11 @@ public class Main : MonoBehaviour
     public static ResourceManager Resource => Instance._resource;
     public static BaseScene Scene => Instance._scene;
     public static PlayerController PlayerControl => Instance._playerControl;
-    public static DataManager DataManager => Instance._dataManager;
+    public static DataManager Data => Instance._data;
     public static ObstacleManager Obstacle => Instance._obstacle;
     public static GameManager Game => Instance._game;
     public static ItemManager Item => Instance._item;
+    public static SoundManager Sound => Instance._sound;
 
     #endregion
 

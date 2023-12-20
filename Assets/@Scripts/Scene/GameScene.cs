@@ -27,7 +27,7 @@ namespace Scripts.Scene
             SubscribeEvent();
             Main.Obstacle.Initialized();
             Main.Game.SpawnPlayer();
-            Main.Item.InstantiateItemsFromSpawner();
+            Main.Item.Initialized();
         }
 
         private void SubscribeEvent()

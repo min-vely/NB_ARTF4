@@ -17,7 +17,7 @@ public class BeeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        beeText = Main.DataManager.JsonDataLoad(DataManager.DATANAME.gameOverScript);
+        beeText = Main.Data.JsonDataLoad(DataManager.DATANAME.gameOverScript);
         KillZone.OnDeath += BeeMove;
     }
 
