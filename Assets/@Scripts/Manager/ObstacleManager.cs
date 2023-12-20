@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using static Sector;
 
-public enum Sector { Sector1, Sector2, Sector3, Sector4, Sector5 }
+public enum Sector { Sector1, Sector2, Sector3, Sector4, Sector5, Sector6, Sector7 }
 
 public class ObstacleManager
 {
@@ -20,6 +20,8 @@ public class ObstacleManager
         SetMap(Sector3);
         SetMap(Sector4);
         SetMap(Sector5);
+        SetMap(Sector6);
+        SetMap(Sector7);
     }
 
     private void SetLimit()

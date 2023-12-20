@@ -19,8 +19,8 @@ namespace Scripts.Scene
         {
             if (!base.Initialized()) return false;
             Main.NextScene ??= "IntroScene";
+            Main.Sound.PlayBGM("BGM");
             LoadResourcesAndScene();
-            Main.Sound.PlayBGM("BGM1");
             return true;
         }
 

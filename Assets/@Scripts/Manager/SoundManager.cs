@@ -11,14 +11,14 @@ public class SoundManager : MonoBehaviour
         public AudioClip clip;
     }
 
-    public static SoundManager instance;
+    public static SoundManager Instance;
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
-            DontDestroyOnLoad(instance);
+            Instance = this;
+            DontDestroyOnLoad(Instance);
         }
         else
         {
@@ -26,18 +26,14 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private Sound[] bgm;
-    [SerializeField]
+    public Sound[] bgm;
     private Sound[] sfx = null;
-    [SerializeField]
-    private AudioSource bgmPlay = null;
-    [SerializeField]
+    public AudioSource bgmPlay { get; set; }
     private List<AudioSource> sfxPlays = new List<AudioSource>();
 
 
 
-    private void Start()
+    public void StartBGM()
     {
         AudioSource sfxPlayer = gameObject.AddComponent<AudioSource>();
         sfxPlays.Add(sfxPlayer);
@@ -46,7 +42,7 @@ public class SoundManager : MonoBehaviour
     // 배경음악 재생
     public void PlayBGM(string bgmName)
     {
-        Debug.Log(bgm[0]);
+        Debug.Log(bgmName);
         for (int i = 0; i < bgm.Length; i++)
         {
             if (bgmName == bgm[i].name)
