@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -8,7 +9,8 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class ResourceManager : MonoBehaviour
 {
     #region Fields
-    private Dictionary<string, UnityEngine.Object> _resources = new();
+    [SerializedDictionary("keyName", "Item")]
+    public Dictionary<string, UnityEngine.Object> _resources = new();
 
     #endregion
 
@@ -44,7 +46,8 @@ public class ResourceManager : MonoBehaviour
             // 리스트의 각 아이템을 _resources에 추가합니다.
             for (int i = 0; i < resultList.Count; i++)
             {
-                string resourceKey = $"{key}[{i}]"; // 리스트 아이템에 대한 고유 키
+                string keyIndex = resultList[i].ToString().Split("_")[1].Split(" ")[0];
+                string resourceKey = $"{key}[{keyIndex}]"; // 리스트 아이템에 대한 고유 키
                 _resources.Add(resourceKey, resultList[i]);
             }
             cb?.Invoke(resultList);
@@ -63,7 +66,7 @@ public class ResourceManager : MonoBehaviour
             return;
         }
 
-        if (key.Contains(".multiSprite"))
+        if (key.Contains(".atlas"))
         {
             AsyncOperationHandle<IList<Sprite>> handle = Addressables.LoadAssetAsync<IList<Sprite>>(loadKey);
             AsyncHandlerAtlasCallback(key, handle, objs => callback?.Invoke(objs as T));
@@ -100,7 +103,9 @@ public class ResourceManager : MonoBehaviour
                 });
             }
         };
+
     }
+    
     /// <summary>
     /// 특정 라벨에 속한 모든 리소스를 비동기 방식으로 언로드합니다.
     /// </summary>

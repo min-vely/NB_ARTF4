@@ -13,6 +13,11 @@ public class FallPlat : MonoBehaviour
         Main.Obstacle.OnInitializedObstacle += InitializedObstacle;
     }
 
+    private void InitializedObstacle()
+    {
+        gameObject.SetActive(true);
+    }
+
     private void OnCollisionEnter(Collision collision)
 	{
 		foreach (ContactPoint contact in collision.contacts)
@@ -30,9 +35,4 @@ public class FallPlat : MonoBehaviour
 		yield return new WaitForSeconds(time);
 		gameObject.SetActive(false);
 	}
-
-    private void InitializedObstacle()
-    {
-        gameObject.SetActive(true);
-    }
 }

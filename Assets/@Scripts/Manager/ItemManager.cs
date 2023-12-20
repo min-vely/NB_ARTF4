@@ -233,9 +233,6 @@ public class ItemManager : MonoBehaviour
 
 
     #endregion
-  
-
-    
     
 
     // JSON 파일에서 아이템 데이터를 로드하는 메서드입니다.

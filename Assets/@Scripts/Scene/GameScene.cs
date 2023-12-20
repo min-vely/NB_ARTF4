@@ -1,3 +1,4 @@
+using Scripts.Event;
 using UnityEngine;
 
 namespace Scripts.Scene
@@ -7,34 +8,23 @@ namespace Scripts.Scene
         protected override bool Initialized()
         {
             if (!base.Initialized()) return false;
-            
-            // TODO : 인트로 씬 실행시 Context 작성 
             Main.SetCurrentScene(this, Label.GameScene);
-            LoadResource();
-            KillZone.OnDeath += OpenDeathPopUp;
-            Main.Obstacle.Initialized();
+            GameSetup();
             return true;
         }
 
-        private void LoadResource()
+        private void GameSetup()
         {
-            if (Main.Resource.LoadGame)
-            {
-                // TODO : 로드가 되어있다면, 추가적인 초기화 필요
-                Main.UI.SetSceneUI<Game_UI>();
-            }
-            else
-            {
-                string sceneType = CurrentScene.ToString();
-                Main.Resource.AllLoadAsync<Object>($"{sceneType}", (key, count, totalCount) =>
-                {
-                    Debug.Log($"[{sceneType}] Load asset {key} ({count}/{totalCount})");
-                    if (count < totalCount) return;
-                    Main.Resource.LoadGame = true;
-                    // TODO : 추가적인 초기화 필요
-                    Main.UI.SetSceneUI<Game_UI>();
-                });
-            }
+            Main.UI.SetSceneUI<Game_UI>(); 
+            SubscribeEvent();
+            Main.Obstacle.Initialized();
+            Main.Game.SpawnPlayer();
+        }
+
+        private void SubscribeEvent()
+        {
+            KillZone.OnDeath -= OpenDeathPopUp;
+            KillZone.OnDeath += OpenDeathPopUp;
         }
 
         private void OpenDeathPopUp()

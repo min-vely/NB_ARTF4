@@ -59,14 +59,14 @@ public class UI_Manager : MonoBehaviour
     }
 
     public void ClosePopUp(Popup popup, List<UIEventType> eventTypes)
-    {
+    { 
         if (_popupOrder.Count == 0) return;
-        if (_popupOrder.Peek() != popup) return;
+        if (_popupOrder.Peek().name != popup.name) return;
         Popup openPopup = _popupOrder.Pop();
-        var eventHandlers =  openPopup.GetComponents<UI_EventHandler>();
-        foreach (var handler in eventHandlers)
+        UI_EventHandler[] eventHandlers =  openPopup.GetComponents<UI_EventHandler>();
+        foreach (UI_EventHandler handler in eventHandlers)
         {
-            foreach (var eventType in eventTypes)
+            foreach (UIEventType eventType in eventTypes)
             {
                 handler.UnbindEvent(eventType);
             }
@@ -76,10 +76,10 @@ public class UI_Manager : MonoBehaviour
         SetTimeScale();
     }
 
-    public void SetSceneUI<T>() where T : UI_Base
+    public T SetSceneUI<T>() where T : UI_Base
     {
         string sceneTypeName = typeof(T).Name;
-        SetUI<T>(sceneTypeName, UIBase.transform);
+        return SetUI<T>(sceneTypeName, UIBase.transform);
     }
 
     private static string NameOfUI<T>(string name)
