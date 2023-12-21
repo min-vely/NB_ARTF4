@@ -5,9 +5,9 @@ using System.IO;
 using UnityEngine;
 public class CSVLoader
 {
-    static string uiFilePath = Application.dataPath + "/@Resources/@CSV/GameUIScript.csv";
-    static string itemFilePath = Application.dataPath + "/@Resources/@CSV/GameItemData.csv";
-    static string itemVectorFilePath = Application.dataPath + "/@Resources/@CSV/GameItemPosition.csv";
+    //static string uiFilePath = Application.dataPath + "/@Resources/@CSV/GameUIScript.csv";
+    //static string itemFilePath = Application.dataPath + "/@Resources/@CSV/GameItemData.csv";
+    //static string itemVectorFilePath = Application.dataPath + "/@Resources/@CSV/GameItemPosition.csv";
     /// <summary>
     /// 현재 버전 넘버를 가지고 다르면 업데이트 하는 메서드
     /// </summary>
@@ -23,8 +23,8 @@ public class CSVLoader
         Dictionary<int, string> addDate = null;
 
         //CSV파일의 마지막 ,을 지워줌
-
-        string csvText = File.ReadAllText(uiFilePath)[..^1];
+        TextAsset contents = Main.Resource.Load<TextAsset>("GameUIScript.csv");
+        string csvText = contents.text[..^1];
 
         //CSV파일을 줄 별로 잘라 배열로 만들어줌
         string[] rows = csvText.Split(new char[] { '\n' });
@@ -77,9 +77,10 @@ public class CSVLoader
     {
         ItemDataContainer data = new ItemDataContainer();
 
-        
 
-        string csvText = File.ReadAllText(itemFilePath)[..^1];
+
+        TextAsset contents = Main.Resource.Load<TextAsset>("GameItemData.csv");
+        string csvText = contents.text[..^1];
 
         string[] itemdata = csvText.Split(new char[] { '\n' });
 
@@ -104,7 +105,8 @@ public class CSVLoader
     internal Vector3DataContainer LordItemVectorFile()
     {
         Vector3DataContainer data = new Vector3DataContainer();
-        string csvText = File.ReadAllText(itemVectorFilePath)[..^1];
+        TextAsset contents = Main.Resource.Load<TextAsset>("GameItemPosition.csv");
+        string csvText = contents.text[..^1];
 
         string[] itemVectordata = csvText.Split(new char[] { '\n' });
 
