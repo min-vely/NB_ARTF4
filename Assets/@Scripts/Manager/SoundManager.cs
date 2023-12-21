@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
 
     public void StartBGM()
     {
-        bgmPlay = GetComponent<AudioSource>();
+        bgmPlay = gameObject.GetComponent<AudioSource>();
         AudioSource sfxPlayer = gameObject.AddComponent<AudioSource>();
         sfxPlays.Add(sfxPlayer);
     }
@@ -44,19 +44,16 @@ public class SoundManager : MonoBehaviour
     // 배경음악 재생
     public void PlayBGM(string bgmName)
     {
-        //Debug.Log(bgm[0].name);
-        //for (int i = 0; i < bgm.Length; i++)
-        //{
-        //    if (bgmName == bgm[i].name)
-        //    {
-        //        bgmPlay.clip = bgm[i].clip;
-        //        bgmPlay.Play();
-        //        return;
-        //    }
-        //}
-        bgmPlay.clip = bgm[0].clip;
-        bgmPlay.Play();
-        return;
+        for (int i = 0; i < bgm.Length; i++)
+        {
+            Debug.Log(bgmName + bgm[0].name);
+            if (bgmName == bgm[i].name)
+            {
+                bgmPlay.clip = bgm[i].clip;
+                bgmPlay.Play();
+                return;
+            }
+        }
     }
 
     public void StopBGM()

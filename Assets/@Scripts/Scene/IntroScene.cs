@@ -12,6 +12,9 @@ namespace Scripts.Scene
             if (!base.Initialized()) return false;
             Main.SetCurrentScene(this, Label.IntroScene);
             IntroSetup();
+            AudioClip clip = Main.Resource.Load<AudioClip>("IntroBGM1.clip");
+            Main.Sound.StartBGM();
+            Main.Sound.PlayBGM(clip.name);
             return true;
         }
 

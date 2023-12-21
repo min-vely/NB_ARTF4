@@ -15,6 +15,7 @@ namespace Scripts.Scene
     {
         #region Properties
         public Label CurrentScene { get; set; }
+        //public SoundManager SoundManagerInstance { get; set; }
 
         #endregion
 
@@ -44,6 +45,9 @@ namespace Scripts.Scene
                 GameObject soundObject = Main.Resource.InstantiatePrefab("SoundManager.prefab");
                 soundObject.name = "@SoundManager";
                 SoundManager soundManager = SceneUtility.GetAddComponent<SoundManager>(soundObject);
+
+                //SoundManagerInstance = soundManager;
+
                 Debug.Log($"soundName : {soundManager}");
                 AudioClip clip = Main.Resource.Load<AudioClip>("LoadBGM1.clip");
                 Debug.Log($"Clip : {clip}");
