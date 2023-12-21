@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Air Control")]
+    [SerializeField] private float airControl = 0.5f;
+    [SerializeField] private float airResistance = 0.95f;
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -70,23 +74,33 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector3 dir;
+        Vector3 moveDirection = transform.forward * CurMovementInput.y + transform.right * CurMovementInput.x;
 
         if (IsGrounded())
         {
-            dir = transform.forward * CurMovementInput.y + transform.right * CurMovementInput.x;
-            jumpDirection = dir;
+            // 땅에 있을 때는 전체 이동 속도 적용
+            moveDirection *= moveSpeed;
         }
         else
         {
-            dir = jumpDirection;
+            // 공중에 있을 때는 공중 제어력과 공기 저항 적용
+            moveDirection *= moveSpeed * airControl;
+            moveDirection = Vector3.Lerp(jumpDirection, moveDirection, airControl * Time.fixedDeltaTime);
         }
 
-        dir *= moveSpeed;
-        dir.y = _rigidBody.velocity.y;
-        _rigidBody.velocity = dir;
-    }
+        // 수평 속도 업데이트
+        Vector3 horizontalVelocity = new Vector3(moveDirection.x, 0, moveDirection.z);
+        _rigidBody.velocity = new Vector3(horizontalVelocity.x, _rigidBody.velocity.y, horizontalVelocity.z);
 
+        if (!IsGrounded())
+        {
+            // 공중에서 수평 속도에 공기 저항 적용
+            _rigidBody.velocity = new Vector3(_rigidBody.velocity.x * airResistance, _rigidBody.velocity.y, _rigidBody.velocity.z * airResistance);
+        }
+
+        // 일관된 공중 이동을 위해 점프 방향 저장
+        jumpDirection = new Vector3(_rigidBody.velocity.x, 0, _rigidBody.velocity.z);
+    }
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         CurMovementInput = context.phase switch
@@ -110,15 +124,11 @@ public class PlayerController : MonoBehaviour
         _mouseDelta = context.ReadValue<Vector2>();
     }
 
-    
-
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Started) return;
-        if (IsGrounded())
+        if (context.phase == InputActionPhase.Started && IsGrounded())
         {
-            jumpDirection = transform.forward * CurMovementInput.y + transform.right * CurMovementInput.x;
-            _rigidBody.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+            _rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
 
