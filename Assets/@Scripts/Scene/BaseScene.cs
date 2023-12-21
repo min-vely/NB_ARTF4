@@ -39,7 +39,7 @@ namespace Scripts.Scene
             Object eventSystem = FindObjectOfType<EventSystem>();
             Object sound = FindObjectOfType<SoundManager>();
             if (eventSystem == null) Main.Resource.InstantiatePrefab("EventSystem.prefab").name = "@EventSystem";
-            if (sound == null)
+           /* if (sound == null)
             { 
                 GameObject soundObject = Main.Resource.InstantiatePrefab("SoundManager.prefab");
                 soundObject.name = "@SoundManager";
@@ -48,7 +48,7 @@ namespace Scripts.Scene
                 AudioClip clip = Main.Resource.Load<AudioClip>("BGM.clip");
                 Debug.Log($"Clip : {clip}");
                 soundManager.StartBGM();
-            }
+            }*/
             Main.Item.Initialized();
             return true;
         }
