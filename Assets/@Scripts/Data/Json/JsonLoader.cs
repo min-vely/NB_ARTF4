@@ -13,10 +13,10 @@ using static DataManager;
 public class JsonLoader
 {
     // json 로드를 위한 파일패스
-    static string uiFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameUIScript.json");
-    static string itemFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameItemData.json");
-    static string savePointFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/SavePoint.json");
-    static string itemPointFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameItemPosition.json");
+    // static string uiFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameUIScript.json");
+    // static string itemFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameItemData.json");
+    // static string savePointFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/SavePoint.json");
+    // static string itemPointFilePath = Path.Combine(Application.dataPath, "@Resources/@Json/GameItemPosition.json");
     /// <summary>
     /// 파일 패스를 가지고 제이슨 파일을 읽어오는 메서드
     /// </summary>
@@ -46,8 +46,8 @@ public class JsonLoader
     {
         // 받은 CSVData 파일을 json파일로 직렬화
         string json = JsonConvert.SerializeObject(updateUIDate, Formatting.Indented);
-
-        using (StreamWriter file = File.CreateText(uiFilePath))
+        TextAsset contents = Main.Resource.Load<TextAsset>("GameUIScript.json");
+        using (StreamWriter file = File.CreateText(contents.text))
         {
             //StreamWriter을 사용하여 json 작성
             file.Write(json);
@@ -56,18 +56,18 @@ public class JsonLoader
     internal void JsonLoad(ItemDataContainer updateItemDate)
     {
         string json = JsonConvert.SerializeObject(updateItemDate, Formatting.Indented);
-
-        using (StreamWriter file = File.CreateText(itemFilePath))
+        TextAsset contents = Main.Resource.Load<TextAsset>("GameItemData.json");
+        using (StreamWriter file = File.CreateText(contents.text))
         {
             //StreamWriter을 사용하여 json 작성
             file.Write(json);
         }
     }
-    internal void JsonLoad(Vector3DataContainer itemVertorDate)
+    internal void JsonLoad(Vector3DataContainer itemVectorDate)
     {
-        string json = JsonConvert.SerializeObject(itemVertorDate, Formatting.Indented);
-
-        using (StreamWriter file = File.CreateText(itemPointFilePath))
+        string json = JsonConvert.SerializeObject(itemVectorDate, Formatting.Indented);
+        TextAsset contents = Main.Resource.Load<TextAsset>("GameItemPosition.json");
+        using (StreamWriter file = File.CreateText(contents.text))
         {
             //StreamWriter을 사용하여 json 작성
             file.Write(json);
@@ -85,13 +85,13 @@ public class JsonLoader
         Dictionary<int, string> result = null;
 
         // json파일 로드
-        string jsonContent = ReadJsonFile(uiFilePath);
+        TextAsset jsonContent = Main.Resource.Load<TextAsset>(dataName.ToString());
 
         // 빈값이 아니라면 실행
-        if (!string.IsNullOrEmpty(jsonContent))
+        if (!string.IsNullOrEmpty(jsonContent.text))
         {
             // JObject로 모든 데이터를 변환
-            JObject jsonObject = JObject.Parse(jsonContent);
+            JObject jsonObject = JObject.Parse(jsonContent.text);
 
             // 받아온 값을 이용하여 해당 값에 일치하는 데이터를 JObject로 가져옴
             JObject gameLoadingScript1Object = (JObject)jsonObject[dataName.ToString()];
@@ -107,11 +107,11 @@ public class JsonLoader
     internal ItemDataContainer JsonItemLoad()
     {
         ItemDataContainer result = null;
-        string jsonContent = ReadJsonFile(itemFilePath);
-        if (!string.IsNullOrEmpty(jsonContent))
+        TextAsset contents = Main.Resource.Load<TextAsset>("GameItemData.json");
+        if (!string.IsNullOrEmpty(contents.text))
         {
             // JObject로 모든 데이터를 변환
-            JObject jsonObject = JObject.Parse(jsonContent);
+            JObject jsonObject = JObject.Parse(contents.text);
 
             // gameLoadingScript1Object를 Dictionary<int, string>으로 파싱후 result에 할당
             result = jsonObject.ToObject<ItemDataContainer>();
@@ -124,9 +124,9 @@ public class JsonLoader
     {
         // 값을 받을 Dictionary 생성
         ItemData result = new ItemData();
-
+        TextAsset contents = Main.Resource.Load<TextAsset>("GameItemData.json");
         // json파일 로드
-        string jsonContent = ReadJsonFile(itemFilePath);
+        string jsonContent = ReadJsonFile(contents.text);
 
         // 빈값이 아니라면 실행
         if (!string.IsNullOrEmpty(jsonContent))
@@ -150,8 +150,8 @@ public class JsonLoader
     internal void SetCheckPoint(Vector3Data point)
     {
         string json = JsonConvert.SerializeObject(point);
-
-        using (StreamWriter file = File.CreateText(savePointFilePath))
+        TextAsset contents = Main.Resource.Load<TextAsset>("SavePoint.json");
+        using (StreamWriter file = File.CreateText(contents.text))
         {
             //StreamWriter을 사용하여 json 작성
             file.Write(json);
@@ -159,14 +159,16 @@ public class JsonLoader
     }
     internal Vector3 GetCheckPoint()
     {
-        string jsonContent = ReadJsonFile(savePointFilePath);
+        TextAsset contents = Main.Resource.Load<TextAsset>("SavePoint.json");
+        string jsonContent = ReadJsonFile(contents.text);
         return JsonConvert.DeserializeObject<Vector3>(jsonContent);
     }
 
     internal Vector3DataContainer JsonItemVectorLoad()
     {
         Vector3DataContainer result = null;
-        string jsonContent = ReadJsonFile(itemPointFilePath);
+        TextAsset contents = Main.Resource.Load<TextAsset>("GameItemPosition.json");
+        string jsonContent = ReadJsonFile(contents.text);
         if (!string.IsNullOrEmpty(jsonContent))
         {
             // JObject로 모든 데이터를 변환
