@@ -45,9 +45,12 @@ namespace Scripts.Scene
                 soundObject.name = "@SoundManager";
                 SoundManager soundManager = SceneUtility.GetAddComponent<SoundManager>(soundObject);
                 Debug.Log($"soundName : {soundManager}");
-                AudioClip clip = Main.Resource.Load<AudioClip>("BGM.clip");
+                AudioClip clip = Main.Resource.Load<AudioClip>("LoadBGM1.clip");
                 Debug.Log($"Clip : {clip}");
+                Debug.Log("브금 재생할거얌");
                 soundManager.StartBGM();
+                soundManager.PlayBGM(clip.name);
+
             }
             Main.Item.Initialized();
             return true;
