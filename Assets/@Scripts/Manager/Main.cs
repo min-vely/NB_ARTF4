@@ -57,10 +57,7 @@ public class Main : MonoBehaviour
     public static SoundManager Sound
     {
         get => Instance._sound;
-        set
-        {
-            Instance._sound = value;
-        }
+        set =>  Instance._sound = value;
     }
 
     #endregion
