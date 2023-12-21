@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Scripts.Utility;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -11,28 +12,21 @@ public class SoundManager : MonoBehaviour
         public AudioClip clip;
     }
 
-    public static SoundManager Instance;
-
-    private void Awake()
-    {
-        Debug.Log("사운드매니저 초기화");
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(Instance);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public Sound[] bgm;
     private Sound[] sfx = null;
     public AudioSource bgmPlay { get; set; }
     private List<AudioSource> sfxPlays = new List<AudioSource>();
 
-
+    public void InitializedSound()
+    {
+        GameObject soundManager = Main.Resource.InstantiatePrefab("SoundManager.prefab");
+        soundManager.name = "@SoundManager";
+        SoundManager sm = SceneUtility.GetAddComponent<SoundManager>(soundManager);
+        Main.Sound = sm;
+        AudioClip clip = Main.Resource.Load<AudioClip>("LoadBGM1.clip");
+        Main.Sound.StartBGM();
+        Main.Sound.PlayBGM(clip.name);
+    }
 
     public void StartBGM()
     {
