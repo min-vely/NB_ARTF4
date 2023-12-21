@@ -16,7 +16,37 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 6fc4b0d8207454e2f89034ebf36950af
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: a235f2499eaae374090b819eb3cdc65c
+    m_Address: GameBGM1.clip
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a69ebf678ea88144ab0d0f3e2f2914b3
+    m_Address: IntroBGM1.clip
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4435671bb6cc8da4aa6de30ba43c9985
+    m_Address: IntroBGM2.clip
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b2175278c4383684780a3ee9364159e3
+    m_Address: LoadBGM1.clip
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e625523bf3bb97b49860a18e551512d2
+    m_Address: LoadBGM2.clip
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c71194f839de0045bd7cba7451810ba, type: 2}
   m_SchemaSet:
