@@ -16,13 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 6fc4b0d8207454e2f89034ebf36950af
-  m_SerializeEntries:
-  - m_GUID: e0d3597feff44f64bbafc1991dabe852
-    m_Address: BGM.clip
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c71194f839de0045bd7cba7451810ba, type: 2}
   m_SchemaSet:
