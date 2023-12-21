@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Sprite Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Sprite Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3c9a4131363264cf99171cbed39d2c1e
+  m_SerializeEntries:
+  - m_GUID: 85703ee0d52ea0d479ea35a4259a0b41
+    m_Address: additional controls.atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 156ec492e516ccb4099add479601d65e
+    m_Address: buttons.atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7eb0b67d1a8ff4d3dad6c66d16eb3ea7
+    m_Address: f4Manga.atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9c71194f839de0045bd7cba7451810ba, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3ecba1224fe8940328fbc5a5606de59c, type: 2}
+    - {fileID: 11400000, guid: f8e8f6e9bb14b429ab8536e8b4897cbd, type: 2}

@@ -134,7 +134,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2c6f5ab601d22834883d3c7e18f8be41, type: 2}
     - target: {fileID: 2776357498414740542, guid: a70841853b0e99545a7dc761ea9def4d, type: 3}
       propertyPath: m_Mass
-      value: 10
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776357498414740543, guid: a70841853b0e99545a7dc761ea9def4d, type: 3}
+      propertyPath: m_MassScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776357498414740543, guid: a70841853b0e99545a7dc761ea9def4d, type: 3}
+      propertyPath: m_ConnectedMassScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -388,7 +396,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2c6f5ab601d22834883d3c7e18f8be41, type: 2}
     - target: {fileID: 2776357498414740542, guid: a70841853b0e99545a7dc761ea9def4d, type: 3}
       propertyPath: m_Mass
-      value: 10
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776357498414740543, guid: a70841853b0e99545a7dc761ea9def4d, type: 3}
+      propertyPath: m_MassScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776357498414740543, guid: a70841853b0e99545a7dc761ea9def4d, type: 3}
+      propertyPath: m_ConnectedMassScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -740,7 +756,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2c6f5ab601d22834883d3c7e18f8be41, type: 2}
     - target: {fileID: 2776357498414740542, guid: a70841853b0e99545a7dc761ea9def4d, type: 3}
       propertyPath: m_Mass
-      value: 10
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776357498414740543, guid: a70841853b0e99545a7dc761ea9def4d, type: 3}
+      propertyPath: m_MassScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776357498414740543, guid: a70841853b0e99545a7dc761ea9def4d, type: 3}
+      propertyPath: m_ConnectedMassScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
