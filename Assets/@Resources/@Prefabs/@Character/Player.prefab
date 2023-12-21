@@ -48,6 +48,14 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
+    - target: {fileID: 4683845996227452083, guid: 1235f6fdfe904874cab3c83e4a67727c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045588528445216558, guid: 1235f6fdfe904874cab3c83e4a67727c, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 32889fb4ab1274635a45de6eae7ab401, type: 2}
     - target: {fileID: 5762902411667128209, guid: 1235f6fdfe904874cab3c83e4a67727c, type: 3}
       propertyPath: m_RootOrder
       value: 0
