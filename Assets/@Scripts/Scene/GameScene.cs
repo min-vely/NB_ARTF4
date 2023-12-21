@@ -10,6 +10,9 @@ namespace Scripts.Scene
             if (!base.Initialized()) return false;
             Main.SetCurrentScene(this, Label.GameScene);
             GameSetup();
+            AudioClip clip = Main.Resource.Load<AudioClip>("GameBGM1.clip");
+            Main.Sound.StartBGM();
+            Main.Sound.PlayBGM(clip.name);
             return true;
         }
 
@@ -20,7 +23,7 @@ namespace Scripts.Scene
                 OpenPausePopUp();
             }
         }
-
+        
         private void GameSetup()
         {
             Main.UI.SetSceneUI<Game_UI>(); 
