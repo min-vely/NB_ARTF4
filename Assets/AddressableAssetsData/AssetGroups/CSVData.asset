@@ -16,8 +16,22 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: d78dd46c40545dc4c806e65b89b92628
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 791f462cb4d107b439622c870d360661
+    m_Address: GameItemData.csv
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14addd0ac1f39194fab8ca4495e8ef46
+    m_Address: GameItemPosition.csv
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c71194f839de0045bd7cba7451810ba, type: 2}
   m_SchemaSet:
-    m_Schemas: []
+    m_Schemas:
+    - {fileID: 11400000, guid: 8297d47229f14b74ca5ff372bc4afbee, type: 2}
+    - {fileID: 11400000, guid: 9bac008eb27df1440ab1f1fc8bba5690, type: 2}

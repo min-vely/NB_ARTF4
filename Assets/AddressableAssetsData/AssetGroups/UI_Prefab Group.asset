@@ -17,11 +17,47 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 993cc776ae78f1849bd55fa2ef1255db
   m_SerializeEntries:
+  - m_GUID: b86e7b8a11e254869ab63d8273c29111
+    m_Address: Intro_UI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - IntroScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b750eaa4ef8542618a7e8d62e56814e
+    m_Address: EventSystem.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 447f6e7cbda334946a8a3c601af4d805
+    m_Address: Game_UI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41880bb6cada78640a3a8d06aa5c310a
+    m_Address: DiePanel_Popup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 515715533556b4d2483545f3c4c12c39
     m_Address: Loading_UI.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a88c04ff92f14673bfe94980789b428
+    m_Address: Option_Popup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23654721ce6fbcb48bcad5c0ac45a436
+    m_Address: PausePanel_Popup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cbcb429db76b8fb43ad66035ebfac72a
     m_Address: SoundManager.prefab

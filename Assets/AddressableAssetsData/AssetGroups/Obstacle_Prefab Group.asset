@@ -17,6 +17,30 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 10ddfba20b661574b9bdaae31f7b72d6
   m_SerializeEntries:
+  - m_GUID: 474c64e7b6302304bb04e77a9e8809dc
+    m_Address: MovableWall.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d998f3b2007ad14c900d3cecab26ab4
+    m_Address: MovableObs.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd117f6e0af0c2942926e61c209b253f
+    m_Address: FallPlat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 07ec32bcd6a21e34d9d0be169af45608
+    m_Address: Bounce.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f54dda188a2c24049975ef1516234248
     m_Address: Sector5.prefab
     m_ReadOnly: 0
@@ -59,8 +83,44 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de4e8ae22411dba4f971edf49f8738f2
+    m_Address: Pendulum.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a48714e39c2ecc644b62544a3a53c53a
+    m_Address: RBCubes.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a70841853b0e99545a7dc761ea9def4d
+    m_Address: RotationPlat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bb56e75164d29c4189de79dd5887e8e
+    m_Address: RotationX.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3925e022072f0474a8dab88c2fdaf0ce
+    m_Address: Rotator.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a3db52d569ccd3c468777dd8e04f65ce
     m_Address: Sphere.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f9416082698e614ebb7003c2d80098b
+    m_Address: WallMovable.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
