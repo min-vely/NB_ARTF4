@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6480642496113253042
 MonoBehaviour:
@@ -46,11 +46,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgm:
-  - name: BGM1
-    clip: {fileID: 8300000, guid: e0d3597feff44f64bbafc1991dabe852, type: 3}
-  sfx: []
-  bgmPlay: {fileID: 4206194836185318267}
-  sfxPlays: []
+  - name: LoadBGM1
+    clip: {fileID: 8300000, guid: b2175278c4383684780a3ee9364159e3, type: 3}
+  - name: IntroBGM1
+    clip: {fileID: 8300000, guid: a69ebf678ea88144ab0d0f3e2f2914b3, type: 3}
+  - name: GameBGM1
+    clip: {fileID: 8300000, guid: a235f2499eaae374090b819eb3cdc65c, type: 3}
 --- !u!82 &4206194836185318267
 AudioSource:
   m_ObjectHideFlags: 0
@@ -63,7 +64,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0

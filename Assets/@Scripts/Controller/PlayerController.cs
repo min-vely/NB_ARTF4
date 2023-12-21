@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Air Control")]
+    [SerializeField] private float airControl = 0.5f;
+    [SerializeField] private float airResistance = 0.95f;
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -43,6 +47,8 @@ public class PlayerController : MonoBehaviour
     private bool _isJumpBuffActive = false;
 
 
+    private Vector3 jumpDirection = Vector3.zero;
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -68,15 +74,27 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector3 dir = transform.forward * CurMovementInput.y + transform.right * CurMovementInput.x;
+        Vector3 moveDirection = transform.forward * CurMovementInput.y + transform.right * CurMovementInput.x;
 
-        dir *= moveSpeed;
-        dir.y = _rigidBody.velocity.y;
-        _rigidBody.velocity = dir;
+        if (IsGrounded())
+        {
+            moveDirection *= moveSpeed;
+        }
+        else
+        {
+            moveDirection *= moveSpeed * airControl;
+        }
+        Vector3 horizontalVelocity = new Vector3(moveDirection.x, 0, moveDirection.z);
+        _rigidBody.velocity = new Vector3(horizontalVelocity.x, _rigidBody.velocity.y, horizontalVelocity.z);
+
+        if (!IsGrounded())
+        {
+            _rigidBody.velocity = Vector3.Lerp(_rigidBody.velocity, new Vector3(0, _rigidBody.velocity.y, 0), (1 - airResistance) * Time.fixedDeltaTime);
+        }
     }
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        CurMovementInput = context.phase switch 
+        CurMovementInput = context.phase switch
         {
             InputActionPhase.Performed => context.ReadValue<Vector2>(),
             InputActionPhase.Canceled => Vector2.zero,
@@ -99,9 +117,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Started) return;
-        if (IsGrounded())_rigidBody.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+        if (context.phase == InputActionPhase.Started && IsGrounded())
+        {
+            _rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
+
 
     public void OnThrowInput(InputAction.CallbackContext context)
     {
@@ -126,8 +147,8 @@ public class PlayerController : MonoBehaviour
         var forward = transform1.forward;
         var position = transform1.position;
         var right = transform1.right;
-        
-        Ray[] rays = 
+
+        Ray[] rays =
         {
             new(position + forward * 0.2f + (Vector3.up * 0.1f) , Vector3.down),
             new(position + -forward * 0.2f+ (Vector3.up * 0.1f), Vector3.down),
@@ -182,7 +203,7 @@ public class PlayerController : MonoBehaviour
             _rigidBody.AddForce(new Vector3(0, -gravity * _rigidBody.mass, 0));
         }
 
-        if (_wasStunned)_wasStunned = false;
+        if (_wasStunned) _wasStunned = false;
         else
         {
             _isStunned = false;
@@ -196,10 +217,10 @@ public class PlayerController : MonoBehaviour
         Item item = other.GetComponent<Item>();
         float itemPower = item.Power;
         float itemDuration = item.Duration;
-        _buffCoroutine = item.Id switch 
+        _buffCoroutine = item.Id switch
         {
-            "0"  => StartCoroutine(SpeedUp(itemPower, itemDuration)),
-            "1"  => StartCoroutine(JumpUp(itemPower, itemDuration)),
+            "0" => StartCoroutine(SpeedUp(itemPower, itemDuration)),
+            "1" => StartCoroutine(JumpUp(itemPower, itemDuration)),
             _ => _buffCoroutine
         };
         Destroy(item.gameObject);
@@ -222,7 +243,7 @@ public class PlayerController : MonoBehaviour
         _isJumpBuffActive = true;
         float defaultJumpForce = jumpForce;
         jumpForce *= power;
-        yield return new WaitForSeconds(duration); 
+        yield return new WaitForSeconds(duration);
         jumpForce = defaultJumpForce;
         _isJumpBuffActive = false;
     }

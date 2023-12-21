@@ -15,6 +15,7 @@ namespace Scripts.Scene
     {
         #region Properties
         public Label CurrentScene { get; set; }
+        //public SoundManager SoundManagerInstance { get; set; }
 
         #endregion
 
@@ -35,20 +36,9 @@ namespace Scripts.Scene
 
         protected virtual bool Initialized()
         {
-
             Object eventSystem = FindObjectOfType<EventSystem>();
-            Object sound = FindObjectOfType<SoundManager>();
             if (eventSystem == null) Main.Resource.InstantiatePrefab("EventSystem.prefab").name = "@EventSystem";
-            if (sound == null)
-            { 
-                GameObject soundObject = Main.Resource.InstantiatePrefab("SoundManager.prefab");
-                soundObject.name = "@SoundManager";
-                SoundManager soundManager = SceneUtility.GetAddComponent<SoundManager>(soundObject);
-                Debug.Log($"soundName : {soundManager}");
-                AudioClip clip = Main.Resource.Load<AudioClip>("BGM.clip");
-                Debug.Log($"Clip : {clip}");
-                soundManager.StartBGM();
-            }
+            Main.Sound.InitializedSound();
             Main.Item.Initialized();
             return true;
         }
