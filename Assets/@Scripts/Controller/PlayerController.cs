@@ -78,28 +78,19 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded())
         {
-            // 땅에 있을 때는 전체 이동 속도 적용
             moveDirection *= moveSpeed;
         }
         else
         {
-            // 공중에 있을 때는 공중 제어력과 공기 저항 적용
             moveDirection *= moveSpeed * airControl;
-            moveDirection = Vector3.Lerp(jumpDirection, moveDirection, airControl * Time.fixedDeltaTime);
         }
-
-        // 수평 속도 업데이트
         Vector3 horizontalVelocity = new Vector3(moveDirection.x, 0, moveDirection.z);
         _rigidBody.velocity = new Vector3(horizontalVelocity.x, _rigidBody.velocity.y, horizontalVelocity.z);
 
         if (!IsGrounded())
         {
-            // 공중에서 수평 속도에 공기 저항 적용
-            _rigidBody.velocity = new Vector3(_rigidBody.velocity.x * airResistance, _rigidBody.velocity.y, _rigidBody.velocity.z * airResistance);
+            _rigidBody.velocity = Vector3.Lerp(_rigidBody.velocity, new Vector3(0, _rigidBody.velocity.y, 0), (1 - airResistance) * Time.fixedDeltaTime);
         }
-
-        // 일관된 공중 이동을 위해 점프 방향 저장
-        jumpDirection = new Vector3(_rigidBody.velocity.x, 0, _rigidBody.velocity.z);
     }
     public void OnMoveInput(InputAction.CallbackContext context)
     {
