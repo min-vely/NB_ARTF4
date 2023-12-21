@@ -31,14 +31,14 @@ Transform:
   - {fileID: 4663604424645546492}
   - {fileID: 9076716403273269255}
   - {fileID: 1646595794831456367}
-  - {fileID: 4423161157707847915}
+  - {fileID: 6612920804195811038}
   - {fileID: 1004913676047716086}
   - {fileID: 3302335775360470422}
   - {fileID: 2443796089142828065}
   - {fileID: 2958828952621578486}
-  - {fileID: 2049247356984074519}
+  - {fileID: 5345448541008317335}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3856271472672497863
 GameObject:
@@ -131,7 +131,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3856271472672497863}
-  m_Material: {fileID: 13400000, guid: c5881576458665e4eb49f9bcbb8f6066, type: 2}
+  m_Material: {fileID: 13400000, guid: f7f3e0602fff91f4098b20b47a6eb35b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -236,7 +236,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5456641816318189724}
-  m_Material: {fileID: 13400000, guid: c5881576458665e4eb49f9bcbb8f6066, type: 2}
+  m_Material: {fileID: 13400000, guid: f7f3e0602fff91f4098b20b47a6eb35b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -341,7 +341,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7192441957124105443}
-  m_Material: {fileID: 13400000, guid: c5881576458665e4eb49f9bcbb8f6066, type: 2}
+  m_Material: {fileID: 13400000, guid: f7f3e0602fff91f4098b20b47a6eb35b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -370,7 +370,7 @@ PrefabInstance:
     - target: {fileID: 7397137975640516145, guid: 474c64e7b6302304bb04e77a9e8809dc, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: c5881576458665e4eb49f9bcbb8f6066, type: 2}
+      objectReference: {fileID: 13400000, guid: f7f3e0602fff91f4098b20b47a6eb35b, type: 2}
     - target: {fileID: 7397137975640516146, guid: 474c64e7b6302304bb04e77a9e8809dc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -497,6 +497,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6223617057227795076, guid: 07ec32bcd6a21e34d9d0be169af45608, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: f7f3e0602fff91f4098b20b47a6eb35b, type: 2}
     - target: {fileID: 6223617057227795077, guid: 07ec32bcd6a21e34d9d0be169af45608, type: 3}
       propertyPath: m_Name
       value: Bounce (4)
@@ -514,7 +518,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07ec32bcd6a21e34d9d0be169af45608, type: 3}
---- !u!4 &2049247356984074519 stripped
+--- !u!4 &5345448541008317335 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6223617057227795073, guid: 07ec32bcd6a21e34d9d0be169af45608, type: 3}
   m_PrefabInstance: {fileID: 2049247356984074518}
@@ -534,7 +538,7 @@ PrefabInstance:
     - target: {fileID: 7397137975640516145, guid: 474c64e7b6302304bb04e77a9e8809dc, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: c5881576458665e4eb49f9bcbb8f6066, type: 2}
+      objectReference: {fileID: 13400000, guid: f7f3e0602fff91f4098b20b47a6eb35b, type: 2}
     - target: {fileID: 7397137975640516146, guid: 474c64e7b6302304bb04e77a9e8809dc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -620,7 +624,7 @@ PrefabInstance:
     - target: {fileID: 7397137975640516145, guid: 474c64e7b6302304bb04e77a9e8809dc, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: c5881576458665e4eb49f9bcbb8f6066, type: 2}
+      objectReference: {fileID: 13400000, guid: f7f3e0602fff91f4098b20b47a6eb35b, type: 2}
     - target: {fileID: 7397137975640516146, guid: 474c64e7b6302304bb04e77a9e8809dc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -686,7 +690,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 474c64e7b6302304bb04e77a9e8809dc, type: 3}
---- !u!4 &4423161157707847915 stripped
+--- !u!4 &6612920804195811038 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7397137975640516148, guid: 474c64e7b6302304bb04e77a9e8809dc, type: 3}
   m_PrefabInstance: {fileID: 4423161157707847914}
@@ -706,7 +710,7 @@ PrefabInstance:
     - target: {fileID: 7397137975640516145, guid: 474c64e7b6302304bb04e77a9e8809dc, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: c5881576458665e4eb49f9bcbb8f6066, type: 2}
+      objectReference: {fileID: 13400000, guid: f7f3e0602fff91f4098b20b47a6eb35b, type: 2}
     - target: {fileID: 7397137975640516146, guid: 474c64e7b6302304bb04e77a9e8809dc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -829,6 +833,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6223617057227795076, guid: 07ec32bcd6a21e34d9d0be169af45608, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: f7f3e0602fff91f4098b20b47a6eb35b, type: 2}
     - target: {fileID: 6223617057227795077, guid: 07ec32bcd6a21e34d9d0be169af45608, type: 3}
       propertyPath: m_Name
       value: Bounce (3)
