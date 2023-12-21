@@ -4,6 +4,7 @@ namespace Scripts.Scene
 {
     public class GameScene : BaseScene
     {
+        private Manga_Popup _mangaPopup;
         protected override bool Initialized()
         {
             if (!base.Initialized()) return false;
@@ -12,10 +13,12 @@ namespace Scripts.Scene
             AudioClip clip = Main.Resource.Load<AudioClip>("GameBGM1.clip");
             Main.Sound.StartBGM();
             Main.Sound.PlayBGM(clip.name);
+           _mangaPopup = Main.UI.OpenPopup<Manga_Popup>();
             return true;
         }
         private void Update()
         {
+            if (_mangaPopup.MangaOpen) return;
             if (Input.GetKeyDown(KeyCode.Escape) && !Main.UI.IsPausePanelOpen) // ESC 누르면 Pause
             {
                 OpenPausePopUp();
